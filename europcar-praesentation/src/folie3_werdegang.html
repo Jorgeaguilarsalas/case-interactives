@@ -345,7 +345,7 @@ function caption(){document.getElementById('capT').textContent='Schritt '+(step+
   document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length}
 window.__goto=function(i){if(typeof started!=="undefined"&&!started){window.__initStep=i;return}setStep(i)};
 function setStep(i,keep){step=Math.max(0,Math.min(STEPS.length-1,i));sel=null;
-  var s=STEPS[step].s;target=s==null||s===ST.length-1?NOW:ST[s].t0+.15;ptarget=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=profT=T0+.02;if(reduce){carT=target;profT=ptarget}
+  var s=STEPS[step].s;target=s==null?NOW:ST[s].t0+.15;ptarget=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=profT=T0+.02;if(reduce){carT=target;profT=ptarget}
   caption();build();showDetail()}
 function fs(){var st=document.getElementById('stage');if(!document.fullscreenElement&&st.requestFullscreen)st.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()}
 var IC={full:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>',
