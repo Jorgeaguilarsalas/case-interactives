@@ -305,7 +305,7 @@ The three areas together are the *roter Faden*, which is the closing sentence of
 | 1 | Wolt | Prozesse und Bestände steuern – Beschaffungskosten rund −30 %. | Starts at the beginning of the route, stops just after the Wolt station (2021) | Station 01 |
 | 2 | Bolt | Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage. | Just after the Bolt station (2023) | Station 02 |
 | 3 | Bliq | Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme. | Just after the Bliq station (2024) | Station 03 |
-| 4 | Nexio Fleet | Heute: eine zentrale Daten- und Analyseplattform mitentwickeln. | Just after the Nexio Fleet station (2025) | Station 04 |
+| 4 | Nexio Fleet | Eine zentrale Daten- und Analyseplattform mitentwickeln. | Just after the Nexio Fleet station (2025) | Station 04 |
 | 5 | Roter Faden | Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen. | Drives on to *heute* | Three columns Menschen / Prozesse / Daten with the Europcar meaning |
 
 The competence profile still grows to the end of the active station, independent of where the car stops.
