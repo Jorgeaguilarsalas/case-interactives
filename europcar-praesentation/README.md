@@ -165,7 +165,7 @@ Sources (Drive, read-only for Claude):
 
 **On-screen wording synced with DE-v1.3:**
 - View 05, task 3 now reads *Verantwortung für Jahres- und Budgetplanung · Verlässliche Forecasts und Szenarien* (script: "die Verantwortung für die Jahres- und Budgetplanung übernehmen … verlässliche Forecasts").
-- The script labels in the View 02 drawers now say DE-v1.3. Their text is identical to DE-v1.3 slide 5.
+- The View 02 drawers no longer show script text: step 1 lost its *Sprechtext* cell, and step 3 is labelled *Europcar · Mein Ansatz für das Team von fünf Spezialisten* (12 Nov 2026). The drawer of View 05 step 3 is labelled *Fazit · Was ich bei Europcar einbringe* and ends before the thank-you line.
 - The step captions of Views 01, 03 and 04 quote sentences that are unchanged between DE-v1.2 and DE-v1.3. Only the slide numbers changed (3 → 4, 4 → 7, 5 → 8).
 
 ### 0.7 Build
