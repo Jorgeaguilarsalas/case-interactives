@@ -45,7 +45,7 @@ Version 2 implements the reviewer feedback: People Management gets its own view,
 
 ### 0.1 Guided mode (default) and free mode
 
-The top bar has a switch **Geführt | Frei** (key `G`), a counter `n / 12` with arrows, and a thin indigo progress bar under the bar.
+The top bar has a switch **Geführt | Frei** (key `G`), one stepper (back arrow, counter, forward arrow) and a thin indigo progress bar under the bar. The stepper is the only one: the views no longer show their own arrows and counter (§3.2). It counts `n / 12` in guided mode and `n / 25` in free mode.
 
 In **Geführt**, the arrow keys, space bar and the counter arrows move through exactly these 12 steps, whatever view is open. The order follows deck v1.2 (slides 4, 5, 7, 8, 9):
 
@@ -64,11 +64,11 @@ In **Geführt**, the arrow keys, space bar and the counter arrows move through e
 | 11 | 05 Europcar | Mein Verständnis der Rolle (0) | Analytics Hub, three tasks (deck slide 9) |
 | 12 | 05 Europcar | Zusammengefasst (2) | Three pillars, closing sentence, "Vielen Dank" |
 
-Clicking a tab or a start-page card in guided mode jumps to the first core step of that view. Everything inside a view (step bar, details, vehicle grid, Nexio/Europcar switch) stays clickable; the next arrow press continues the guided route from where it was.
+Clicking a tab or a start-page card jumps to the first step of that view in the current mode. Everything inside a view (step tabs, details, vehicle grid, Nexio/Europcar switch) stays clickable. Choosing a step there updates the top-bar counter when that step is part of the current route; the next arrow press continues from there.
 
-In **Frei**, arrows walk through every step of every view (the old behaviour, 6 + 3 + 7 + 7 + 3 = 26 steps), and pass from the last step of one view to the next view.
+In **Frei**, the same stepper walks through every step of every view (5 + 3 + 7 + 7 + 3 = 25 steps) and passes from the last step of one view to the first step of the next. The list is `FULL` in `shell_template.html`, built from the step titles in `STEPN`; if a view gets or loses a step, update `STEPN` too.
 
-The start page has two buttons: *Geführte Präsentation starten* (guided step 1) and *Alle Details frei erkunden* (free mode, view 01). Keys: `0` start, `1`–`5` views, `G` mode, `F` fullscreen of the graphic, `I` details.
+Keys: `0` start, `1`–`5` views, `G` mode, `F` fullscreen of the graphic, `I` details. The start page no longer lists them.
 
 **Speaking.** The guided order is the same as deck v1.2 and script DE-v1.3: Erfahrung → People Management → Nexio data platform → BI → Europcar. The DE-v1.3 transitions can be used unchanged; §0.8 lists which sentence goes before which guided step. Steps 7–10 (BI) need more time than the single deck slide 8: allow about 2–3 minutes, or skip step 9 if time is short.
 
@@ -254,14 +254,13 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
 - **Top bar (fixed, 56 px), left to right:**
   - monogram "JA", name, and the line *Head of Fleet Planning & Lifecycle Management · 12.11.2026* (click: welcome page);
   - tabs *Start · 01 Werdegang · 02 People · 03 Datenplattform · 04 BI · 05 Europcar*;
-  - in guided mode only: back arrow, counter `n / 12`, forward arrow;
+  - back arrow, counter (`n / 12` guided, `n / 25` free), forward arrow;
   - the mode switch *Geführt | Frei*;
   - a full-screen button for the whole presentation.
-  - In guided mode a 3 px indigo progress bar sits under the top bar.
+  - A 3 px indigo progress bar sits under the top bar.
 - **Welcome page:**
   - kicker *Europcar Mobility Group · Gespräch am 12. November 2026* and the title;
   - section *Fünf Ansichten · ein roter Faden* with five cards (three in the first row, two centred below), each with a small animated SVG: route, org chart with four reports, data flow, result bars, Analytics Hub;
-  - buttons *Geführte Präsentation starten* and *Alle Details frei erkunden*, plus a keyboard legend.
 - **View area:** one iframe per view below the top bar; only the active one is visible.
 
 ### 3.2 Navigation logic
@@ -270,17 +269,18 @@ The page starts in **guided mode** (§0.1).
 
 | Input | Guided mode | Free mode |
 |---|---|---|
-| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of the 12 core steps (from the welcome page: core step 1). After step 12: toast "Ende der Präsentation". | Next step inside the view; on the last step of a view, opens the next view. After View 05: "Ende der Präsentation". |
-| `←`, `PageUp` | Previous core step; before step 1: welcome page. | Previous step; on step 1, goes back to the previous view and fast-forwards it to its last step. |
-| Card, tab, `1`–`5` | First core step of that view. | Opens that view where it was left. |
+| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of the 12 core steps (from the welcome page: core step 1). After step 12: toast "Ende der Präsentation". | Next of all 25 steps, across views. After the last step: "Ende der Präsentation". |
+| `←`, `PageUp` | Previous core step; before step 1: welcome page. | Previous of all 25 steps; before step 1: welcome page. |
+| Card, tab, `1`–`5` | First core step of that view. | First step of that view. |
 | `0`, monogram | Welcome page. | Welcome page. |
-| `G` or the switch | Toggles mode. Switching to guided picks the first core step of the current view. | |
+| `G` or the switch | Toggles mode and keeps the position: the current step in free mode, or the nearest earlier core step of the current view in guided mode. | |
 | Clicks inside a view | Always allowed (step pills, details, vehicle grid, Nexio/Europcar switch). The next arrow continues from the current core step. | |
 
 How it works:
 
 - Each view exposes `window.__goto(i)`. The shell calls it to show a given step. If a view is not ready yet, the shell keeps the request and applies it after loading. Views 01 and 03 store it in `window.__initStep` until their fonts are loaded.
-- The shell intercepts keys inside the iframes in the capture phase. In free mode it reads the step counter (`#capN`, "n / N") to know when a view ends.
+- The shell intercepts arrow and number keys inside the iframes in the capture phase and routes them through the top-bar stepper.
+- When a view loads, the shell hides its own stepper (`#prev`, `#capN`, `#next`) with an injected style, so standalone views keep theirs. It watches `#capN` to keep the top-bar counter in sync with clicks inside the view.
 - The URL hash (`#0`–`#5`) is updated so a reload returns to the same view. The update is wrapped in `try/catch` because sandboxed previews forbid it.
 - A toast in the bottom centre briefly shows the core step (for example "3 / 12 · People · Erfahrung bei Bliq") or the view name.
 
