@@ -18,10 +18,10 @@
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1160px;margin:0 auto;padding:26px 16px 90px}
 .vt{font-size:clamp(1.3rem,2.2vw,1.75rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 14px}
-.bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
-.bar button{padding:7px 13px;font:inherit;font-size:.79rem;font-weight:600;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.bar button:hover{border-color:var(--quiet)}
-.bar button.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:-1px;padding:0 14px;align-items:flex-end;position:relative;z-index:1}
+.bar button{padding:8px 16px;font:inherit;font-size:.79rem;font-weight:600;background:var(--soft);color:var(--quiet);border:1px solid var(--line);border-radius:10px 10px 0 0;cursor:pointer;transition:background .2s,color .2s}
+.bar button:hover{color:var(--ink);background:#ece9e3}
+.bar button.on{background:var(--panel);color:var(--ink);border-bottom-color:var(--panel);padding-top:10px}
 .bar button .no{font-family:"JetBrains Mono",monospace;font-size:.7rem;opacity:.55;margin-right:6px}
 .bar .sp{flex:1}
 #stage{background:var(--bg)}
