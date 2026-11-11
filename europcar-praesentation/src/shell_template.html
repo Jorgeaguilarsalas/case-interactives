@@ -86,19 +86,49 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
 @media (prefers-reduced-motion:reduce){.card,.closing,.route-dot,.flow-dot,.bar-g{animation:none}}
 .hint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(10px);z-index:60;background:var(--ink);color:var(--panel);font-size:.78rem;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .hint.show{opacity:1;transform:translateX(-50%)}
+.cards{grid-template-columns:repeat(6,minmax(0,1fr))}
+.cards .card{grid-column:span 2}.cards .card:nth-child(4){grid-column:2 / span 2}
+@media (max-width:900px){.cards{grid-template-columns:1fr}.cards .card,.cards .card:nth-child(4){grid-column:auto}}
+.card:nth-child(4){animation-delay:.24s}.card:nth-child(5){animation-delay:.32s}
+.card.ec .q{color:#1d4e89}
+.art{height:130px}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.85);opacity:.9}50%{transform:scale(1.15);opacity:.4}}
+.mseg{display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--panel);flex:none}
+.mseg button{font:inherit;font-size:.74rem;font-weight:600;color:var(--quiet);background:transparent;border:0;border-radius:999px;padding:5px 11px;cursor:pointer}
+.mseg button.on{background:var(--gate);color:#fff}
+.gnav{display:none;align-items:center;gap:6px;flex:none}
+body.guided .gnav{display:inline-flex}
+.gnav span{font-family:"JetBrains Mono",monospace;font-size:.76rem;color:var(--quiet);min-width:44px;text-align:center}
+.gstrip{position:fixed;left:0;right:0;top:var(--top);height:3px;z-index:49;background:transparent;display:none}
+body.guided .gstrip{display:block}
+.gstrip i{display:block;height:100%;background:var(--gate);width:0;transition:width .35s cubic-bezier(.2,.7,.2,1)}
+.startrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:22px}
+.startrow .start{margin-top:0}
+.startrow .alt{font:inherit;font-size:.86rem;font-weight:600;background:none;border:1px solid var(--line);border-radius:999px;padding:10px 16px;cursor:pointer;color:var(--ink)}
+.startrow .alt:hover{border-color:var(--ink)}
+.startrow small{font-size:.78rem;color:var(--quiet)}
+@media (max-width:1100px){.tabs .t{display:none}}
+@media (max-width:820px){.mseg{display:none}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
 </style>
 </head>
-<body>
+<body class="guided">
 <header class="top">
   <button class="brand" id="home" aria-label="Zur Startseite"><span class="mono">JA</span><span><b>Jorge Aguilar</b><span>Head of Fleet Planning &amp; Lifecycle Management · 12.11.2026</span></span></button>
   <nav class="tabs" id="tabs" aria-label="Ansichten">
     <button data-v="0"><span>Start</span></button>
     <button data-v="1"><span class="n">01</span><span class="t">Werdegang</span></button>
-    <button data-v="2"><span class="n">02</span><span class="t">Datenplattform</span></button>
-    <button data-v="3"><span class="n">03</span><span class="t">Business Intelligence</span></button>
+    <button data-v="2"><span class="n">02</span><span class="t">People</span></button>
+    <button data-v="3"><span class="n">03</span><span class="t">Datenplattform</span></button>
+    <button data-v="4"><span class="n">04</span><span class="t">BI</span></button>
+    <button data-v="5"><span class="n">05</span><span class="t">Europcar</span></button>
   </nav>
+  <div class="gnav" id="gnav"><button class="tbtn" id="gPrev" aria-label="Vorheriger Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4L6 8l4 4"/></svg></button><span id="gN">– / 10</span><button class="tbtn" id="gNext" aria-label="Nächster Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg></button></div>
+  <div class="mseg" role="group" aria-label="Modus" title="Modus wechseln (G)"><button id="mG" class="on" aria-pressed="true">Geführt</button><button id="mF" aria-pressed="false">Frei</button></div>
   <button class="tbtn" id="fsb" aria-label="Vollbild" title="Vollbild"></button>
 </header>
+<div class="gstrip" aria-hidden="true"><i id="gBar"></i></div>
 
 <main>
 <section class="view on" id="welcome" aria-label="Start">
@@ -106,7 +136,7 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
     <div class="kick"><i></i>Europcar Mobility Group · Gespräch am 12. November 2026</div>
     <h1>Head of Fleet Planning &amp; Lifecycle&nbsp;Management</h1>
 
-    <div class="sect"><h2>Drei Ansichten · ein roter Faden</h2><p>Klicken oder <kbd>1</kbd>–<kbd>3</kbd></p></div>
+    <div class="sect"><h2>Fünf Ansichten · ein roter Faden</h2><p>Klicken oder <kbd>1</kbd>–<kbd>5</kbd></p></div>
     <div class="cards">
       <button class="card" data-v="1">
         <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -126,6 +156,21 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
       </button>
       <button class="card" data-v="2">
         <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="#cfcbe9" stroke-width="2" fill="none" stroke-dasharray="4 5"><path d="M180 58 L96 112"/><path d="M180 58 L150 118"/><path d="M180 58 L210 118"/><path d="M180 58 L264 112"/></g>
+          <circle class="pulse" cx="180" cy="52" r="26" fill="#eef0fb"/>
+          <circle cx="180" cy="52" r="19" fill="#3f46b0"/><text x="180" y="56.5" text-anchor="middle" font-family="Inter" font-size="12" font-weight="800" fill="#fff">JA</text>
+          <g fill="#fff" stroke="#1a1a1a" stroke-width="1.8"><circle cx="96" cy="112" r="13"/><circle cx="150" cy="118" r="13"/><circle cx="210" cy="118" r="13"/><circle cx="264" cy="112" r="13"/></g>
+          <g font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="middle"><text x="96" y="115.5">1</text><text x="150" y="121.5">2</text><text x="210" y="121.5">3</text><text x="264" y="115.5">4</text></g>
+        </svg>
+        <div class="cb">
+          <div class="q"><span>02 · Führung</span></div>
+          <h3>People Management</h3>
+          <p>Vier direkte Mitarbeitende bei Bliq, meine Arbeitsweise im 1:1 und mein Ansatz für das Team bei Europcar.</p>
+          <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </div>
+      </button>
+      <button class="card" data-v="3">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g fill="#fff" stroke="#e3e0da"><rect x="18" y="16" width="70" height="20" rx="5"/><rect x="18" y="42" width="70" height="20" rx="5"/><rect x="18" y="68" width="70" height="20" rx="5"/><rect x="18" y="94" width="70" height="20" rx="5"/><rect x="18" y="120" width="70" height="20" rx="5"/></g>
           <g><rect x="18" y="16" width="4" height="20" rx="2" fill="#5d7899"/><rect x="18" y="42" width="4" height="20" rx="2" fill="#4f8a8c"/><rect x="18" y="68" width="4" height="20" rx="2" fill="#7f7aa8"/><rect x="18" y="94" width="4" height="20" rx="2" fill="#a08a5a"/><rect x="18" y="120" width="4" height="20" rx="2" fill="#a07068"/></g>
           <g fill="none" stroke-width="2" stroke-linecap="round" class="flow-dot" stroke-dasharray="2 10">
@@ -137,13 +182,13 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
           <g><rect x="290" y="30" width="4" height="20" rx="2" fill="#13804f"/><rect x="290" y="68" width="4" height="20" rx="2" fill="#13804f"/><rect x="290" y="106" width="4" height="20" rx="2" fill="#13804f"/></g>
         </svg>
         <div class="cb">
-          <div class="q"><span>02 · Nexio Fleet in der Praxis</span></div>
+          <div class="q"><span>03 · Nexio Fleet in der Praxis</span></div>
           <h3>Nexio Fleet: Daten integrieren</h3>
           <p>Wie getrennte Quellen zu einer gemeinsamen Datenbasis, gemeinsamen KPIs und Entscheidungen werden. Mit Umschalter auf Europcar.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
-      <button class="card" data-v="3">
+      <button class="card" data-v="4">
         <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <line x1="22" y1="96" x2="340" y2="96" stroke="#e3e0da" stroke-width="1.5"/>
           <rect class="bar-g" x="34" y="22" width="34" height="74" rx="4" fill="#1a1a1a"/>
@@ -158,65 +203,119 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
             <rect x="306" y="48" width="12" height="12" rx="3" fill="#13804f" opacity=".35"/><rect x="321" y="48" width="12" height="12" rx="3" fill="#b8650f" opacity=".8"/></g>
         </svg>
         <div class="cb">
-          <div class="q"><span>03 · Business Intelligence</span></div>
+          <div class="q"><span>04 · Business Intelligence</span></div>
           <h3>Fallbeispiel Flotten-P&amp;L</h3>
           <p>TCO je Fahrzeug, Flotten-P&amp;L, Standzeit und Auslastung sowie Szenarien an einer illustrativen Flotte mit 48 Fahrzeugen.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
+      <button class="card ec" data-v="5">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="#fff" stroke="#c9d6e8"><rect x="22" y="92" width="94" height="38" rx="8"/><rect x="133" y="92" width="94" height="38" rx="8"/><rect x="244" y="92" width="94" height="38" rx="8"/></g>
+          <g fill="#1d4e89"><rect x="22" y="92" width="94" height="4" rx="2"/><rect x="133" y="92" width="94" height="4" rx="2"/><rect x="244" y="92" width="94" height="4" rx="2"/></g>
+          <g fill="none" stroke="#1d4e89" stroke-width="1.8" class="flow-dot" stroke-dasharray="2 8"><path d="M180 58 C 180 76, 69 72, 69 92"/><path d="M180 58 L 180 92"/><path d="M180 58 C 180 76, 291 72, 291 92"/></g>
+          <rect x="118" y="22" width="124" height="36" rx="18" fill="#1d4e89"/><text x="180" y="44.5" text-anchor="middle" font-family="Inter" font-size="11.5" font-weight="700" fill="#fff">Analytics Hub</text>
+          <g font-family="Inter" font-size="9.5" font-weight="700" fill="#1d4e89" text-anchor="middle"><text x="69" y="117">Daten</text><text x="180" y="117">Lebenszyklus</text><text x="291" y="117">Planung</text></g>
+        </svg>
+        <div class="cb">
+          <div class="q"><span>05 · Abschluss</span></div>
+          <h3>Mein Beitrag bei Europcar</h3>
+          <p>Mein Verständnis der Rolle, wie ich vorgehen würde und was ich mitbringe.</p>
+          <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </div>
+      </button>
     </div>
 
-    <button class="start" id="startBtn" style="margin-top:22px">Präsentation starten <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-    <div class="keys"><span><kbd>&rarr;</kbd> / <kbd>&larr;</kbd> blättern, auch über die Ansichten hinweg</span><span><kbd>1</kbd>–<kbd>3</kbd> Ansicht · <kbd>0</kbd> Start</span><span><kbd>F</kbd> Vollbild der Grafik</span><span><kbd>I</kbd> Details ein/aus</span></div>
+    <div class="startrow">
+      <button class="start" id="startBtn">Geführte Präsentation starten <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <button class="alt" id="freeBtn">Alle Details frei erkunden</button>
+      <small>Geführt: 10 Kernschritte · Frei: alle Schritte, Details und Simulationen</small>
+    </div>
+    <div class="keys"><span><kbd>&rarr;</kbd> / <kbd>&larr;</kbd> weiter / zurück</span><span><kbd>1</kbd>–<kbd>5</kbd> Ansicht · <kbd>0</kbd> Start</span><span><kbd>G</kbd> Geführt / Frei</span><span><kbd>F</kbd> Vollbild der Grafik</span><span><kbd>I</kbd> Details ein/aus</span></div>
   </div>
 </section>
 <section class="view" id="v1" aria-label="Werdegang"><iframe title="Werdegang" allow="fullscreen" allowfullscreen></iframe></section>
-<section class="view" id="v2" aria-label="Datenplattform"><iframe title="Nexio Fleet: Datenfluss" allow="fullscreen" allowfullscreen></iframe></section>
-<section class="view" id="v3" aria-label="Business Intelligence"><iframe title="Business Intelligence" allow="fullscreen" allowfullscreen></iframe></section>
+<section class="view" id="v2" aria-label="People Management"><iframe title="People Management" allow="fullscreen" allowfullscreen></iframe></section>
+<section class="view" id="v3" aria-label="Datenplattform"><iframe title="Nexio Fleet: Datenfluss" allow="fullscreen" allowfullscreen></iframe></section>
+<section class="view" id="v4" aria-label="Business Intelligence"><iframe title="Business Intelligence" allow="fullscreen" allowfullscreen></iframe></section>
+<section class="view" id="v5" aria-label="Mein Beitrag bei Europcar"><iframe title="Mein Beitrag bei Europcar" allow="fullscreen" allowfullscreen></iframe></section>
 </main>
 <div class="hint" id="hint"></div>
 
 <script>
-var SRC=[null,/*F3*/,/*F4*/,/*F5*/];
+var SRC=[null,/*P1*/,/*P2*/,/*P3*/,/*P4*/,/*P5*/];
 (function(){
-var cur=0,views=[document.getElementById('welcome'),document.getElementById('v1'),document.getElementById('v2'),document.getElementById('v3')];
-var NAMES=['Start','Werdegang','Datenplattform','Business Intelligence'];
+var N=5,cur=0,views=[0,1,2,3,4,5].map(function(i){return document.getElementById(i?'v'+i:'welcome')});
+var NAMES=['Start','Werdegang','People Management','Datenplattform','Business Intelligence','Mein Beitrag bei Europcar'];
+/* Guided mode: 10 core steps [view, step index, label] */
+var GUIDE=[[1,0,'Werdegang · Überblick'],[1,5,'Werdegang · Roter Faden'],[2,0,'People · Erfahrung bei Bliq'],[2,2,'People · Ansatz bei Europcar'],
+  [3,1,'Daten · Die Herausforderung'],[3,5,'Daten · Mein Beitrag'],[4,3,'BI · Standzeit & Auslastung'],[4,4,'BI · Szenarien'],
+  [5,0,'Europcar · Mein Verständnis'],[5,2,'Europcar · Zusammengefasst']];
+var guided=true,gi=-1,pend={};
 var tabs=[].slice.call(document.querySelectorAll('#tabs button'));
 var hint=document.getElementById('hint'),hT;
-function flash(t){hint.textContent=t;hint.classList.add('show');clearTimeout(hT);hT=setTimeout(function(){hint.classList.remove('show')},1300)}
+function flash(t){hint.textContent=t;hint.classList.add('show');clearTimeout(hT);hT=setTimeout(function(){hint.classList.remove('show')},1500)}
 function frame(i){return views[i].querySelector('iframe')}
-function go(i,opts){opts=opts||{};if(i<0||i>3)return;var prev=cur;cur=i;
+function setStepIn(i,s){var f=frame(i);try{if(f.dataset.ready&&f.contentWindow.__goto){f.contentWindow.__goto(s);return}}catch(e){}pend[i]=s}
+function go(i,opts){opts=opts||{};if(i<0||i>N)return;var prev=cur;cur=i;
   views.forEach(function(v,k){v.classList.toggle('on',k===i)});
   tabs.forEach(function(b){b.classList.toggle('on',+b.dataset.v===i)});
-  if(i>0){var f=frame(i);if(!f.dataset.loaded){f.dataset.loaded='1';f.addEventListener('load',function(){wire(i)},{once:true});f.srcdoc=SRC[i]}
+  if(i>0){var f=frame(i);if(!f.dataset.loaded){f.dataset.loaded='1';f.addEventListener('load',function(){wire(i);f.dataset.ready='1';
+        if(pend[i]!=null){var s=pend[i];delete pend[i];try{f.contentWindow.__goto(s)}catch(e){}}},{once:true});f.srcdoc=SRC[i]}
     else if(opts.toEnd)toEnd(i);
     setTimeout(function(){try{f.contentWindow.focus()}catch(e){}},60)}
   else{window.focus()}
   try{if(location.hash!=='#'+i)history.replaceState(null,'','#'+i)}catch(e){}
   if(prev!==i&&opts.flash!==false)flash((i?'0'+i+' · ':'')+NAMES[i])}
+function gUpd(){document.getElementById('gN').textContent=(gi<0?'–':gi+1)+' / '+GUIDE.length;document.getElementById('gBar').style.width=((gi+1)/GUIDE.length*100)+'%'}
+function gGo(g){if(g<-1)return;if(g>=GUIDE.length){flash('Ende der Präsentation');return}
+  gi=g;gUpd();if(g<0){go(0,{flash:false});flash('Start');return}
+  var G=GUIDE[g];go(G[0],{flash:false});setStepIn(G[0],G[1]);flash((g+1)+' / '+GUIDE.length+' · '+G[2])}
+function firstGuideOf(v){for(var k=0;k<GUIDE.length;k++)if(GUIDE[k][0]===v)return k;return -1}
+function setMode(gd){guided=gd;document.body.classList.toggle('guided',gd);
+  document.getElementById('mG').classList.toggle('on',gd);document.getElementById('mF').classList.toggle('on',!gd);
+  document.getElementById('mG').setAttribute('aria-pressed',gd);document.getElementById('mF').setAttribute('aria-pressed',!gd);
+  if(gd){gi=cur===0?-1:firstGuideOf(cur);gUpd()}
+  flash(gd?'Geführter Modus · 10 Kernschritte':'Freier Modus · alle Schritte')}
+function jump(v){if(guided)gGo(v===0?-1:firstGuideOf(v));else go(v)}
 function state(i){try{var d=frame(i).contentDocument,t=d.getElementById('capN').textContent.split('/');return{s:+t[0],n:+t[1]}}catch(e){return null}}
 function toEnd(i){try{var w=frame(i).contentWindow,st=state(i);if(!st)return;for(var k=st.s;k<st.n;k++)w.document.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}))}catch(e){}}
+function isInput(e){return e.target&&/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)}
 function wire(i){var w=frame(i).contentWindow;
-  w.addEventListener('keydown',function(e){var k=e.key;
-    if(/^[0-3]$/.test(k)&&!(e.target&&e.target.tagName==='INPUT')){e.preventDefault();e.stopImmediatePropagation();go(+k);return}
+  w.addEventListener('keydown',function(e){var k=e.key;if(isInput(e)||!e.isTrusted&&!guided)return;
+    if(/^[0-5]$/.test(k)){e.preventDefault();e.stopImmediatePropagation();jump(+k);return}
+    if(k==='g'||k==='G'){e.preventDefault();e.stopImmediatePropagation();setMode(!guided);return}
+    var fwd=(k==='ArrowRight'||k===' '||k==='PageDown'),back=(k==='ArrowLeft'||k==='PageUp');
+    if(guided&&(fwd||back)){e.preventDefault();e.stopImmediatePropagation();gGo(gi+(fwd?1:-1));return}
     var st=state(i);if(!st)return;
-    if((k==='ArrowRight'||k===' '||k==='PageDown')&&st.s>=st.n&&!(e.target&&e.target.tagName==='INPUT')){e.preventDefault();e.stopImmediatePropagation();if(i<3)go(i+1);else flash('Ende der Präsentation')}
-    else if((k==='ArrowLeft'||k==='PageUp')&&st.s<=1&&!(e.target&&e.target.tagName==='INPUT')){e.preventDefault();e.stopImmediatePropagation();go(i-1,{toEnd:true})}
+    if(fwd&&st.s>=st.n){e.preventDefault();e.stopImmediatePropagation();if(i<N)go(i+1);else flash('Ende der Präsentation')}
+    else if(back&&st.s<=1){e.preventDefault();e.stopImmediatePropagation();go(i-1,{toEnd:true})}
   },true)}
-tabs.forEach(function(b){b.onclick=function(){go(+b.dataset.v)}});
-[].forEach.call(document.querySelectorAll('.card'),function(c){c.onclick=function(){go(+c.dataset.v)}});
-document.getElementById('home').onclick=function(){go(0)};
-document.getElementById('startBtn').onclick=function(){go(1)};
-document.addEventListener('keydown',function(e){var k=e.key;
-  if(/^[0-3]$/.test(k)){go(+k);return}
-  if(cur===0&&(k==='ArrowRight'||k===' '||k==='Enter'&&e.target===document.body||k==='PageDown')){e.preventDefault();go(1)}
-  if(cur>0&&(k==='ArrowRight'||k==='ArrowLeft')){try{frame(cur).contentWindow.focus()}catch(x){}}});
+tabs.forEach(function(b){b.onclick=function(){jump(+b.dataset.v)}});
+[].forEach.call(document.querySelectorAll('.card'),function(c){c.onclick=function(){jump(+c.dataset.v)}});
+document.getElementById('home').onclick=function(){jump(0)};
+document.getElementById('startBtn').onclick=function(){if(!guided)setMode(true);gGo(0)};
+document.getElementById('freeBtn').onclick=function(){if(guided)setMode(false);go(1)};
+document.getElementById('mG').onclick=function(){if(!guided)setMode(true)};
+document.getElementById('mF').onclick=function(){if(guided)setMode(false)};
+document.getElementById('gPrev').onclick=function(){gGo(gi-1)};
+document.getElementById('gNext').onclick=function(){gGo(gi+1)};
+document.addEventListener('keydown',function(e){var k=e.key;if(isInput(e))return;
+  if(/^[0-5]$/.test(k)){jump(+k);return}
+  if(k==='g'||k==='G'){setMode(!guided);return}
+  var fwd=(k==='ArrowRight'||k===' '||k==='PageDown'||(k==='Enter'&&e.target===document.body)),back=(k==='ArrowLeft'||k==='PageUp');
+  if(guided&&(fwd||back)){e.preventDefault();gGo(gi+(fwd?1:-1));return}
+  if(cur===0&&fwd){e.preventDefault();go(1)}
+  if(cur>0&&(fwd||back)){try{frame(cur).contentWindow.focus()}catch(x){}}});
 var IC={full:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>',
   exit:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5V6H2.5M13.5 6H10V2.5M10 13.5V10h3.5M2.5 10H6v3.5"/></svg>'};
 var fsb=document.getElementById('fsb');function upd(){var f=!!document.fullscreenElement;fsb.innerHTML=f?IC.exit:IC.full;fsb.title=f?'Vollbild beenden':'Präsentation im Vollbild'}
 fsb.onclick=function(){if(!document.fullscreenElement&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()};
 document.addEventListener('fullscreenchange',upd);upd();
-var h=0;try{h=parseInt((location.hash||'#0').slice(1),10)}catch(e){}go(isNaN(h)?0:h,{flash:false});
+window.__guide=gGo;window.__mode=setMode;
+gUpd();
+var h=0;try{h=parseInt((location.hash||'#0').slice(1),10)}catch(e){}
+if(!isNaN(h)&&h>0&&h<=N){var fg=firstGuideOf(h);gi=fg;gUpd();go(h,{flash:false});setStepIn(h,GUIDE[fg][1])}else go(0,{flash:false});
 })();
 </script>
 </body>

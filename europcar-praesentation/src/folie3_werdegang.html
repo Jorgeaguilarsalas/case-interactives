@@ -152,28 +152,28 @@ var LANES=[{k:'m',n:'Menschen',y:PY+22},{k:'p',n:'Prozesse',y:PY+76},{k:'d',n:'D
 var ST=[
  {id:'wolt',yrs:'2021 – 2023',co:'Wolt',sub:'Gear Ops · Prozesse & Inventar',chip:'Einkauf −30 %',t0:2021.08,t1:2023.08,
   title:'Operations Associate (Service & Gear Operations)',when:'Feb 2021 – Feb 2023 · davor ab Okt 2020 Kurierpartner',where:'Berlin, bundesweit 6 Städte',
-  hero:[['−30 %','Beschaffungskosten Ausrüstung'],['2.000+','Kuriere in 6 Städten']],
+  hero:[['−30 %','Beschaffungskosten Ausrüstung']],
   did:['Operative Prozesse im Gear Warehouse eingeführt und gesteuert','Lagerbestände analysiert, Abläufe verbessert','Ausrüstung zurückgenommen, aufbereitet und wieder ausgegeben','Courier-Onboarding und -Offboarding in Berlin, kleines Team von Gear Associates koordiniert'],
   ev:['Beschaffungskosten für Ausrüstung rund −30 % gegenüber dem Vorjahr','Rund 525 Kurierkontakte pro Woche in ein kategorisiertes Servicemodell überführt'],
   ec:'Bestände, Rückläufe und Wiederverwendung steuern: dieselbe Logik wie bei Fahrzeugen über den Lebenszyklus.',
   g:{m:1,p:1.5,d:.5},gl:{m:'Gear-Team koordiniert',p:'Lager- & Serviceprozesse',d:'Bestandsanalyse'},gs:{d:'Bestände'}},
- {id:'bolt',yrs:'2023 – 2024',co:'Bolt',sub:'Fleet Ops · Angebotssteuerung',chip:'Aktivierung 25 → 58 %',t0:2023.42,t1:2024.42,
+ {id:'bolt',yrs:'2023 – 2024',co:'Bolt',sub:'Fleet Ops · Angebotssteuerung',chip:'Bedarfssteuerung',t0:2023.42,t1:2024.42,
   title:'Operations Specialist',when:'Jun 2023 – Jun 2024',where:'München / Süddeutschland',
-  hero:[['25 → 58 %','Fahreraktivierung'],['−18 %','Stornoquote']],
+  hero:[],
   did:['Mit Flottenpartnern gearbeitet: Partnerschaften, Account Management, Operations','Fahreraktivierung: Funnel von der Registrierung bis zur ersten Fahrt gemessen','Angebot entsprechend der Nachfrage geplant'],
   ev:['Aktivierung von ca. 25 % auf ca. 58 % bei über 1.000 Registrierungen in sechs Wochen','Stornoquote −18 % durch Maßnahmen mit Flottenpartnern'],
   ec:'Angebot an die Nachfrage anpassen ist der Kern der Flottenplanung.',
   g:{m:.5,p:.5,d:1},gl:{m:'Fahrer & Flottenpartner',p:'Onboarding-Funnel',d:'Funnel-Daten'},gs:{m:'Partner',p:'Funnel'}},
  {id:'bliq',yrs:'2024 – 2025',co:'Bliq',sub:'Supply Ops · Team & Budget',chip:'4 direkte Mitarbeitende',t0:2024.5,t1:2025.5,
   title:'Supply Operations Manager',when:'Jul 2024 – Jul 2025',where:'Berlin',
-  hero:[['4','direkte Mitarbeitende'],['<50 → >80 %','Partnerbindung']],
+  hero:[['4','direkte Mitarbeitende']],
   did:['Vier direkte Mitarbeitende: Aufgaben verteilt, KPIs verfolgt, 1:1s, Coaching, Mitwirkung an Leistungsbeurteilungen','Supply-Budgets, KPIs und Partnerprogramme gesteuert','Earnings-per-Hour-Modell mit SLAs für Flottenpartner'],
   ev:['Partnerbindung von unter 50 % auf über 80 % nach Neugestaltung des Partnermodells','Funktionsübergreifender Pilot mit 3 Mio. € ARR in vier Monaten'],
   ec:'Ein Team von fünf Spezialisten führen, Budgets und KPIs steuern.',
   g:{m:1.5,p:.5,d:.5},gl:{m:'4 direkte Mitarbeitende',p:'SLAs & Partnerprogramme',d:'KPIs & Budgets'},gs:{p:'SLAs',d:'Budgets'}},
  {id:'nexio',yrs:'SEIT 2025',co:'Nexio Fleet',sub:'Strategy & Ops · Data Hub',chip:'Datenplattform',t0:2025.5,t1:NOW,
   title:'Senior Strategy & Operations Manager',when:'seit Jul 2025',where:'Berlin & Brandenburg',
-  hero:[['8','Flottenbetreiber'],['800+','Fahrer']],
+  hero:[],
   did:['Seit dem Start an einer zentralen Daten- und Analyseplattform beteiligt','Anforderungen, Prozesse und KPIs definiert, Funktionen priorisiert','Umsetzung und Tests gemeinsam mit dem Entwicklerteam'],
   ev:['Im Einsatz bei 8 Flottenbetreibern mit über 800 Fahrern in Berlin und Brandenburg','Betreiber berichten rund 60–70 % weniger Verwaltungsaufwand je Compliance-Zyklus'],
   ec:'Datenintegration, gemeinsame KPIs und BI für TCO und P&L: genau das braucht ein Analytics Hub.',
@@ -236,12 +236,12 @@ function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===5,thr=
   /* year ticks */
   for(var y=2021;y<=2026;y++){var xx=X(y);ctx.fillStyle=C['--dim'];ctx.fillRect(xx-.5,RY+13,1,6);
     ctx.font='600 10.5px "JetBrains Mono", monospace';ctx.fillStyle=C['--quiet'];ctx.textAlign='center';ctx.fillText(y,xx,RY+32)}
-  ctx.font='800 9.5px Inter, sans-serif';ctx.fillStyle=C['--ink'];ctx.textAlign='center';ctx.fillText('HEUTE',X(NOW),RY+32);
+  ctx.font='800 10.5px Inter, sans-serif';ctx.fillStyle=C['--ink'];ctx.textAlign='center';ctx.fillText('HEUTE',X(NOW),RY+32);
   /* kurier start */
   var kx=X(KUR.t0);ctx.beginPath();ctx.arc(kx,RY,5,0,6.3);ctx.fillStyle=C['--panel'];ctx.fill();ctx.strokeStyle=C['--quiet'];ctx.lineWidth=1.6;ctx.stroke();
   ctx.font='600 10px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='left';ctx.textAlign='right';ctx.fillText('Start als',X0-26,RY-3);ctx.fillText('Kurierpartner',X0-26,RY+10);
   /* weiterbildung lane */
-  ctx.font='700 9.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='right';ctx.fillText('WEITERBILDUNG',X0-22,EY+4);
+  ctx.font='700 10.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='right';ctx.fillText('WEITERBILDUNG',X0-22,EY+4);
   ctx.strokeStyle=C['--line'];ctx.lineWidth=1;ctx.setLineDash([2,4]);ctx.beginPath();ctx.moveTo(X0-14,EY);ctx.lineTo(X1+10,EY);ctx.stroke();ctx.setLineDash([]);
   EDU.forEach(function(e,i){var x0=X(e.t0),x1=X(e.t1),on=carT>=e.t0,hi=eduSel===i;ctx.font='700 10.5px Inter, sans-serif';var lab=e.lab+' · '+e.yr,pw=ctx.measureText(lab).width+30;
     var px=Math.min((x0+x1)/2-pw/2,X1+10-pw);
@@ -261,7 +261,7 @@ function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===5,thr=
     shadowOn(hi?18:10);rr(bx,BY,BW,BH,12);ctx.fillStyle=C['--panel'];ctx.fill();shadowOff();
     ctx.lineWidth=hi?2:1;ctx.strokeStyle=hi?C['--ink']:C['--line'];ctx.stroke();
     if(hi){ctx.fillStyle=C['--ink'];rr(bx,BY+14,3,BH-28,2);ctx.fill()}
-    ctx.textAlign='left';ctx.fillStyle=C['--quiet'];ctx.font='600 9.5px "JetBrains Mono", monospace';ctx.fillText('0'+(i+1)+'  ·  '+s.yrs,bx+14,BY+20);
+    ctx.textAlign='left';ctx.fillStyle=C['--quiet'];ctx.font='600 10.5px "JetBrains Mono", monospace';ctx.fillText('0'+(i+1)+'  ·  '+s.yrs,bx+14,BY+20);
     ctx.fillStyle=C['--ink'];ctx.font='800 16px Inter, sans-serif';ctx.fillText(s.co,bx+14,BY+41);
     ctx.font='500 10.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.fillText(s.sub,bx+14,BY+57);
     ctx.font='700 10.5px Inter, sans-serif';var cw=ctx.measureText(s.chip).width+16;rr(bx+14,BY+64,cw,18,9);ctx.fillStyle=rgba(C['--flow'],dark()?.2:.11);ctx.fill();
@@ -287,7 +287,7 @@ function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===5,thr=
       var gg=ctx.createLinearGradient(0,L.y,0,L.y+RH);gg.addColorStop(0,rgba(fill,act?(dark()?.42:.30):(dark()?.26:.16)));gg.addColorStop(1,rgba(fill,act?(dark()?.32:.22):(dark()?.18:.10)));
       ctx.fillStyle=gg;ctx.fill();ctx.lineWidth=act?2:1;ctx.strokeStyle=rgba(fill,act?1:.75);ctx.stroke();
       ctx.save();ctx.beginPath();ctx.rect(x+5,L.y,w-10,RH);ctx.clip();ctx.textAlign='left';
-      ctx.font='700 8.5px "JetBrains Mono", monospace';ctx.fillStyle=fill;ctx.fillText((s.co==='Nexio Fleet'&&g<1?'NEXIO':s.co.toUpperCase()),x+10,L.y+15);
+      ctx.font='700 9.5px "JetBrains Mono", monospace';ctx.fillStyle=fill;ctx.fillText((s.co==='Nexio Fleet'&&g<1?'NEXIO':s.co.toUpperCase()),x+10,L.y+15);
       ctx.font='600 11px Inter, sans-serif';ctx.fillStyle=C['--ink'];ctx.fillText((s.gs&&s.gs[k])||s.gl[k],x+10,L.y+31);ctx.restore();ctx.restore();
       if(si>=0)HIT.push({type:'s',i:si,x:x,y:L.y,w:w,h:RH});if(ei>=0)HIT.push({type:'edu',i:ei,x:x,y:L.y,w:w,h:RH});
       x+=w});
@@ -342,6 +342,7 @@ function build(){bar.innerHTML='';STEPS.forEach(function(s,i){var b=document.cre
 }
 function caption(){document.getElementById('capT').textContent='Schritt '+(step+1)+' · '+STEPS[step].t;document.getElementById('capH').textContent=STEPS[step].h;
   document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length}
+window.__goto=function(i){if(typeof started!=="undefined"&&!started){window.__initStep=i;return}setStep(i)};
 function setStep(i,keep){step=Math.max(0,Math.min(STEPS.length-1,i));sel=null;
   var s=STEPS[step].s;target=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=T0+.02;if(reduce)carT=target;
   caption();build();showDetail()}
@@ -364,7 +365,7 @@ document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();setStep(step-1,true)}
   else if(e.key==='f'||e.key==='F')fs();else if(e.key==='Escape'){if(drawer.classList.contains('open'))setDrawer(false);else{sel=null;showDetail()}}
   else if(e.key==='i'||e.key==='I')setDrawer(!drawer.classList.contains('open'))});
-function start(){setStep(0);requestAnimationFrame(loop)}
+var started=false;function start(){started=true;setStep(window.__initStep||0);requestAnimationFrame(loop)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
 })();
 </script>

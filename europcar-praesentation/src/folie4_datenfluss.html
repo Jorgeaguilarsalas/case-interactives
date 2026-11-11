@@ -133,6 +133,8 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
 #detail{max-height:none;overflow:visible}
 .dh .dchev svg{transform:rotate(180deg)}
 .drawer.open .dchev svg{transform:none}
+.ecnote{display:none;align-items:center;gap:7px;font-size:.74rem;font-weight:700;color:var(--ec,#1d4e89);background:#e8eff7;border:1px dashed #9db4d3;padding:4px 11px;border-radius:999px}
+body.ecmode .ecnote{display:inline-flex}
 </style>
 </head>
 <body>
@@ -147,6 +149,7 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
   </div>
   <div class="scroll"><canvas id="c" width="1100" height="528" aria-label="Animierter Datenfluss von den Datenquellen über Integration, Prüfung und KPIs zu Entscheidungen"></canvas></div>
   <div class="key">
+  <span class="ecnote"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.2"/><path d="M8 7v4M8 5h0"/></svg>Konzeptmodell – keine Kenntnis interner Europcar-Systeme</span>
   <span><i class="sw" style="background:var(--s1)"></i><i class="sw" style="background:var(--s2)"></i><i class="sw" style="background:var(--s3)"></i><i class="sw" style="background:var(--s4)"></i><i class="sw" style="background:var(--s5)"></i>Rohdaten je Quelle</span>
   <span><i class="sw" style="background:var(--flow)"></i>Geprüft &amp; verknüpft</span>
   <span><i class="sw" style="background:var(--leak)"></i>Markierter Prüffall</span>
@@ -480,6 +483,7 @@ function setStep(i){step=Math.max(0,Math.min(STEPS.length-1,i));tokens=[];tray=[
   document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length;
   buildBar();buildCues();
   if(!sel){var auto={1:'S1',2:'INT',3:'STR',4:'K1',5:'ROLE',6:'D1'}[step];showDetail(auto||null,true)}}
+window.__goto=function(i){if(typeof started!=="undefined"&&!started){window.__initStep=i;return}setStep(i)};
 function toggleMode(){mode=mode==='nexio'?'europcar':'nexio';M=MODES[mode];document.body.classList.toggle('ecmode',mode==='europcar');
   sel=null;setStep(step);showDetail(null)}
 function togglePause(){paused=!paused;autoPaused=false;updIcons()}
@@ -524,7 +528,7 @@ var drawer=document.getElementById('drawer'),dh=document.getElementById('dh');
 function setDrawer(o){if(o)setTimeout(function(){try{drawer.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},40);drawer.classList.toggle('open',o);dh.setAttribute('aria-expanded',o);document.getElementById('dHint').textContent=o?'Ausblenden':'Details einblenden'}
 dh.onclick=function(){setDrawer(!drawer.classList.contains('open'))};
 
-function start(){setStep(0);showDetail(null);requestAnimationFrame(loop)}
+var started=false;function start(){started=true;var s0=window.__initStep||0;setStep(s0);if(!s0)showDetail(null);requestAnimationFrame(loop)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
 })();
 </script>

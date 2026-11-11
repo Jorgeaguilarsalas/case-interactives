@@ -428,6 +428,7 @@ var bar=document.getElementById('bar'),cues=document.getElementById('cues');
 function build(){bar.innerHTML='';STEPS.forEach(function(s,i){var b=document.createElement('button');b.innerHTML='<span class="no">'+(i+1)+'</span>'+s.t.replace(/^\d\d · /,'');
   if(i===step)b.className='on';b.onclick=function(){setStep(i)};bar.appendChild(b)});
 }
+window.__goto=function(i){setStep(i)};
 function setStep(i){step=Math.max(0,Math.min(STEPS.length-1,i));
   document.getElementById('capT').textContent='Schritt '+(step+1)+' · '+STEPS[step].t;
   document.getElementById('capH').textContent=STEPS[step].h;

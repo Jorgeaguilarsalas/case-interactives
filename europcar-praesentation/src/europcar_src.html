@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mein Beitrag bei Europcar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/*BASE_CSS*/
+.note{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600;color:var(--ec);background:var(--ec-bg);border:1px dashed #9db4d3;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+.hub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;position:relative}
+@media (max-width:860px){.hub{grid-template-columns:1fr}}
+.core{grid-column:1/-1;justify-self:center;display:flex;align-items:center;gap:12px;padding:12px 22px;border-radius:999px;background:var(--ec);color:#fff;font-weight:700;margin-bottom:6px}
+.core small{font-weight:500;opacity:.8}
+.task{border:1px solid var(--line);border-top:3px solid var(--ec);border-radius:12px;padding:16px;background:var(--panel)}
+.task .n{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--ec);font-weight:700}
+.task b{display:block;font-size:1rem;margin:4px 0 8px}
+.task ul{margin:0;padding-left:17px;font-size:.84rem;color:var(--quiet)}
+.task li{margin-bottom:3px}
+.flowm{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:10px 0;align-items:center}
+@media (max-width:860px){.flowm{grid-template-columns:1fr}.flowm .ar{display:none}}
+.flowm .h{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet);padding-bottom:2px}
+.flowm .a,.flowm .b{border-radius:12px;padding:12px 14px;font-size:.88rem}
+.flowm .a{background:var(--gate-bg)}
+.flowm .a small,.flowm .b small{display:block;font-size:.72rem;color:var(--quiet);font-weight:600}
+.flowm .b{background:var(--ec-bg)}
+.flowm .ar{text-align:center;color:var(--dim);font-size:1.1rem}
+.principle{margin:0 0 18px;padding:12px 16px;border-left:3px solid var(--ec);background:var(--ec-bg);border-radius:0 12px 12px 0;font-size:.92rem}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:10px 0 24px}
+@media (max-width:860px){.pillars{grid-template-columns:1fr}}
+.pil{border-radius:14px;padding:22px 18px;text-align:center;background:var(--soft);position:relative}
+.pil svg{width:40px;height:40px;margin:0 auto 10px;display:block}
+.pil b{display:block;font-size:1.08rem}
+.pil span{font-size:.8rem;color:var(--quiet)}
+.plus{display:flex;justify-content:center;margin:-8px 0 16px}
+.closing{text-align:center;max-width:62ch;margin:0 auto;font-size:1.05rem}
+.closing b{color:var(--ec)}
+.thanks{text-align:center;margin-top:22px;font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar" id="bar"></div>
+<div id="stage">
+  <div class="caption">
+    <div><div class="ct" id="capT"></div><div class="ch" id="capH"></div></div>
+    <div class="nav"><button id="prev" aria-label="Zurück">&larr;</button><span id="capN"></span><button id="next" aria-label="Weiter">&rarr;</button><i class="sep" aria-hidden="true"></i><button id="fsb" aria-label="Vollbild"></button></div>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="drawer" id="drawer">
+    <button class="dh" id="dh" aria-expanded="false" aria-controls="detail"><span class="dt" id="dTag">Details</span><span class="dn" id="dName"></span><span class="dhint" id="dHint">Details einblenden</span><span class="dchev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg></span></button>
+    <div id="detail" aria-live="polite"></div>
+  </div>
+</div>
+</div>
+<script>
+var NOTE='<div class="note"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.2"/><path d="M8 7v4M8 5h0"/></svg>Mein Verständnis aus der Stellenausschreibung – keine Kenntnis interner Europcar-Systeme</div>';
+window.VIEW={steps:[
+ {t:'Mein Verständnis der Rolle',h:'Das Analytics Hub verbindet Daten, Wirtschaftlichkeit und Planung der Flotte.',
+  render:function(el){
+   var T=[['Daten verbinden',['Einkauf, Wartung, Schadenmanagement, Remarketing und Operations zusammenführen','Datenqualität sichern','Gemeinsame Kennzahlen definieren']],
+          ['Wirtschaftlichkeit & Lebenszyklus',['TCO, Reparaturkosten, Standzeiten, Haltedauer und Restwerte analysieren','Flottenbedarf nach Nachfrage planen','Auslastung bewerten']],
+          ['Planung & Szenarien',['Jahres- und Budgetplanung unterstützen','Forecasts und Szenarien','Gemeinsam mit Fleet Controlling']]];
+   el.innerHTML=NOTE+'<div class="hub"><div class="core pop"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.7"><circle cx="10" cy="10" r="3"/><circle cx="10" cy="10" r="8"/></svg>Analytics Hub <small>· Fleet Planning & Lifecycle Management</small></div>'+
+   T.map(function(t,i){return'<div class="task fade" style="animation-delay:'+(.2+i*.15)+'s"><span class="n">0'+(i+1)+'</span><b>'+t[0]+'</b><ul>'+t[1].map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul></div>'}).join('')+'</div>'},
+  detail:{tag:'Grundlage',name:'Stellenausschreibung · Head of Fleet Planning & Lifecycle Management',
+   html:'<p style="margin:0;max-width:85ch">Diese Darstellung fasst meine Lesart der Stellenausschreibung zusammen. Sie beschreibt keine internen Systeme, Datenquellen oder Prozesse von Europcar. Welche Systeme und Modelle heute im Einsatz sind, möchte ich in den ersten Wochen gemeinsam mit dem Team verstehen.</p>'}},
+ {t:'Wie ich vorgehe',h:'Erst verstehen, dann gemeinsam verbessern.',
+  render:function(el){
+   var M=[['Datenintegration','Nexio Fleet','Daten verbinden'],['Fleet Economics & BI','Nexio Fleet · BI-Modelle','Wirtschaftlichkeit & Lebenszyklus'],['Budgets & Szenarien','Bliq · BI','Planung & Szenarien'],['Teamführung','Bliq · vier direkte Mitarbeitende','Team von fünf Spezialisten']];
+   el.innerHTML=NOTE+'<div class="principle fade">Ich würde nicht einfach mein Modell von Nexio übertragen. Zuerst möchte ich die vorhandenen Systeme, Prozesse und Modelle verstehen – gemeinsam mit Fleet Controlling, dem Fleet Director und den Fachbereichen.</div>'+
+   '<div class="flowm"><div class="h">Meine Erfahrung</div><div></div><div class="h">Aufgabe bei Europcar</div>'+
+   M.map(function(m,i){var d='style="animation-delay:'+(.2+i*.12)+'s"';return'<div class="a fade" '+d+'><b>'+m[0]+'</b><small>'+m[1]+'</small></div><div class="ar fade" '+d+'>→</div><div class="b fade" '+d+'><b>'+m[2]+'</b></div>'}).join('')+'</div>'},
+  detail:{tag:'Vorgehen',name:'Erste Schritte',
+   html:'<div class="cols"><div class="cell"><b class="h">Verstehen</b>Systeme, Datenflüsse, bestehende Modelle und Kennzahlen kennenlernen.</div><div class="cell"><b class="h">Abstimmen</b>Mit Fleet Controlling, Fleet Director und Fachbereichen klären, welche Entscheidungen die Analysen unterstützen sollen.</div><div class="cell"><b class="h">Verbessern</b>Gemeinsam priorisieren: zuerst Datenqualität und gemeinsame Definitionen, dann Modelle und Szenarien.</div></div>'}},
+ {t:'Zusammengefasst',h:'Flottenbetrieb, Datenintegration und Teamführung.',
+  render:function(el){
+   var I={car:'<svg viewBox="0 0 40 40" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 25v-5l4-7h18l4 7v5z"/><circle cx="13" cy="27" r="3" fill="#fff"/><circle cx="27" cy="27" r="3" fill="#fff"/></svg>',
+     data:'<svg viewBox="0 0 40 40" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round"><ellipse cx="20" cy="11" rx="11" ry="4"/><path d="M9 11v18c0 2.2 4.9 4 11 4s11-1.8 11-4V11M9 20c0 2.2 4.9 4 11 4s11-1.8 11-4"/></svg>',
+     team:'<svg viewBox="0 0 40 40" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round"><circle cx="20" cy="13" r="5"/><circle cx="9" cy="17" r="3.5"/><circle cx="31" cy="17" r="3.5"/><path d="M11 33c0-5 4-9 9-9s9 4 9 9M3 31c0-3.5 2.5-6 6-6M37 31c0-3.5-2.5-6-6-6"/></svg>'};
+   var P=[['car','Flottenbetrieb','Wolt · Bolt · Bliq · Nexio'],['data','Datenintegration','Von Quellen zu Entscheidungen'],['team','Teamführung','Klare Ziele · Coaching · Feedback']];
+   el.innerHTML='<div class="kick" style="text-align:center;margin-top:6px">Meine Kombination</div><div class="pillars">'+P.map(function(p,i){return'<div class="pil pop" style="animation-delay:'+(i*.15)+'s">'+I[p[0]]+'<b>'+p[1]+'</b><span>'+p[2]+'</span></div>'}).join('')+'</div>'+
+   '<p class="closing fade" style="animation-delay:.6s">Genau diese Kombination möchte ich <b>bei Europcar einbringen und weiterentwickeln</b>.</p>'+
+   '<div class="thanks fade" style="animation-delay:1s">Vielen Dank. Ich freue mich auf eure Fragen.</div>'},
+  detail:{tag:'Sprechtext',name:'Abschluss',
+   html:'<p style="margin:0;max-width:85ch">Zusammengefasst bringe ich Erfahrung im Flottenbetrieb, in der Datenintegration und in der Teamführung mit. Genau diese Kombination möchte ich bei Europcar einbringen und weiterentwickeln. Vielen Dank. Ich freue mich auf eure Fragen.</p>'}}
+]};
+</script>
+<script>/*ENGINE_JS*/</script>
+</body>
+</html>
