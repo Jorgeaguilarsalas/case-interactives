@@ -41,16 +41,16 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-sys
 .view iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
 #welcome{overflow-y:auto}
 /* ---------- welcome ---------- */
-.hero{max-width:1120px;margin:0 auto;padding:clamp(28px,6vh,72px) 20px 40px}
+.hero{max-width:1120px;margin:0 auto;padding:clamp(14px,2.5vh,40px) 20px 12px}
 .kick{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--quiet);display:flex;align-items:center;gap:10px}
 .kick i{display:inline-block;width:22px;height:2px;background:var(--ink)}
-h1{font-size:clamp(1.9rem,4.2vw,3.1rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:14px 0 14px;max-width:18ch}
+h1{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:10px 0 0}
 .lead{font-size:clamp(.98rem,1.4vw,1.1rem);color:var(--quiet);max-width:62ch;margin:0}
 .lead b{color:var(--ink);font-weight:600}
 .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin:22px 0 0;font-size:.82rem;color:var(--quiet)}
 .meta span{display:inline-flex;align-items:center;gap:7px}
 .meta i{width:6px;height:6px;border-radius:50%;background:var(--flow);display:inline-block}
-.sect{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:clamp(30px,6vh,56px) 0 14px;flex-wrap:wrap}
+.sect{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:clamp(14px,2.5vh,32px) 0 10px;flex-wrap:wrap}
 .sect h2{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--quiet);margin:0}
 .sect p{margin:0;font-size:.8rem;color:var(--quiet)}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -60,18 +60,18 @@ h1{font-size:clamp(1.9rem,4.2vw,3.1rem);line-height:1.08;letter-spacing:-.03em;f
 .card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.16s}
 .card:hover,.card:focus-visible{border-color:var(--ink);transform:translateY(-3px);box-shadow:0 14px 30px rgba(20,20,20,.08);outline:none}
 .art{height:150px;background:var(--soft);border-bottom:1px solid var(--line);display:block;width:100%}
-.cb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cb{padding:10px 14px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
 .q{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet);display:flex;justify-content:space-between;gap:8px}
 .q .f{font-family:"JetBrains Mono",monospace;letter-spacing:0;text-transform:none}
-.card h3{margin:2px 0 0;font-size:1.12rem;letter-spacing:-.015em}
-.card p{margin:0;font-size:.86rem;color:var(--quiet)}
-.go{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:600}
-.go .arrow{width:30px;height:30px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
+.card h3{margin:2px 0 0;font-size:1.04rem;letter-spacing:-.015em}
+.card p{margin:0;font-size:.82rem;line-height:1.4;color:var(--quiet)}
+.go{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:600}
+.go .arrow{width:24px;height:24px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
 .card:hover .go .arrow{background:var(--ink);color:var(--panel);border-color:var(--ink)}
 .closing{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 18px;border:1px dashed var(--dim);border-radius:14px;font-size:.86rem;color:var(--quiet);animation:rise .6s .24s cubic-bezier(.2,.7,.2,1) both}
 .closing b{color:var(--ink)}
 .closing .num{font-family:"JetBrains Mono",monospace;font-size:.72rem;font-weight:700;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:2px 7px;background:var(--panel)}
-.keys{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.76rem;color:var(--quiet)}
+.keys{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.76rem;color:var(--quiet)}
 kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--panel);color:var(--ink)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 /* art animations */
@@ -89,7 +89,7 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
 @media (max-width:900px){.cards{grid-template-columns:1fr}.cards .card,.cards .card:nth-child(4){grid-column:auto}}
 .card:nth-child(4){animation-delay:.24s}.card:nth-child(5){animation-delay:.32s}
 .card.ec .q{color:#1d4e89}
-.art{height:130px}
+.art{height:clamp(56px,calc(20vh - 84px),120px)}
 .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(.85);opacity:.9}50%{transform:scale(1.15);opacity:.4}}
 .mseg{display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--panel);flex:none}
@@ -127,7 +127,7 @@ body.guided .gstrip{display:block}
 <section class="view on" id="welcome" aria-label="Start">
   <div class="hero">
     <div class="kick"><i></i>Europcar Mobility Group · Gespräch am 12. November 2026</div>
-    <h1>Head of Fleet Planning &amp; Lifecycle&nbsp;Management</h1>
+    <h1>Head of Fleet Planning &amp; Lifecycle Management</h1>
 
     <div class="sect"><h2>Fünf Ansichten · ein roter Faden</h2><p>Klicken oder <kbd>1</kbd>–<kbd>5</kbd></p></div>
     <div class="cards">
