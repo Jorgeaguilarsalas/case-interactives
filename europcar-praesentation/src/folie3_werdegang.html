@@ -126,7 +126,6 @@ canvas{display:block;min-width:920px;width:100%;height:auto}
     <span><i class="sw" style="background:var(--p)"></i>Prozesse</span>
     <span><i class="sw" style="background:var(--d)"></i>Daten</span>
     <span><i class="sw" style="background:var(--e)"></i>Weiterbildung</span>
-    <span>Blockbreite qualitativ</span>
   </div>
   <div class="drawer" id="drawer">
     <button class="dh" id="dh" aria-expanded="false" aria-controls="detail"><span class="dt" id="dTag">Details</span><span class="dn" id="dName"></span><span class="dhero" id="dHero"></span><span class="dhint" id="dHint">Details einblenden</span><span class="dchev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg></span></button>
@@ -275,7 +274,7 @@ function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===4,thr=
   /* competence profile */
   ctx.strokeStyle=C['--line'];ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(20,PY-14);ctx.lineTo(W-20,PY-14);ctx.stroke();
   ctx.font='700 10px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='left';ctx.fillText('KOMPETENZPROFIL',BX,PY+8);
-  ctx.font='500 10px Inter, sans-serif';ctx.fillText('wächst mit jeder Station und Weiterbildung · Blockbreite qualitativ',BX+104,PY+8);
+  ctx.font='500 10px Inter, sans-serif';ctx.fillText('wächst mit jeder Station und Weiterbildung',BX+104,PY+8);
   var ends={},maxW=5.25*U;
   LANES.forEach(function(L){var k=L.k,col=C['--'+k],x=BX,dimRow=thr&&thr!==k;
     ctx.save();ctx.globalAlpha=dimRow?.3:1;ctx.font='700 13px Inter, sans-serif';ctx.fillStyle=col;ctx.textAlign='right';ctx.fillText(L.n,BX-16,L.y+RH/2+5);ctx.restore();
