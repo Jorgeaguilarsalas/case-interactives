@@ -9,7 +9,7 @@ Independent, unofficial support material for an interview case study. Not an Emn
 - `/q03/` — Q03 Pipeline Simulator v5 (working REVIEW: case frictions, proposed J3→J4 workflow and illustrative exception handling)
 - `/q05/` — Q05 Business Case four-page v2 (all starting numbers and scenarios hypothetical)
 
-- `/europcar-praesentation/` — separate Europcar interview material: welcome page, guided mode (10 core steps) and five views (career route, People Management, Nexio data flow, BI fleet P&L case, Mein Beitrag bei Europcar). Illustrative models, German.
+- `/europcar-praesentation/` — separate Europcar interview material: welcome page, guided mode (12 core steps) and five views (career route, People Management, Nexio data flow, BI fleet P&L case, Mein Beitrag bei Europcar). Illustrative models, German.
 - `/europcar/` — Nexio Partner P&L Cockpit (illustrative fleet-economics model) used for the Europcar interview.
 - Documentation: [`europcar-praesentation/README.md`](europcar-praesentation/README.md) (every view, formula and number of the presentation; sources in `europcar-praesentation/src/`) and [`europcar/README.md`](europcar/README.md) (the cockpit).
 - `/p5/` — P5 operating-contract navigator. Nine process entries, PR13 interactive pilot, eight evidence-bounded G0 summaries (not verified SOPs). No private Drive links.

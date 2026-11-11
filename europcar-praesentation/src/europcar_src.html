@@ -62,7 +62,7 @@ window.VIEW={steps:[
   render:function(el){
    var T=[['Daten verbinden',['Einkauf, Wartung, Schadenmanagement, Remarketing und Operations zusammenführen','Datenqualität sichern','Gemeinsame Kennzahlen definieren']],
           ['Wirtschaftlichkeit & Lebenszyklus',['TCO, Reparaturkosten, Standzeiten, Haltedauer und Restwerte analysieren','Flottenbedarf nach Nachfrage planen','Auslastung bewerten']],
-          ['Planung & Szenarien',['Jahres- und Budgetplanung unterstützen','Forecasts und Szenarien','Gemeinsam mit Fleet Controlling']]];
+          ['Planung & Szenarien',['Verantwortung für Jahres- und Budgetplanung','Verlässliche Forecasts und Szenarien','Gemeinsam mit Fleet Controlling']]];
    el.innerHTML=NOTE+'<div class="hub"><div class="core pop"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.7"><circle cx="10" cy="10" r="3"/><circle cx="10" cy="10" r="8"/></svg>Analytics Hub <small>· Fleet Planning & Lifecycle Management</small></div>'+
    T.map(function(t,i){return'<div class="task fade" style="animation-delay:'+(.2+i*.15)+'s"><span class="n">0'+(i+1)+'</span><b>'+t[0]+'</b><ul>'+t[1].map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul></div>'}).join('')+'</div>'},
   detail:{tag:'Grundlage',name:'Stellenausschreibung · Head of Fleet Planning & Lifecycle Management',

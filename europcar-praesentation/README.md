@@ -16,9 +16,9 @@ This document explains every view, every visual element, every interaction and e
 1. [What this is and how it is built](#1-what-this-is-and-how-it-is-built)
 2. [Provenance: what is real, what is illustrative](#2-provenance-what-is-real-what-is-illustrative)
 3. [The shell: welcome page and navigation](#3-the-shell-welcome-page-and-navigation)
-4. [View 01 — Werdegang (career route, slide 3)](#4-view-01--werdegang-career-route-slide-3)
-5. [View 03 — Nexio Fleet data flow (slide 4)](#5-view-03--nexio-fleet-data-flow-slide-4)
-6. [View 04 — Business Intelligence case (slide 5)](#6-view-04--business-intelligence-case-slide-5)
+4. [View 01 — Werdegang (career route, deck slide 4)](#4-view-01--werdegang-career-route-deck-slide-4)
+5. [View 03 — Nexio Fleet data flow (deck slide 7)](#5-view-03--nexio-fleet-data-flow-deck-slide-7)
+6. [View 04 — Business Intelligence case (deck slide 8)](#6-view-04--business-intelligence-case-deck-slide-8)
 7. [Shared UI conventions](#7-shared-ui-conventions)
 8. [How to change something](#8-how-to-change-something)
 9. [Appendix A — the 48 simulated vehicles](#appendix-a--the-48-simulated-vehicles)
@@ -29,9 +29,9 @@ This document explains every view, every visual element, every interaction and e
 
 ## 0. Version 2 (reviewer feedback, 11 Nov 2026) — read this before the older sections
 
-Version 2 implements the reviewer feedback: People Management gets its own view, the presentation ends with an explicit Europcar closing view, a **guided mode** shows only 10 core steps, the Europcar data-flow mode is labelled as a conceptual model, and figures that are not in the approved deck were moved out of the main path.
+Version 2 implements the reviewer feedback: People Management gets its own view, the presentation ends with an explicit Europcar closing view, a **guided mode** shows only 12 core steps, the Europcar data-flow mode is labelled as a conceptual model, and figures that are not in the approved deck were moved out of the main path.
 
-**Numbering changed.** The page now has five views. Sections 1–8 below have been updated to the new numbers (in v1.1 the data flow was "View 02" and the BI case "View 03"):
+**Numbering changed.** The page now has five views. Sections 1–8 below have been updated to the new numbers (in documentation v1.1 the data flow was "View 02" and the BI case "View 03"):
 
 | Now | View | Source file | Older section |
 |---|---|---|---|
@@ -41,13 +41,13 @@ Version 2 implements the reviewer feedback: People Management gets its own view,
 | 04 | Business Intelligence (48-vehicle case) | `src/folie5_bi.html` | §6 |
 | 05 | Mein Beitrag bei Europcar (**new**) | `src/europcar_src.html` | §0.4 |
 
-**Role of this page.** The approved Google Slides deck (v1.1) stays the primary presentation. This page is supporting material: either shown in guided mode, or opened in free mode to answer questions.
+**Role of this page.** The Google Slides deck *Europcar — HR Interview — Presentation v1.2* (9 slides, 2 chapter dividers, no appendix) stays the primary presentation; the spoken text is script **DE-v1.3** (du-form, plural *ihr/euch*, current for rehearsal, pending oral approval) in the script register. This page is supporting material: either shown in guided mode, or opened in free mode to answer questions.
 
 ### 0.1 Guided mode (default) and free mode
 
-The top bar has a switch **Geführt | Frei** (key `G`), a counter `n / 10` with arrows, and a thin indigo progress bar under the bar.
+The top bar has a switch **Geführt | Frei** (key `G`), a counter `n / 12` with arrows, and a thin indigo progress bar under the bar.
 
-In **Geführt**, the arrow keys, space bar and the counter arrows move through exactly these 10 steps, whatever view is open:
+In **Geführt**, the arrow keys, space bar and the counter arrows move through exactly these 12 steps, whatever view is open. The order follows deck v1.2 (slides 4, 5, 7, 8, 9):
 
 | # | View | Step inside the view (0-based index) | What is said |
 |---|---|---|---|
@@ -57,10 +57,12 @@ In **Geführt**, the arrow keys, space bar and the counter arrows move through e
 | 4 | 02 People | Ansatz bei Europcar (2) | Get to know the five specialists → standards → coaching/cross-training → clear ownership |
 | 5 | 03 Datenplattform | Die Herausforderung (1) | Separate sources, no shared basis |
 | 6 | 03 Datenplattform | Mein Beitrag (5) | My role: needs → requirements → priorities → build & test |
-| 7 | 04 BI | Standzeit & Auslastung (3) | Answer to question 3 (maintenance, downtime, utilisation) |
-| 8 | 04 BI | Szenarien (4) | Mindestlohn 2027 scenario and counter-measures |
-| 9 | 05 Europcar | Mein Verständnis der Rolle (0) | Analytics Hub, three tasks |
-| 10 | 05 Europcar | Zusammengefasst (2) | Three pillars, closing sentence, "Vielen Dank" |
+| 7 | 04 BI | 01 · TCO je Fahrzeug (1) | Total cost per vehicle and its drivers (deck slide 8, card 01 *Fleet Economics*) |
+| 8 | 04 BI | 02 · Flotten-P&L (2) | Which costs drive profitability; fleet waterfall (card 02 *Flotten-P&L*) |
+| 9 | 04 BI | Standzeit & Auslastung (3) | Role of maintenance, downtime and utilisation |
+| 10 | 04 BI | 03 · Szenarien (4) | Mindestlohn 2027 scenario and counter-measures (card 03 *Szenarien & Modelle*) |
+| 11 | 05 Europcar | Mein Verständnis der Rolle (0) | Analytics Hub, three tasks (deck slide 9) |
+| 12 | 05 Europcar | Zusammengefasst (2) | Three pillars, closing sentence, "Vielen Dank" |
 
 Clicking a tab or a start-page card in guided mode jumps to the first core step of that view. Everything inside a view (step bar, details, vehicle grid, Nexio/Europcar switch) stays clickable; the next arrow press continues the guided route from where it was.
 
@@ -68,13 +70,13 @@ In **Frei**, arrows walk through every step of every view (the old behaviour, 6 
 
 The start page has two buttons: *Geführte Präsentation starten* (guided step 1) and *Alle Details frei erkunden* (free mode, view 01). Keys: `0` start, `1`–`5` views, `G` mode, `F` fullscreen of the graphic, `I` details.
 
-**Important for speaking.** The guided order puts People Management *before* the data platform. The DE-v1.2 script has a different order (slides 3, 4, 5, then People on slide 7), so transitions must be adapted when the guided mode is used.
+**Speaking.** The guided order is the same as deck v1.2 and script DE-v1.3: Erfahrung → People Management → Nexio data platform → BI → Europcar. The DE-v1.3 transitions can be used unchanged; §0.8 lists which sentence goes before which guided step. Steps 7–10 (BI) need more time than the single deck slide 8: allow about 2–3 minutes, or skip step 9 if time is short.
 
 Implementation: `GUIDE` array in `src/shell_template.html`; each view exposes `window.__goto(stepIndex)`. Views 01 and 03 start after fonts load, so a step requested before that is stored in `window.__initStep` and applied at start.
 
 ### 0.2 Figure policy (what is on the main path)
 
-Only figures in the approved deck v1.1 appear on the main path (cards, chips, drawer headers):
+Only figures in deck v1.2 appear on the main path (cards, chips, drawer headers):
 - Wolt **−30 %** procurement cost for equipment.
 - Bliq **4 direct reports** (never 6).
 
@@ -96,7 +98,7 @@ The small canvas labels in View 01 were enlarged by 1 px:
 
 ### 0.3 View 02 — People Management (new)
 
-A simple step view built with the shared `base.css` + `engine.js`. Text is taken from the DE-v1.2 People Management slide and Jorge's own management practice.
+A simple step view built with the shared `base.css` + `engine.js`. Text is taken from DE-v1.3 slide 5 (People Management) and Jorge's own management practice. The deck slide 5 shows four headings (Ziele & Prioritäten, KPI-Steuerung, Coaching & Feedback, Entwicklung); the view covers the same content.
 
 - **Step 1 "Erfahrung bei Bliq"**
   - Org chart: JA (Supply Operations Manager) plus four anonymous direct reports, numbered 1–4. No names or roles are invented.
@@ -141,7 +143,30 @@ When the Nexio/Europcar switch is on **Europcar**, a dashed blue pill appears in
 
 ### 0.6 Offline backup
 
-`Europcar_Praesentation_Backup.pdf` (in Drive) has 11 landscape pages: the start page plus the 10 guided steps. Screenshots were taken at 1440×900 at 2× resolution. Use it if the browser or network fails during screen sharing.
+`Europcar_Praesentation_Backup.pdf` (in Drive) has 13 landscape pages: the start page plus the 12 guided steps. Screenshots were taken at 1440×900 at 2× resolution. Use it if the browser or network fails during screen sharing.
+
+### 0.8 Alignment with deck v1.2 and script DE-v1.3
+
+Sources (Drive, read-only for Claude):
+- deck *Europcar — HR Interview — Presentation v1.2 — 2026-11-12*;
+- the register *Europcar — Guiones aprobados por diapositiva — Registro maestro*, section **DE-v1.3**. That version is current for rehearsal and pending oral approval; DE-v1.2, DE-v1.1, DE-v1.0 and ES-v0.2 are kept there as history.
+
+| Deck slide | Guided steps | DE-v1.3 transition spoken **before** it |
+|---|---|---|
+| 1 Vorstellung | (start page) | – |
+| 2 Drei Fragen | (start page) | "Ich habe meine Präsentation in drei Fragen gegliedert." |
+| 3 Kapitel 01 | (start page) | "Beginnen wir mit dem ersten Kapitel: meiner beruflichen Erfahrung und meiner Teamführung." |
+| 4 Mein Hintergrund | 1–2 | "Mein Weg führt von Wolt über Bolt und Bliq bis zu Nexio Fleet." |
+| 5 Teamführung | 3–4 | "Neben Operations habe ich auch Verantwortung in der Teamführung übernommen. Darauf möchte ich kurz eingehen." |
+| 6 Kapitel 02 | – | "Damit komme ich zum zweiten Kapitel: Wie kann ich diese Erfahrungen bei Europcar einbringen?" |
+| 7 Nexio Fleet in der Praxis | 5–6 | "Zuerst zeige ich, wie wir bei Nexio unterschiedliche Flottendaten zusammenführen." |
+| 8 Business Intelligence | 7–10 | "Die Verbindung der Daten ist aber nur der erste Schritt. Danach müssen wir verstehen, was diese Daten wirtschaftlich bedeuten." |
+| 9 Mein Verständnis | 11–12 | "Genau hier sehe ich eine wichtige Verbindung zu Fleet Planning und Lifecycle Management bei Europcar." |
+
+**On-screen wording synced with DE-v1.3:**
+- View 05, task 3 now reads *Verantwortung für Jahres- und Budgetplanung · Verlässliche Forecasts und Szenarien* (script: "die Verantwortung für die Jahres- und Budgetplanung übernehmen … verlässliche Forecasts").
+- The script labels in the View 02 drawers now say DE-v1.3. Their text is identical to DE-v1.3 slide 5.
+- The step captions of Views 01, 03 and 04 quote sentences that are unchanged between DE-v1.2 and DE-v1.3. Only the slide numbers changed (3 → 4, 4 → 7, 5 → 8).
 
 ### 0.7 Build
 
@@ -157,20 +182,20 @@ An optional argument sets another output path. Outside a `src/` folder (Jorge's 
 
 ### 1.1 Purpose
 
-The slide deck *Europcar — HR Interview — Presentation v1.1* has seven content slides. Slides 3, 4 and 5 each received an interactive companion view, and v2 added two short views for People Management and the Europcar closing (see §0). They can be rehearsed, shown in guided mode, or used in Q&A:
+The slide deck *Europcar — HR Interview — Presentation v1.2* has nine slides: 1 title, 2 agenda, 3 divider *Kapitel 01 · Erfahrung*, 4 Mein Hintergrund, 5 Teamführung, 6 divider *Kapitel 02 · Relevanz für Europcar*, 7 Nexio Fleet in der Praxis, 8 Business Intelligence, 9 Mein Verständnis. Each content slide has one interactive view. They can be rehearsed, shown in guided mode, or used in Q&A:
 
 | View | Deck slide | Deck title | Question from the agenda slide |
 |---|---|---|---|
-| 01 · Werdegang | 3 | 01 / Mein Hintergrund | Welche Erfahrung bringe ich mit? |
-| 02 · People Management | 7 | People Management | Wie führe ich ein Team? |
-| 03 · Datenplattform | 4 | 02 / Nexio Fleet in der Praxis | Wie entwickeln wir bei Nexio Fleet eine zentrale Daten- und Analyseplattform? |
-| 04 · Business Intelligence | 5 | 03 / Business Intelligence | (same question, economic side) |
+| 01 · Werdegang | 4 | 01 / Mein Hintergrund | Welche Erfahrung bringe ich mit? |
+| 02 · People Management | 5 | 01 / Teamführung | Wie führe ich ein Team? |
+| 03 · Datenplattform | 7 | 02 / Nexio Fleet in der Praxis | Wie entwickeln wir bei Nexio Fleet eine zentrale Daten- und Analyseplattform? |
+| 04 · Business Intelligence | 8 | 03 / Business Intelligence | (same question, economic side) |
 
-| 05 · Mein Beitrag bei Europcar | 6–8 | Mein Beitrag bei Europcar / Zusammenfassung | Was davon ist für Europcar relevant? |
+| 05 · Mein Beitrag bei Europcar | 9 | 02 / Mein Verständnis | Was davon ist für Europcar relevant? |
 
-Agenda question 3 (*Was davon ist für Europcar relevant?*) is answered by View 05 (and by deck slides 6–8). The BI view still ends with a short bridge to Europcar.
+Agenda question 3 (*Was davon ist für Europcar relevant?*) is answered by View 05 (deck slide 9). The BI view still ends with a short bridge to Europcar.
 
-All on-screen text is **German** (informal *du*-form script DE-v1.2). This documentation is in English.
+All on-screen text is **German**, aligned with script DE-v1.3 (du-form; *ihr/euch* towards Larissa and Stefan). This documentation is in English.
 
 ### 1.2 Files
 
@@ -187,7 +212,7 @@ All on-screen text is **German** (informal *du*-form script DE-v1.2). This docum
 | `europcar-praesentation/src/build_index.py` | Builds `index.html` from the shell, the five views and the two shared files. |
 | `europcar/index.html` + `europcar/i18n.js` | The separate *Nexio Partner P&L Cockpit* (documented in `europcar/README.md`). View 04 reuses its per-vehicle-day constants. |
 
-Views 01, 03 and 04 also work on their own (open the file directly in a browser). Views 02 and 05 only work after the build. The offline backup PDF (11 pages) is kept in Drive, not in the repo.
+Views 01, 03 and 04 also work on their own (open the file directly in a browser). Views 02 and 05 only work after the build. The offline backup PDF (13 pages) is kept in Drive, not in the repo.
 
 ### 1.3 Technology
 
@@ -216,7 +241,7 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
 | Data sources, checks ("Prüffälle"), KPI example definitions | View 03 | Written as **typical** examples of fleet data work | No: "typical example" |
 | Europcar mirror (data areas, decisions, mappings) and the Analytics Hub tasks | Views 03, 04 and 05 | **Hypothesis** derived from the job description | No: "my understanding / hypothesis" |
 | Thickness of competence blocks | View 01 | **Qualitative** self-assessment | No: illustrative |
-| Bliq team facts (4 direct reports, responsibilities) | View 02 | CV and deck v1.1 | Yes |
+| Bliq team facts (4 direct reports, responsibilities) | View 02 | CV and deck v1.2 | Yes |
 | 1:1 structure, four modes, cadence | View 02 | Jorge's own management practice | Yes, as "how I work" |
 | Team of five specialists at Europcar | Views 02 and 05 | Job description | Yes, as stated in the job ad |
 
@@ -229,7 +254,7 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
 - **Top bar (fixed, 56 px), left to right:**
   - monogram "JA", name, and the line *Head of Fleet Planning & Lifecycle Management · 12.11.2026* (click: welcome page);
   - tabs *Start · 01 Werdegang · 02 People · 03 Datenplattform · 04 BI · 05 Europcar*;
-  - in guided mode only: back arrow, counter `n / 10`, forward arrow;
+  - in guided mode only: back arrow, counter `n / 12`, forward arrow;
   - the mode switch *Geführt | Frei*;
   - a full-screen button for the whole presentation.
   - In guided mode a 3 px indigo progress bar sits under the top bar.
@@ -245,7 +270,7 @@ The page starts in **guided mode** (§0.1).
 
 | Input | Guided mode | Free mode |
 |---|---|---|
-| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of the 10 core steps (from the welcome page: core step 1). After step 10: toast "Ende der Präsentation". | Next step inside the view; on the last step of a view, opens the next view. After View 05: "Ende der Präsentation". |
+| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of the 12 core steps (from the welcome page: core step 1). After step 12: toast "Ende der Präsentation". | Next step inside the view; on the last step of a view, opens the next view. After View 05: "Ende der Präsentation". |
 | `←`, `PageUp` | Previous core step; before step 1: welcome page. | Previous step; on step 1, goes back to the previous view and fast-forwards it to its last step. |
 | Card, tab, `1`–`5` | First core step of that view. | Opens that view where it was left. |
 | `0`, monogram | Welcome page. | Welcome page. |
@@ -257,11 +282,11 @@ How it works:
 - Each view exposes `window.__goto(i)`. The shell calls it to show a given step. If a view is not ready yet, the shell keeps the request and applies it after loading. Views 01 and 03 store it in `window.__initStep` until their fonts are loaded.
 - The shell intercepts keys inside the iframes in the capture phase. In free mode it reads the step counter (`#capN`, "n / N") to know when a view ends.
 - The URL hash (`#0`–`#5`) is updated so a reload returns to the same view. The update is wrapped in `try/catch` because sandboxed previews forbid it.
-- A toast in the bottom centre briefly shows the core step (for example "3 / 10 · People · Erfahrung bei Bliq") or the view name.
+- A toast in the bottom centre briefly shows the core step (for example "3 / 12 · People · Erfahrung bei Bliq") or the view name.
 
 ---
 
-## 4. View 01 — Werdegang (career route, slide 3)
+## 4. View 01 — Werdegang (career route, deck slide 4)
 
 ### 4.1 Story
 
@@ -271,9 +296,9 @@ The view tells *"Von Operations zur datenbasierten Flottensteuerung"*:
 - two trainings: Ironhack Data Analytics and DevOps & Cloud;
 - how each stage added to three competence areas: **Menschen** (people), **Prozesse** (processes) and **Daten** (data).
 
-The three areas together are the *roter Faden*, which is the closing sentence of slide 3.
+The three areas together are the *roter Faden*, which is the closing sentence of deck slide 4.
 
-### 4.2 Steps (match the DE-v1.2 script of slide 3)
+### 4.2 Steps (match script DE-v1.3, slide 4)
 
 | # | Step | Caption | Car drives to | Detail panel shows |
 |---|---|---|---|---|
@@ -372,7 +397,7 @@ Each station panel has the same structure. The header shows the title and the da
 
 ---
 
-## 5. View 03 — Nexio Fleet data flow (slide 4)
+## 5. View 03 — Nexio Fleet data flow (deck slide 7)
 
 This view is Jorge's own edited version (v3). It was kept unchanged except for one shared change: the detail panel now opens downwards (section 7).
 
@@ -380,7 +405,7 @@ This view is Jorge's own edited version (v3). It was kept unchanged except for o
 
 Data from separate systems is integrated, structured and checked, becomes one shared data basis and shared KPIs, and finally supports decisions. Jorge's role (*Mein Beitrag*) is shown as a separate band. A switch at the top right (*Nexio / Europcar*) relabels everything as a **hypothetical** Europcar Analytics Hub.
 
-### 5.2 Steps (match the DE-v1.2 script of slide 4)
+### 5.2 Steps (match script DE-v1.3, slide 7)
 
 | # | Step | What the canvas does |
 |---|---|---|
@@ -477,7 +502,7 @@ The dot counts are purely visual and carry **no data meaning** (the panel says s
 
 ---
 
-## 6. View 04 — Business Intelligence case (slide 5)
+## 6. View 04 — Business Intelligence case (deck slide 8)
 
 ### 6.1 Story
 
@@ -593,7 +618,7 @@ Further base figures:
 
 ### 6.7 Steps and charts
 
-| # | Step | Left panel | Script line (DE-v1.2) |
+| # | Step | Left panel | Script line (DE-v1.3, slide 8) |
 |---|---|---|---|
 | 1 | Die Fragen | Three question cards and the box "Flottenergebnis heute €6,495 / Monat · nur 1,3 % vom Umsatz" | *Ein wichtiger Teil meiner Arbeit ist es, herauszufinden, welche Informationen Flottenbetreiber … brauchen.* |
 | 2 | 01 · TCO je Fahrzeug | Stacked bars for all 48 vehicles (see below) | *Wie hoch sind die Gesamtkosten pro Fahrzeug?* |
@@ -777,7 +802,7 @@ Diagnosis: loses money; 9.6 idle days (€403 of fixed cost without revenue, of 
 2. Test it: Views 01, 03 and 04 open on their own; for Views 02 and 05 (and the shell) rebuild first and open `index.html`.
 3. Rebuild the published page: `python3 europcar-praesentation/src/build_index.py`. Run from the repo, it rewrites `europcar-praesentation/index.html`.
 4. To change the guided route, edit the `GUIDE` array in `src/shell_template.html` (`[view, 0-based step, label]`) and the table in §0.1.
-5. If the guided steps change, regenerate the offline PDF (screenshots of the start page and the 10 core steps at 1440×900) and upload it to Drive as a new version.
+5. If the guided steps change, regenerate the offline PDF (screenshots of the start page and all core steps at 1440×900) and upload it to Drive as a new version.
 6. Commit and push to `main`. GitHub Pages republishes within about a minute.
 
 Rules:
@@ -887,6 +912,7 @@ Base case. Columns:
 | Date | Change |
 |---|---|
 | 09 Nov 2026 | Deck v1.1 and German script DE-v1.2 (du-form) used as content basis. |
+| 11 Nov 2026 | Deck reordered to v1.2 (9 slides, People after Erfahrung, Europcar last); script DE-v1.3. |
 | 11 Nov 2026 | Data-flow view (then "View 02") first built (LANCH funnel style); Jorge edited it into v3 (palette, bottom drawer, icons, auto-pause at "Mein Beitrag", Nexio/Europcar switch). |
 | 11 Nov 2026 | BI view (then "View 03") built (48-vehicle BI case); restyled to the data-flow palette. |
 | 11 Nov 2026 | View 01 rebuilt as route + competence profile; DevOps training added; restyled to the data-flow palette. |
@@ -894,3 +920,4 @@ Base case. Columns:
 | 11 Nov 2026 | This documentation and the `src/` folder added. |
 | 11 Nov 2026 | **v2** after reviewer feedback: new views People Management and Mein Beitrag bei Europcar; guided mode (10 core steps) with Geführt/Frei switch; Konzeptmodell label in Europcar mode; non-deck figures moved to the expanded "Belege"; larger canvas labels; PDF backup. See §0. |
 | 11 Nov 2026 | Documentation v1.3: sections 1–8 updated to the five-view structure, guided mode, new figure policy and build steps. |
+| 11 Nov 2026 | Documentation v1.4: synced with deck v1.2 / DE-v1.3 (§0.8); guided route extended to 12 steps with TCO je Fahrzeug and Flotten-P&L; backup PDF 13 pages. |

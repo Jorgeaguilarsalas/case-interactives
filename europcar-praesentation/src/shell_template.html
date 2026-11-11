@@ -124,7 +124,7 @@ body.guided .gstrip{display:block}
     <button data-v="4"><span class="n">04</span><span class="t">BI</span></button>
     <button data-v="5"><span class="n">05</span><span class="t">Europcar</span></button>
   </nav>
-  <div class="gnav" id="gnav"><button class="tbtn" id="gPrev" aria-label="Vorheriger Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4L6 8l4 4"/></svg></button><span id="gN">– / 10</span><button class="tbtn" id="gNext" aria-label="Nächster Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg></button></div>
+  <div class="gnav" id="gnav"><button class="tbtn" id="gPrev" aria-label="Vorheriger Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4L6 8l4 4"/></svg></button><span id="gN">– / 12</span><button class="tbtn" id="gNext" aria-label="Nächster Kernschritt"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg></button></div>
   <div class="mseg" role="group" aria-label="Modus" title="Modus wechseln (G)"><button id="mG" class="on" aria-pressed="true">Geführt</button><button id="mF" aria-pressed="false">Frei</button></div>
   <button class="tbtn" id="fsb" aria-label="Vollbild" title="Vollbild"></button>
 </header>
@@ -229,7 +229,7 @@ body.guided .gstrip{display:block}
     <div class="startrow">
       <button class="start" id="startBtn">Geführte Präsentation starten <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
       <button class="alt" id="freeBtn">Alle Details frei erkunden</button>
-      <small>Geführt: 10 Kernschritte · Frei: alle Schritte, Details und Simulationen</small>
+      <small>Geführt: 12 Kernschritte · Frei: alle Schritte, Details und Simulationen</small>
     </div>
     <div class="keys"><span><kbd>&rarr;</kbd> / <kbd>&larr;</kbd> weiter / zurück</span><span><kbd>1</kbd>–<kbd>5</kbd> Ansicht · <kbd>0</kbd> Start</span><span><kbd>G</kbd> Geführt / Frei</span><span><kbd>F</kbd> Vollbild der Grafik</span><span><kbd>I</kbd> Details ein/aus</span></div>
   </div>
@@ -247,9 +247,9 @@ var SRC=[null,/*P1*/,/*P2*/,/*P3*/,/*P4*/,/*P5*/];
 (function(){
 var N=5,cur=0,views=[0,1,2,3,4,5].map(function(i){return document.getElementById(i?'v'+i:'welcome')});
 var NAMES=['Start','Werdegang','People Management','Datenplattform','Business Intelligence','Mein Beitrag bei Europcar'];
-/* Guided mode: 10 core steps [view, step index, label] */
+/* Guided mode: 12 core steps [view, step index, label], aligned with deck v1.2 / script DE-v1.3 */
 var GUIDE=[[1,0,'Werdegang · Überblick'],[1,5,'Werdegang · Roter Faden'],[2,0,'People · Erfahrung bei Bliq'],[2,2,'People · Ansatz bei Europcar'],
-  [3,1,'Daten · Die Herausforderung'],[3,5,'Daten · Mein Beitrag'],[4,3,'BI · Standzeit & Auslastung'],[4,4,'BI · Szenarien'],
+  [3,1,'Daten · Die Herausforderung'],[3,5,'Daten · Mein Beitrag'],[4,1,'BI · TCO je Fahrzeug'],[4,2,'BI · Flotten-P&L'],[4,3,'BI · Standzeit & Auslastung'],[4,4,'BI · Szenarien'],
   [5,0,'Europcar · Mein Verständnis'],[5,2,'Europcar · Zusammengefasst']];
 var guided=true,gi=-1,pend={};
 var tabs=[].slice.call(document.querySelectorAll('#tabs button'));
@@ -276,7 +276,7 @@ function setMode(gd){guided=gd;document.body.classList.toggle('guided',gd);
   document.getElementById('mG').classList.toggle('on',gd);document.getElementById('mF').classList.toggle('on',!gd);
   document.getElementById('mG').setAttribute('aria-pressed',gd);document.getElementById('mF').setAttribute('aria-pressed',!gd);
   if(gd){gi=cur===0?-1:firstGuideOf(cur);gUpd()}
-  flash(gd?'Geführter Modus · 10 Kernschritte':'Freier Modus · alle Schritte')}
+  flash(gd?'Geführter Modus · '+GUIDE.length+' Kernschritte':'Freier Modus · alle Schritte')}
 function jump(v){if(guided)gGo(v===0?-1:firstGuideOf(v));else go(v)}
 function state(i){try{var d=frame(i).contentDocument,t=d.getElementById('capN').textContent.split('/');return{s:+t[0],n:+t[1]}}catch(e){return null}}
 function toEnd(i){try{var w=frame(i).contentWindow,st=state(i);if(!st)return;for(var k=st.s;k<st.n;k++)w.document.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}))}catch(e){}}
