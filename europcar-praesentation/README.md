@@ -286,7 +286,7 @@ How it works:
 
 ### 4.1 Story
 
-The view tells *"Von Operations zur datenbasierten Flottensteuerung"*, which is also the heading above the step bar:
+The view tells *"Von Operations zur datenbasierten Flottensteuerung"*:
 
 - four employers (Wolt → Bolt → Bliq → Nexio Fleet), plus a start as courier partner;
 - two trainings: Ironhack Data Analytics and DevOps & Cloud;
@@ -918,4 +918,4 @@ Base case. Columns:
 | 11 Nov 2026 | **v2** after reviewer feedback: new views People Management and Mein Beitrag bei Europcar; guided mode (10 core steps) with Geführt/Frei switch; Konzeptmodell label in Europcar mode; non-deck figures moved to the expanded "Belege"; larger canvas labels; PDF backup. See §0. |
 | 11 Nov 2026 | Documentation v1.3: sections 1–8 updated to the five-view structure, guided mode, new figure policy and build steps. |
 | 11 Nov 2026 | Documentation v1.4: synced with deck v1.2 / DE-v1.3 (§0.8); guided route extended to 12 steps with TCO je Fahrzeug and Flotten-P&L; backup PDF 13 pages. |
-| 12 Nov 2026 | Guided mode and the *Geführt / Frei* switch removed; one top-bar stepper walks all 25 steps and replaces the steppers inside the views. Start page: buttons, mode hint and key legend removed, fits one screen. Step pills restyled as tabs. Werdegang: heading, no *Überblick* step, car stops at each station. People: heading. |
+| 12 Nov 2026 | Guided mode and the *Geführt / Frei* switch removed; one top-bar stepper walks all 25 steps and replaces the steppers inside the views. Start page: buttons, mode hint and key legend removed, fits one screen. Step pills restyled as tabs. Werdegang: no *Überblick* step, car stops at each station. No view headings; all five views start their step tabs at the same height (72 px top padding). |
