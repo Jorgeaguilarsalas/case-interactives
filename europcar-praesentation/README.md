@@ -51,8 +51,8 @@ In **Geführt**, the arrow keys, space bar and the counter arrows move through e
 
 | # | View | Step inside the view (0-based index) | What is said |
 |---|---|---|---|
-| 1 | 01 Werdegang | Überblick (0) | Route Wolt → Bolt → Bliq → Nexio, two trainings |
-| 2 | 01 Werdegang | Roter Faden (5) | Menschen · Prozesse · Daten come together at Nexio |
+| 1 | 01 Werdegang | Wolt (0) | Car starts at the beginning of the route and drives to the end of Wolt |
+| 2 | 01 Werdegang | Roter Faden (4) | Menschen · Prozesse · Daten come together at Nexio |
 | 3 | 02 People | Erfahrung bei Bliq (0) | 4 direct reports, five responsibilities, what I learned |
 | 4 | 02 People | Ansatz bei Europcar (2) | Get to know the five specialists → standards → coaching/cross-training → clear ownership |
 | 5 | 03 Datenplattform | Die Herausforderung (1) | Separate sources, no shared basis |
@@ -290,7 +290,7 @@ How it works:
 
 ### 4.1 Story
 
-The view tells *"Von Operations zur datenbasierten Flottensteuerung"*:
+The view tells *"Von Operations zur datenbasierten Flottensteuerung"*, which is also the heading above the step bar:
 
 - four employers (Wolt → Bolt → Bliq → Nexio Fleet), plus a start as courier partner;
 - two trainings: Ironhack Data Analytics and DevOps & Cloud;
@@ -302,12 +302,11 @@ The three areas together are the *roter Faden*, which is the closing sentence of
 
 | # | Step | Caption | Car drives to | Detail panel shows |
 |---|---|---|---|---|
-| 1 | Überblick | Von Operations zur datenbasierten Flottensteuerung. | Replays the whole route from the start to *heute* | Overview, key numbers "4 Stationen · 2 Weiterbildungen" |
-| 2 | Wolt | Prozesse und Bestände steuern – Beschaffungskosten rund −30 %. | End of Wolt (Feb 2023) | Station 01 |
-| 3 | Bolt | Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage. | End of Bolt (Jun 2024) | Station 02 |
-| 4 | Bliq | Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme. | End of Bliq (Jul 2025) | Station 03 |
-| 5 | Nexio Fleet | Heute: eine zentrale Daten- und Analyseplattform mitentwickeln. | *heute* (Nov 2026) | Station 04 |
-| 6 | Roter Faden | Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen. | stays at *heute* | Three columns Menschen / Prozesse / Daten with the Europcar meaning |
+| 1 | Wolt | Prozesse und Bestände steuern – Beschaffungskosten rund −30 %. | Starts at the beginning of the route, drives to the end of Wolt (Feb 2023) | Station 01 |
+| 2 | Bolt | Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage. | End of Bolt (Jun 2024) | Station 02 |
+| 3 | Bliq | Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme. | End of Bliq (Jul 2025) | Station 03 |
+| 4 | Nexio Fleet | Heute: eine zentrale Daten- und Analyseplattform mitentwickeln. | *heute* (Nov 2026) | Station 04 |
+| 5 | Roter Faden | Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen. | stays at *heute* | Three columns Menschen / Prozesse / Daten with the Europcar meaning |
 
 ### 4.3 Canvas elements (top to bottom)
 

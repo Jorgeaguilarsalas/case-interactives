@@ -17,6 +17,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1160px;margin:0 auto;padding:26px 16px 90px}
+.vt{font-size:clamp(1.3rem,2.2vw,1.75rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0 0 14px}
 .bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
 .bar button{padding:7px 13px;font:inherit;font-size:.79rem;font-weight:600;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .bar button:hover{border-color:var(--quiet)}
@@ -110,6 +111,7 @@ canvas{display:block;min-width:920px;width:100%;height:auto}
 </head>
 <body>
 <div class="wrap">
+<h1 class="vt">Von Operations zur datenbasierten Flottensteuerung.</h1>
 <div class="bar" id="bar"></div>
 <div id="stage">
   <div class="frame">
@@ -191,7 +193,6 @@ var EDU=[
 var SEQ=[KUR,ST[0],EDU[0],ST[1],ST[2],ST[3],EDU[1]];
 
 var STEPS=[
- {t:'Überblick',h:'Von Operations zur datenbasierten Flottensteuerung.'},
  {t:'Wolt',h:'Prozesse und Bestände steuern – Beschaffungskosten rund −30 %.',s:0},
  {t:'Bolt',h:'Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage.',s:1},
  {t:'Bliq',h:'Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme.',s:2},
@@ -225,7 +226,7 @@ function car(x,y){ctx.save();ctx.translate(x,y);
   ctx.restore()}
 
 /* ---------- main draw ---------- */
-function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===5,thr=sel&&sel.type==='thread'?sel.k:null,eduSel=sel&&sel.type==='edu'?sel.i:null;
+function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===4,thr=sel&&sel.type==='thread'?sel.k:null,eduSel=sel&&sel.type==='edu'?sel.i:null;
   /* road */
   ctx.lineCap='round';
   ctx.strokeStyle=C['--road'];ctx.lineWidth=20;ctx.beginPath();ctx.moveTo(X0-16,RY);ctx.lineTo(X1+12,RY);ctx.stroke();
@@ -323,7 +324,7 @@ function showDetail(){var tag,name,meta='',bd,hero=[],as=activeS();
   else if(as!=null){var s=ST[as];
     tag='Station 0'+(as+1);name=s.co+' · '+s.title;meta=s.when+' · '+s.where;hero=s.hero;
     bd='<div class="grid3"><div class="cell"><span class="h">Was ich gemacht habe</span>'+li(s.did)+'</div><div class="cell ev"><span class="h">Belege</span>'+li(s.ev)+'</div><div class="cell ec"><span class="h">Relevanz für Europcar</span>'+s.ec+'</div></div>'}
-  else if(step===5||(sel&&sel.type==='end')){
+  else if(step===4||(sel&&sel.type==='end')){
     tag='Roter Faden';name='Menschen · Prozesse · Daten';meta='Bei Nexio kommen diese Erfahrungen zusammen: von operativen Anforderungen bis zur Entwicklung analytischer Lösungen.';
     bd='<div class="tri">'+['m','p','d'].map(function(k){return'<div class="cell"><b class="t" style="color:var(--'+k+')">'+THREAD[k].n+'</b>'+li(SEQ.filter(function(s){return s.g[k]}).map(function(s){return s.gl[k]}))+'<p style="margin:10px 0 0;font-size:.8rem;color:var(--quiet)"><b style="color:var(--ink)">Europcar:</b> '+THREAD[k].ec+'</p></div>'}).join('')+'</div>'}
   else{tag='Werdegang';name='Wolt → Bolt → Bliq → Nexio Fleet';meta='Von Operations zur datenbasierten Flottensteuerung · Weiterbildung in Data Analytics und DevOps';hero=[['4','Stationen'],['2','Weiterbildungen']];
@@ -355,9 +356,9 @@ function pos(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*W/r.w
 function hitAt(p){var hit=null;HIT.forEach(function(b){if(p[0]>=b.x&&p[0]<=b.x+b.w&&p[1]>=b.y&&p[1]<=b.y+b.h)hit=b});return hit}
 cv.addEventListener('click',function(e){var hit=hitAt(pos(e));
   if(!hit){sel=null;showDetail();return}
-  if(hit.type==='s'){setStep(hit.i+1);return}
-  if(hit.type==='end'){setStep(5);return}
-  if(hit.type==='edu'){if(STEPS[step].s!=null){step=0;target=NOW;caption();build()}sel={type:'edu',i:hit.i};showDetail();return}
+  if(hit.type==='s'){setStep(hit.i);return}
+  if(hit.type==='end'){setStep(4);return}
+  if(hit.type==='edu'){sel={type:'edu',i:hit.i};showDetail();return}
   sel=(sel&&sel.k===hit.k)?null:{type:'thread',k:hit.k};showDetail()});
 cv.addEventListener('mousemove',function(e){cv.style.cursor=hitAt(pos(e))?'pointer':'default'});
 document.getElementById('prev').onclick=function(){setStep(step-1,true)};document.getElementById('next').onclick=function(){setStep(step+1)};
