@@ -81,7 +81,7 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
 @keyframes flow{from{stroke-dashoffset:60}to{stroke-dashoffset:0}}
 .team-dash{animation:team 1s linear infinite}
 @keyframes team{from{stroke-dashoffset:18}to{stroke-dashoffset:0}}
-.bar-g{transform-box:fill-box;transform-origin:bottom;animation:grow 3.6s cubic-bezier(.2,.7,.2,1) infinite}
+.bar-g{transform-box:fill-box;transform-origin:bottom;animation:grow 3.6s cubic-bezier(.2,.7,.2,1) -1.3s infinite}
 @keyframes grow{0%{transform:scaleY(.15)}35%,85%{transform:scaleY(1)}100%{transform:scaleY(.15)}}
 @media (prefers-reduced-motion:reduce){.card,.closing,.route-dot,.flow-dot,.team-dash,.bar-g{animation:none}}
 .hint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(10px);z-index:60;background:var(--ink);color:var(--panel);font-size:.78rem;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -106,6 +106,8 @@ body.guided .gstrip{display:block}
 @media (max-width:1100px){.tabs .t{display:none}}
 @media (max-width:820px){.mseg{display:none}}
 @media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+.card .art *{animation-play-state:paused}
+.card:hover .art *,.card:focus-visible .art *{animation-play-state:running}
 </style>
 </head>
 <body class="guided">
