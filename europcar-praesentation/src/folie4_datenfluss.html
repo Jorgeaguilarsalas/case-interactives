@@ -48,13 +48,12 @@ body{margin:0;background:var(--bg);color:var(--ink);
   color:var(--quiet);margin-bottom:9px}
 h1{font-size:1.45rem;font-weight:700;margin:0 0 6px;letter-spacing:-.015em}
 .sub{color:var(--quiet);font-size:.9rem;margin:0 0 16px;max-width:72ch}
-.bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
-.bar button{padding:7px 13px;font:inherit;font-size:.79rem;font-weight:600;background:transparent;
-  color:var(--ink);border:1px solid var(--line);border-radius:999px;cursor:pointer}
-.bar button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:-1px;padding:0 14px;align-items:flex-end;position:relative;z-index:1}
+.bar button{padding:8px 16px;font:inherit;font-size:.79rem;font-weight:600;background:#f3f1ec;color:var(--quiet);border:1px solid var(--line);border-radius:10px 10px 0 0;cursor:pointer;transition:background .2s,color .2s}
+.bar button:hover{color:var(--ink);background:#ece9e3}
+.bar button.on{background:var(--panel);color:var(--ink);border-bottom-color:var(--panel);padding-top:10px}
 .bar button .no{font-family:"JetBrains Mono",monospace;font-size:.72rem;opacity:.6;margin-right:5px}
 .bar .sp{flex:1}
-.bar button.ec.on{background:var(--ec);border-color:var(--ec);color:var(--panel)}
 #stage{background:var(--bg)}
 .caption{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;
   border:1px solid var(--line);border-bottom:none;border-radius:14px 14px 0 0;background:var(--panel);
