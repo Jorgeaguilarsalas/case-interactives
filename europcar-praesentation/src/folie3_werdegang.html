@@ -199,10 +199,10 @@ var STEPS=[
  {t:'Nexio Fleet',h:'Heute: eine zentrale Daten- und Analyseplattform mitentwickeln.',s:3},
  {t:'Roter Faden',h:'Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen.'}
 ];
-var step=0,sel=null,HIT=[],pulse=0,carT=T0+.02,target=NOW,wheel=0,moving=false;
+var step=0,sel=null,HIT=[],pulse=0,carT=T0+.02,target=NOW,profT=T0+.02,ptarget=NOW,wheel=0,moving=false;
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function prog(s){return Math.max(0,Math.min(1,(carT-s.t0)/(s.t1-s.t0)))}
-function update(dt){var d=target-carT;moving=Math.abs(d)>.002;if(!moving){carT=target}else{var v=Math.sign(d)*Math.max(.4,Math.abs(d)*1.5)*dt;if(Math.abs(v)>Math.abs(d))v=d;carT+=v;wheel+=v*44}pulse+=dt}
+function prog(s){return Math.max(0,Math.min(1,(profT-s.t0)/(s.t1-s.t0)))}
+function update(dt){var d=target-carT;moving=Math.abs(d)>.002;if(!moving){carT=target}else{var v=Math.sign(d)*Math.max(.4,Math.abs(d)*1.5)*dt;if(Math.abs(v)>Math.abs(d))v=d;carT+=v;wheel+=v*44}var pd=ptarget-profT;if(Math.abs(pd)<=.002)profT=ptarget;else{var pv=Math.sign(pd)*Math.max(.4,Math.abs(pd)*1.5)*dt;if(Math.abs(pv)>Math.abs(pd))pv=pd;profT+=pv}pulse+=dt}
 
 /* ---------- drawing helpers ---------- */
 function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
@@ -345,7 +345,7 @@ function caption(){document.getElementById('capT').textContent='Schritt '+(step+
   document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length}
 window.__goto=function(i){if(typeof started!=="undefined"&&!started){window.__initStep=i;return}setStep(i)};
 function setStep(i,keep){step=Math.max(0,Math.min(STEPS.length-1,i));sel=null;
-  var s=STEPS[step].s;target=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=T0+.02;if(reduce)carT=target;
+  var s=STEPS[step].s;target=s==null||s===ST.length-1?NOW:ST[s].t0+.15;ptarget=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=profT=T0+.02;if(reduce){carT=target;profT=ptarget}
   caption();build();showDetail()}
 function fs(){var st=document.getElementById('stage');if(!document.fullscreenElement&&st.requestFullscreen)st.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()}
 var IC={full:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>',

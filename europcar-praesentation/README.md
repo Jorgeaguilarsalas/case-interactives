@@ -51,7 +51,7 @@ In **Geführt**, the arrow keys, space bar and the counter arrows move through e
 
 | # | View | Step inside the view (0-based index) | What is said |
 |---|---|---|---|
-| 1 | 01 Werdegang | Wolt (0) | Car starts at the beginning of the route and drives to the end of Wolt |
+| 1 | 01 Werdegang | Wolt (0) | Car starts at the beginning of the route and stops at the Wolt station |
 | 2 | 01 Werdegang | Roter Faden (4) | Menschen · Prozesse · Daten come together at Nexio |
 | 3 | 02 People | Erfahrung bei Bliq (0) | 4 direct reports, five responsibilities, what I learned |
 | 4 | 02 People | Ansatz bei Europcar (2) | Get to know the five specialists → standards → coaching/cross-training → clear ownership |
@@ -302,11 +302,13 @@ The three areas together are the *roter Faden*, which is the closing sentence of
 
 | # | Step | Caption | Car drives to | Detail panel shows |
 |---|---|---|---|---|
-| 1 | Wolt | Prozesse und Bestände steuern – Beschaffungskosten rund −30 %. | Starts at the beginning of the route, drives to the end of Wolt (Feb 2023) | Station 01 |
-| 2 | Bolt | Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage. | End of Bolt (Jun 2024) | Station 02 |
-| 3 | Bliq | Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme. | End of Bliq (Jul 2025) | Station 03 |
+| 1 | Wolt | Prozesse und Bestände steuern – Beschaffungskosten rund −30 %. | Starts at the beginning of the route, stops just after the Wolt station (2021) | Station 01 |
+| 2 | Bolt | Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage. | Just after the Bolt station (2023) | Station 02 |
+| 3 | Bliq | Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme. | Just after the Bliq station (2024) | Station 03 |
 | 4 | Nexio Fleet | Heute: eine zentrale Daten- und Analyseplattform mitentwickeln. | *heute* (Nov 2026) | Station 04 |
 | 5 | Roter Faden | Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen. | stays at *heute* | Three columns Menschen / Prozesse / Daten with the Europcar meaning |
+
+The competence profile still grows to the end of the active station, independent of where the car stops.
 
 ### 4.3 Canvas elements (top to bottom)
 
