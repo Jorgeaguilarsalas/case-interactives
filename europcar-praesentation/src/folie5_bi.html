@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Folie 5 · BI Fallbeispiel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf8;--panel:#ffffff;--ink:#1a1a1a;--quiet:#6b6b6b;--line:#e3e0da;
+  --flow:#13804f;--leak:#b8650f;--gate:#3f46b0;--gate-bg:#eef0fb;--dim:#b9b5ad;
+  --fix:#5d7899;--var:#c4bfb5;--rep:#7f7aa8;--rev:#13804f;--ec:#1d4e89;--ec-bg:#e8eff7;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.55}
+.wrap{max-width:1160px;margin:0 auto;padding:26px 16px 90px}
+.mono{font-family:"JetBrains Mono",monospace}
+.tag{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;padding:3px 8px;border-radius:5px;border:1px solid var(--line);
+  color:var(--quiet);margin-bottom:9px}
+.bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
+.bar button{padding:7px 13px;font:inherit;font-size:.79rem;font-weight:600;background:transparent;
+  color:var(--ink);border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.bar button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar button .no{font-family:"JetBrains Mono",monospace;font-size:.72rem;opacity:.6;margin-right:5px}
+#stage{background:var(--bg)}
+.caption{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;
+  border:1px solid var(--line);border-radius:14px 14px 0 0;background:var(--panel);padding:14px 18px 12px}
+.caption .ct{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--quiet)}
+.caption .ch{font-size:1.12rem;font-weight:700;margin:2px 0 0;letter-spacing:-.01em}
+.caption .nav{display:flex;gap:6px;align-items:center;flex:none}
+.caption .nav button{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  color:var(--ink);font:inherit;font-size:1rem;cursor:pointer}
+.caption .nav span{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--quiet);min-width:38px;text-align:center}
+.board{display:grid;grid-template-columns:minmax(0,1fr) 330px;border:1px solid var(--line);border-top:none;
+  border-radius:0 0 14px 14px;background:var(--panel)}
+@media (max-width:900px){.board{grid-template-columns:1fr}}
+.left{padding:16px 18px 18px;min-height:470px;border-right:1px solid var(--line)}
+@media (max-width:900px){.left{border-right:none;border-bottom:1px solid var(--line)}}
+.right{padding:16px 16px 18px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kpi .k{font-size:.62rem;color:var(--quiet);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.kpi .v{font-family:"JetBrains Mono",monospace;font-size:1.08rem;font-weight:700;margin-top:2px;white-space:nowrap}
+.kpi .s{font-size:.66rem;color:var(--quiet);margin-top:1px;min-height:1em}
+.pos{color:var(--flow)}.neg{color:var(--leak)}
+.gridhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.gridhead b{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--quiet)}
+.gridhead span{font-size:.7rem;color:var(--quiet)}
+.fleet{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.veh{aspect-ratio:1.25;border-radius:6px;border:1px solid var(--line);cursor:pointer;position:relative;
+  transition:background-color .6s ease,border-color .3s,transform .2s;background:var(--bg);
+  font-family:"JetBrains Mono",monospace;font-size:.55rem;color:var(--quiet);display:flex;align-items:flex-end;justify-content:flex-start;padding:2px 4px}
+.veh:hover{transform:scale(1.08)}
+.veh.sel{outline:2px solid var(--ink);outline-offset:1px}
+.veh.lt{color:rgba(255,255,255,.85)}
+.legend{display:flex;justify-content:space-between;font-size:.68rem;color:var(--quiet);margin-top:8px;gap:8px;align-items:center}
+.ramp{flex:1;height:7px;border-radius:4px}
+h4{margin:0 0 4px;font-size:1rem}
+.lead{font-size:.86rem;color:var(--quiet);margin:0 0 12px;max-width:70ch}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:Inter,sans-serif}
+.grow{transform-box:fill-box;transform-origin:bottom;animation:grow .7s cubic-bezier(.2,.7,.2,1) both}
+.growx{transform-box:fill-box;transform-origin:left;animation:growx .7s cubic-bezier(.2,.7,.2,1) both}
+.pop{transform-box:fill-box;transform-origin:center;animation:pop .5s ease both}
+.fade{animation:fade .6s ease both}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.grow,.growx,.pop,.fade{animation:none}}
+.qs{display:grid;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));margin:6px 0 16px}
+@media (max-width:700px){.qs{grid-template-columns:1fr}}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
+.q .n{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--quiet)}
+.q b{display:block;font-size:.95rem;margin:4px 0 6px;line-height:1.35}
+.q span{font-size:.78rem;color:var(--quiet)}
+.case{border-left:3px solid var(--ink);padding:10px 14px;background:var(--bg);border-radius:0 10px 10px 0;font-size:.86rem}
+.case .big{font-family:"JetBrains Mono",monospace;font-size:1.5rem;font-weight:700;display:block;margin:2px 0}
+.ctrl{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-bottom:12px}
+@media (max-width:700px){.ctrl{grid-template-columns:1fr}}
+.ctrl .c label{display:flex;justify-content:space-between;font-size:.8rem;font-weight:600;gap:8px}
+.ctrl .c label span{font-family:"JetBrains Mono",monospace;color:var(--flow)}
+.ctrl .c small{display:block;font-size:.7rem;color:var(--quiet);line-height:1.35}
+input[type=range]{width:100%;accent-color:var(--flow);height:20px;margin:2px 0 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:4px}
+.seg button{font:inherit;font-size:.72rem;font-weight:600;padding:4px 10px;border:none;background:transparent;color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.presets button{font:inherit;font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px dashed var(--quiet);background:transparent;color:var(--ink);cursor:pointer}
+.presets button:hover{border-style:solid}
+.flowrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:4px 0 12px}
+@media (max-width:760px){.flowrow{grid-template-columns:1fr 1fr}}
+.st{border:1px solid var(--gate);border-radius:12px;padding:12px;background:var(--gate-bg);position:relative}
+.st .who{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gate)}
+.st b{display:block;font-size:.9rem;margin:3px 0 6px}
+.st ul{margin:0;padding-left:16px;font-size:.78rem}
+.st li{margin-bottom:3px}
+.st.op{border-color:var(--line);background:var(--bg)}
+.st.op .who{color:var(--quiet)}
+table.tr{width:100%;border-collapse:collapse;font-size:.82rem}
+table.tr th,table.tr td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.tr th{font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--quiet)}
+.pill{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:999px;white-space:nowrap;color:var(--panel)}
+.p-d{background:var(--flow)}.p-a{background:var(--ec)}.p-n{background:var(--dim);color:var(--ink)}
+.cols{display:grid;gap:16px;grid-template-columns:minmax(0,1fr) minmax(0,420px);margin-top:16px;align-items:start}
+@media (max-width:940px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin:0 0 5px;font-size:1.05rem}
+.pl{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:8px}
+.pl td{padding:5px 4px;border-bottom:1px solid var(--line)}
+.pl td.v{text-align:right;font-family:"JetBrains Mono",monospace;font-weight:600;white-space:nowrap}
+.pl tr.sub td{font-weight:700;background:var(--bg)}
+.diag{margin-top:12px;padding:10px 12px;border-radius:10px;border-left:3px solid var(--leak);background:var(--bg);font-size:.84rem}
+.diag.ok{border-left-color:var(--flow)}
+.diag b{display:block;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+ol.cues{margin:0;padding:0;list-style:none;counter-reset:c}
+ol.cues li{counter-increment:c;padding:8px 10px 8px 38px;position:relative;border-radius:9px;cursor:pointer;font-size:.84rem;border:1px solid transparent}
+ol.cues li::before{content:counter(c,decimal-leading-zero);position:absolute;left:10px;top:9px;font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--quiet)}
+ol.cues li b{display:block;font-size:.8rem}
+ol.cues li span{color:var(--quiet)}
+ol.cues li:hover{background:var(--bg)}
+ol.cues li.on{border-color:var(--ink);background:var(--bg)}
+ol.cues li.on span{color:var(--ink)}
+.note{font-size:.8rem;color:var(--quiet);margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(--line);border-radius:4px;padding:0 4px}
+#stage:fullscreen{padding:20px 26px;overflow:auto}
+.chip{display:inline-block;font-size:.68rem;font-weight:600;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--quiet);margin-left:4px}
+/* ---- gemeinsame Bedienelemente (wie Folie 4) ---- */
+.caption .nav button{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:1rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.caption .nav button:hover{border-color:var(--ink)}
+.caption .nav button svg{width:15px;height:15px;display:block}
+.caption .nav .sep{width:1px;height:20px;background:var(--line);margin:0 6px;min-width:0}
+.caption .nav span#capN{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--quiet);min-width:38px;text-align:center}
+.drawer{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(1128px,calc(100vw - 32px));z-index:20;
+  background:var(--panel);border:1px solid var(--line);border-bottom:none;border-radius:14px 14px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.10)}
+.dh{width:100%;display:flex;align-items:center;gap:12px;padding:10px 18px;background:transparent;border:0;color:var(--ink);font:inherit;cursor:pointer;text-align:left;border-radius:14px 14px 0 0}
+.dh:hover .dchev{border-color:var(--ink)}
+.dh .dt{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--quiet);border:1px solid var(--line);border-radius:5px;padding:2px 7px;white-space:nowrap}
+.dh .dn{font-size:.86rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dh .dhero{display:flex;gap:16px;margin-left:auto;white-space:nowrap}
+.dh .dhero span{font-size:.7rem;color:var(--quiet)}
+.dh .dhero b{font-family:"JetBrains Mono",monospace;font-size:.86rem;color:var(--flow);margin-right:5px}
+.dh .dhint{font-size:.74rem;color:var(--quiet);white-space:nowrap}
+.dh .dhero:empty+.dhint{margin-left:auto}
+.dh .dchev{flex:none;width:28px;height:28px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center}
+.dh .dchev svg{width:14px;height:14px;transition:transform .2s}
+.drawer.open .dchev svg{transform:rotate(180deg)}
+#detail{display:none;padding:2px 18px 18px;max-height:46vh;overflow-y:auto;border-top:1px solid var(--line)}
+.drawer.open #detail{display:block;padding-top:14px}
+@media (max-width:760px){.dh .dhint,.dh .dhero{display:none}}
+.key{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 16px;font-size:.75rem;color:var(--quiet)}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.key .sw{width:11px;height:11px;border-radius:3px;flex:none;display:inline-block}
+.key.note2{margin:12px 0 0;line-height:1.5;display:block}.key.note2 span{display:inline}
+/* Detailbereich öffnet nach unten (im Seitenfluss statt fixiert) */
+.drawer{position:static;left:auto;bottom:auto;transform:none;width:auto;margin:14px 0 0;border:1px solid var(--line);border-radius:14px;box-shadow:none;z-index:auto}
+.dh{border-radius:14px}
+.drawer.open .dh{border-radius:14px 14px 0 0}
+#detail{max-height:none;overflow:visible}
+.dh .dchev svg{transform:rotate(180deg)}
+.drawer.open .dchev svg{transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar" id="bar"></div>
+
+<div id="stage">
+  <div class="caption">
+    <div><div class="ct" id="capT"></div><div class="ch" id="capH"></div></div>
+    <div class="nav"><button id="prev" aria-label="Zurück">&larr;</button><span id="capN"></span><button id="next" aria-label="Weiter">&rarr;</button><i class="sep" aria-hidden="true"></i><button id="fsb" aria-label="Vollbild" title="Vollbild (F)"></button></div>
+  </div>
+  <div class="board">
+    <div class="left" id="left"></div>
+    <div class="right">
+      <div class="kpis" id="kpis"></div>
+      <div class="gridhead"><b>48 Fahrzeuge</b><span id="gridmode"></span></div>
+      <div class="fleet" id="fleet"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+  <p class="key note2"><span><b style="color:var(--ink)">Illustratives Modell, keine Kundendaten.</b> Fiktive Flotte mit 48 Fahrzeugen; Werte je Fahrzeug-Tag aus dem illustrativen Nexio Partner P&amp;L Cockpit, Streuung simuliert. Beschlossen ist nur der Mindestlohn: 13,90 € (2026), 14,60 € ab 01.01.2027.</span></p>
+  <div class="drawer" id="drawer">
+    <button class="dh" id="dh" aria-expanded="false" aria-controls="detail"><span class="dt" id="dTag">Fahrzeug-P&amp;L</span><span class="dn" id="dName"></span><span class="dhero" id="dHero"></span><span class="dhint" id="dHint">Details einblenden</span><span class="dchev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg></span></button>
+    <div id="detail" aria-live="polite"></div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+/* ================= model ================= */
+var MD=30.4,G0=393.1,DRV0=221.8,VAR=30,FIX=42,FIXNEW=48;
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var R=rng(42),V=[];
+for(var i=0;i<48;i++){var age=Math.round(3+R()*42),km=Math.round(age*6150*(0.85+R()*0.3));
+  var ws=km>180000?1+R()*3:R()*1.2,gap=R()<0.3?2+R()*5:R()*1.5;
+  var idle=Math.min(12,ws+gap+0.8),d=+(MD-idle).toFixed(1);
+  var G=393.1*(0.97+R()*0.09),dmg=R()<.15?150+R()*450:0,rep=Math.max(0,(km-150000))*0.0028+dmg;
+  V.push({i:i,id:'F-'+String(i+1).padStart(2,'0'),age:age,km:km,d:d,ws:+ws.toFixed(1),gap:+gap.toFixed(1),G:G,rep:Math.round(rep),dmg:Math.round(dmg)})}
+var BASE={mw:13.9,c:22.5,up:0,plus:0,repl:0};
+var P=JSON.parse(JSON.stringify(BASE));
+function beDays(p){var g=G0*(1+(p.up||0)/100);return FIX*MD/(g*(1-p.c/100)-DRV0*p.mw/13.9-VAR)}
+var BE0=beDays(BASE);
+function calc(v,p){var d=v.d,fixD=FIX,rep=v.rep,newv=false;
+  if(p.plus&&v.d<BE0)d=Math.min(29.5,v.d+p.plus);
+  if(p.repl&&v.km>p.repl){fixD=FIXNEW;rep=0;newv=true}
+  var g=v.G*(1+(p.up||0)/100),rev=g*d,comm=rev*p.c/100,drv=DRV0*(p.mw/13.9)*d,vr=VAR*d,db=rev-comm-drv-vr,
+      fixA=fixD*d,fixI=fixD*(MD-d),fix=fixA+fixI,res=db-fix-rep;
+  return{d:d,idle:MD-d,rev:rev,comm:comm,drv:drv,vr:vr,db:db,fixA:fixA,fixI:fixI,fix:fix,rep:rep,res:res,
+    veh:fix+vr+rep,perDay:(fix+vr+rep)/d,newv:newv}}
+function fleet(p){var t={rev:0,comm:0,drv:0,vr:0,db:0,fix:0,fixI:0,rep:0,res:0,neg:0,d:0,veh:0};
+  V.forEach(function(v){var r=calc(v,p);for(var k in t)if(k!=='neg'&&k!=='d')t[k]+=r[k];t.d+=r.d;if(r.res<0)t.neg++});t.d/=V.length;return t}
+var F0=fleet(BASE);
+
+/* ================= helpers ================= */
+function eur(v,d){d=d||0;var s=Math.abs(v).toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});return(v<0?'−':'')+s+' €'}
+function eurS(v){return(v>0?'+':'')+eur(v)}
+function num(v,d){return v.toLocaleString('de-DE',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+function css(k){return getComputedStyle(document.documentElement).getPropertyValue(k).trim()}
+function hex2(h){h=h.replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');var n=parseInt(h,16);return[n>>16&255,n>>8&255,n&255]}
+function mix(a,b,t){var A=hex2(a),B=hex2(b);return'rgb('+A.map(function(x,i){return Math.round(x+(B[i]-x)*t)}).join(',')+')'}
+function lum(c){var m=c.match(/\d+/g);if(!m)return 1;return(.299*m[0]+.587*m[1]+.114*m[2])/255}
+
+/* ================= steps ================= */
+var STEPS=[
+ {t:'Die Fragen',h:'Welche Informationen brauchen Flottenbetreiber für bessere wirtschaftliche Entscheidungen?',
+  cue:'Ein wichtiger Teil meiner Arbeit ist es, herauszufinden, welche Informationen Flottenbetreiber für bessere wirtschaftliche Entscheidungen brauchen.'},
+ {t:'01 · TCO je Fahrzeug',h:'Wie hoch sind die Gesamtkosten pro Fahrzeug, und was treibt sie?',
+  cue:'Zum Beispiel: Wie hoch sind die Gesamtkosten pro Fahrzeug?'},
+ {t:'02 · Flotten-P&L',h:'Welche Kosten beeinflussen die Profitabilität?',
+  cue:'Welche Kosten beeinflussen die Profitabilität?'},
+ {t:'Standzeit & Auslastung',h:'Welche Rolle spielen Wartung, Standzeiten und Auslastung?',
+  cue:'Und welche Rolle spielen Wartung, Standzeiten und Auslastung?'},
+ {t:'03 · Szenarien',h:'Kennzahlen, TCO- und P&L-Analysen sowie Szenarien je nach Kundenbedarf.',
+  cue:'Je nach Kundenbedarf entwickeln wir passende Kennzahlen, Analysen für TCO und P&L sowie individuelle Funktionen und Szenarien.'},
+ {t:'Mein Beitrag',h:'Fragestellungen klären, Datenbedarf definieren, Analysen priorisieren.',
+  cue:'Mein Beitrag ist es, mit den Flottenbetreibern die Fragestellungen zu klären, den Datenbedarf zu definieren und gemeinsam mit den BI-Spezialisten die Analysen zu priorisieren.'},
+ {t:'Brücke zu Europcar',h:'Genau hier sehe ich die Verbindung zu Fleet Planning und Lifecycle Management.',
+  cue:'Genau hier sehe ich eine wichtige Verbindung zu Fleet Planning und Lifecycle Management bei Europcar.'}
+];
+var step=0,sel=null;
+
+/* ================= right panel ================= */
+var fleetEl=document.getElementById('fleet');
+V.forEach(function(v){var d=document.createElement('div');d.className='veh';d.textContent=v.i+1;d.title=v.id;
+  d.onclick=function(){selectV(sel===v.i?null:v.i)};fleetEl.appendChild(d)});
+function colorFleet(){var cells=fleetEl.children,mode=step===0?'none':step===1?'cost':'res',p=step===4?P:BASE;
+  var bg=css('--bg'),pos=css('--flow'),neg=css('--leak'),pn=css('--panel'),fix=css('--leak');
+  var per=V.map(function(v){return calc(v,BASE).perDay}),mn=Math.min.apply(0,per),mx=Math.max.apply(0,per);
+  V.forEach(function(v,i){var c=cells[i],r=calc(v,p),col;
+    if(mode==='none')col=bg;
+    else if(mode==='cost'){var t=(r.perDay-mn)/(mx-mn);col=mix(pn,fix,.12+.88*t)}
+    else{var t2=Math.max(-1,Math.min(1,r.res/600));col=t2>=0?mix(pn,pos,.2+.8*t2):mix(pn,neg,.2+.8*-t2)}
+    c.style.backgroundColor=col;c.style.color=mode==='none'?'':(lum(col)<.55?'rgba(255,255,255,.85)':'rgba(0,0,0,.55)');c.classList.toggle('sel',sel===i);
+    c.title=v.id+' · '+num(v.km)+' km · '+num(r.d,1)+' Einsatztage · Ergebnis '+eur(r.res)+'/Monat'});
+  var lg=document.getElementById('legend'),gm=document.getElementById('gridmode');
+  if(mode==='none'){gm.textContent='Farbe folgt im nächsten Schritt';lg.innerHTML='<span>Ein Feld = ein Fahrzeug. Klick öffnet seine P&amp;L.</span>'}
+  else if(mode==='cost'){gm.textContent='Fahrzeugkosten je Einsatztag';lg.innerHTML='<span>'+eur(mn)+'</span><span class="ramp" style="background:linear-gradient(90deg,'+mix(pn,fix,.12)+','+fix+')"></span><span>'+eur(mx)+'</span>'}
+  else{gm.textContent='Ergebnis je Fahrzeug und Monat'+(step===4?' · Szenario':'');
+    lg.innerHTML='<span>−600 €</span><span class="ramp" style="background:linear-gradient(90deg,'+neg+','+pn+','+pos+')"></span><span>+600 €</span>'}}
+var shown={};
+function tween(el,to,fmt){var from=shown[el.id]==null?to:shown[el.id];shown[el.id]=to;var t0=performance.now();
+  (function f(t){var k=Math.min(1,(t-t0)/600),e=1-Math.pow(1-k,3);el.textContent=fmt(from+(to-from)*e);if(k<1)requestAnimationFrame(f)})(t0)}
+function kpis(){var p=step===4?P:BASE,f=fleet(p),be=beDays(p),scen=step===4;
+  var el=document.getElementById('kpis');
+  if(!el.children.length)el.innerHTML='<div class="kpi"><div class="k">Flottenergebnis / Monat</div><div class="v" id="k1"></div><div class="s" id="s1"></div></div>'+
+   '<div class="kpi"><div class="k">Fahrzeuge im Minus</div><div class="v" id="k2"></div><div class="s" id="s2"></div></div>'+
+   '<div class="kpi"><div class="k">Ø Einsatztage / Monat</div><div class="v" id="k3"></div><div class="s" id="s3"></div></div>'+
+   '<div class="kpi"><div class="k">Break-even Einsatztage</div><div class="v" id="k4"></div><div class="s" id="s4"></div></div>';
+  var k1=document.getElementById('k1');k1.className='v '+(f.res<0?'neg':'pos');tween(k1,f.res,function(x){return eur(x)});
+  document.getElementById('s1').innerHTML=scen?'<span class="'+(f.res-F0.res<0?'neg':'pos')+'">'+eurS(f.res-F0.res)+' ggü. Basis</span>':'Marge '+num(f.res/f.rev*100,1)+' % vom Umsatz';
+  tween(document.getElementById('k2'),f.neg,function(x){return Math.round(x)+' von 48'});
+  document.getElementById('s2').innerHTML=scen?(f.neg-F0.neg===0?'unverändert':((f.neg-F0.neg>0?'+':'')+(f.neg-F0.neg)+' ggü. Basis')):'trotz positiver Flotte';
+  tween(document.getElementById('k3'),f.d,function(x){return num(x,1)});
+  document.getElementById('s3').textContent='von '+num(MD,1)+' Kalendertagen';
+  tween(document.getElementById('k4'),be,function(x){return isFinite(x)&&x>0?num(x,1):'—'});
+  document.getElementById('s4').textContent=be>MD?'nicht erreichbar':'bei Ø Umsatz je Einsatztag'}
+
+/* ================= charts ================= */
+var W=680;
+function svgOpen(h){return'<svg viewBox="0 0 '+W+' '+h+'" role="img">'}
+function chartTCO(){var H=330,L=46,B=280,T=24,rows=V.map(function(v){return{v:v,r:calc(v,BASE)}}).sort(function(a,b){return b.r.perDay-a.r.perDay});
+  var mx=Math.max.apply(0,rows.map(function(x){return x.r.veh}))*1.08,bw=(W-L-8)/48,y=function(x){return B-(x/mx)*(B-T)};
+  var s=svgOpen(H);
+  [0,1000,2000,3000].forEach(function(g){if(g>mx)return;s+='<line x1="'+L+'" x2="'+W+'" y1="'+y(g)+'" y2="'+y(g)+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(y(g)+4)+'" font-size="10" text-anchor="end" fill="var(--quiet)">'+num(g)+'</text>'});
+  rows.forEach(function(x,i){var r=x.r,X=L+i*bw+1,acc=0,parts=[[r.fixA,'var(--fix)'],[r.fixI,'var(--leak)'],[r.vr,'var(--var)'],[r.rep,'var(--rep)']];
+    s+='<g class="grow" style="animation-delay:'+(i*12)+'ms;cursor:pointer" data-v="'+x.v.i+'">';
+    parts.forEach(function(p){if(p[0]<=0)return;var h=(p[0]/mx)*(B-T);s+='<rect x="'+X+'" y="'+(y(acc)-h)+'" width="'+(bw-2)+'" height="'+h+'" fill="'+p[1]+'"/>';acc+=p[0]});
+    s+='<rect x="'+X+'" y="'+T+'" width="'+(bw-2)+'" height="'+(B-T)+'" fill="transparent"/></g>'});
+  s+='<text x="'+L+'" y="'+(B+16)+'" font-size="10" fill="var(--quiet)">teuerste je Einsatztag</text><text x="'+W+'" y="'+(B+16)+'" font-size="10" text-anchor="end" fill="var(--quiet)">günstigste je Einsatztag</text>';
+  var lg=[['Fixkosten an Einsatztagen','var(--fix)'],['Fixkosten an Standtagen','var(--leak)'],['Variable Kosten','var(--var)'],['Reparaturen & Schäden','var(--rep)']],lx=L;
+  lg.forEach(function(l){s+='<rect x="'+lx+'" y="'+(B+30)+'" width="10" height="10" rx="2" fill="'+l[1]+'"/><text x="'+(lx+14)+'" y="'+(B+39)+'" font-size="10.5" fill="var(--ink)">'+l[0]+'</text>';lx+=l[0].length*6+34});
+  s+='<text x="'+L+'" y="12" font-size="10" font-weight="700" fill="var(--quiet)">FAHRZEUGKOSTEN JE FAHRZEUG UND MONAT (€) · sortiert nach Kosten je Einsatztag</text>';
+  return s+'</svg>'}
+function chartWaterfall(vi){var H=340,L=10,T=48,B=272,f=vi==null?fleet(BASE):calc(V[vi],BASE),
+  items=[['Umsatz brutto',f.rev,'t'],['Provision',-f.comm],['Fahrer',-f.drv],['Variable Kosten',-f.vr],['Deckungsbeitrag',f.db,'t'],['Fixkosten',-f.fix],['Reparaturen & Schäden',-f.rep],['Ergebnis',f.res,'t']];
+  var mx=f.rev,mn=Math.min(0,f.res),y=function(x){return T+(mx-x)/(mx-mn)*(B-T)},bw=(W-L*2)/items.length,acc=0,s=svgOpen(H);
+  s+='<line x1="0" x2="'+W+'" y1="'+y(0)+'" y2="'+y(0)+'" stroke="var(--line)"/>';
+  items.forEach(function(it,i){var X=L+i*bw+8,w=bw-16,top,bot,col;
+    if(it[2]){top=Math.max(it[1],0);bot=Math.min(it[1],0);acc=it[1];col=it[0]==='Ergebnis'?(it[1]<0?'var(--leak)':'var(--flow)'):(i===0?'var(--rev)':'var(--ink)')}
+    else{top=acc;bot=acc+it[1];acc=bot;col=it[0]==='Fixkosten'?'var(--fix)':it[0]==='Reparaturen & Schäden'?'var(--rep)':'var(--var)'}
+    var y1=y(Math.max(top,bot)),y2=y(Math.min(top,bot)),h=Math.max(1.5,y2-y1);
+    s+='<rect class="grow" style="animation-delay:'+(i*90)+'ms" x="'+X+'" y="'+y1+'" width="'+w+'" height="'+h+'" rx="3" fill="'+col+'" opacity="'+(it[2]&&i===0?.85:1)+'"/>';
+    s+='<text class="fade" style="animation-delay:'+(i*90+300)+'ms" x="'+(X+w/2)+'" y="'+(y1-6)+'" font-size="10.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" fill="var(--ink)">'+(it[2]?eur(it[1]):eur(it[1]))+'</text>';
+    var lab=it[0].split(' ');s+='<text x="'+(X+w/2)+'" y="'+(B+18)+'" font-size="10.5" text-anchor="middle" fill="var(--quiet)">'+(lab.length>2?lab.slice(0,2).join(' '):lab[0])+'</text>';
+    if(lab.length>1)s+='<text x="'+(X+w/2)+'" y="'+(B+31)+'" font-size="10.5" text-anchor="middle" fill="var(--quiet)">'+(lab.length>2?lab.slice(2).join(' '):lab.slice(1).join(' '))+'</text>'});
+  s+='<text x="'+L+'" y="14" font-size="10" font-weight="700" fill="var(--quiet)">'+(vi==null?'FLOTTEN-P&amp;L · 48 FAHRZEUGE · PRO MONAT':'P&amp;L '+V[vi].id+' · PRO MONAT')+'</text>';
+  var pct=f.res/f.rev*100;
+  s+='<text x="'+W+'" y="14" font-size="10.5" text-anchor="end" fill="var(--quiet)">Ergebnis = '+num(pct,1)+' % vom Umsatz</text>';
+  return s+'</svg>'}
+function chartScatter(){var H=340,L=52,R=14,T=26,B=290,x0=17,x1=30,ys=V.map(function(v){return calc(v,BASE).res}),
+  y0=Math.min.apply(0,ys)-120,y1=Math.max.apply(0,ys)+150,X=function(d){return L+(d-x0)/(x1-x0)*(W-L-R)},Y=function(r){return T+(y1-r)/(y1-y0)*(B-T)},s=svgOpen(H);
+  for(var g=-1500;g<=1500;g+=500){if(g<y0||g>y1)continue;s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="var(--line)" '+(g===0?'stroke-width="1.6"':'')+'/><text x="'+(L-6)+'" y="'+(Y(g)+4)+'" font-size="10" text-anchor="end" fill="var(--quiet)">'+num(g)+'</text>'}
+  for(var d=18;d<=30;d+=2)s+='<text x="'+X(d)+'" y="'+(B+16)+'" font-size="10" text-anchor="middle" fill="var(--quiet)">'+d+'</text>';
+  s+='<text x="'+((L+W)/2)+'" y="'+(B+32)+'" font-size="10.5" text-anchor="middle" fill="var(--quiet)">Einsatztage pro Monat</text>';
+  var bx=X(BE0);s+='<rect x="'+L+'" y="'+T+'" width="'+(bx-L)+'" height="'+(B-T)+'" fill="var(--leak)" opacity=".06"/>';
+  s+='<line x1="'+bx+'" x2="'+bx+'" y1="'+T+'" y2="'+B+'" stroke="var(--leak)" stroke-dasharray="4 4" stroke-width="1.4"/>';
+  s+='<text x="'+(bx-6)+'" y="'+(T+12)+'" font-size="10.5" text-anchor="end" font-weight="700" fill="var(--leak)">Break-even ≈ '+num(BE0,1)+' Tage</text>';
+  V.forEach(function(v,i){var r=calc(v,BASE),rad=3.5+Math.min(5,v.rep/90),col=r.res<0?'var(--leak)':'var(--flow)';
+    s+='<circle class="pop" style="animation-delay:'+(i*15)+'ms;cursor:pointer" data-v="'+i+'" cx="'+X(r.d)+'" cy="'+Y(r.res)+'" r="'+rad+'" fill="'+col+'" fill-opacity=".75" stroke="'+(sel===i?'var(--ink)':'var(--panel)')+'" stroke-width="'+(sel===i?2:1)+'"><title>'+v.id+' · '+num(r.d,1)+' Tage · '+eur(r.res)+'</title></circle>'});
+  var dbd=G0*(1-.225)-DRV0-VAR;
+  s+='<text x="'+(W-R)+'" y="'+(B-38)+'" font-size="10.5" text-anchor="end" fill="var(--ink)"><tspan font-weight="700">+'+num(dbd,2)+' €</tspan> je zusätzlichem Einsatztag</text>';
+  s+='<text x="'+(W-R)+'" y="'+(B-23)+'" font-size="10.5" text-anchor="end" fill="var(--ink)"><tspan font-weight="700">'+num(FIX,2)+' €</tspan> Fixkosten je Standtag, ohne Umsatz</text>';
+  s+='<text x="'+(W-R)+'" y="'+(B-8)+'" font-size="10.5" text-anchor="end" fill="var(--quiet)">Kreisgröße = Reparaturen &amp; Schäden</text>';
+  s+='<text x="'+L+'" y="12" font-size="10" font-weight="700" fill="var(--quiet)">ERGEBNIS JE FAHRZEUG UND MONAT (€) NACH EINSATZTAGEN</text>';
+  return s+'</svg>'}
+var ORDER=[['mw','Mindestlohn'],['c','Provision'],['up','Umsatz je Einsatztag'],['plus','Standzeit'],['repl','Ersatz alter Fahrzeuge']];
+function chartBridge(){var H=270,L=10,T=26,B=212,cur=JSON.parse(JSON.stringify(BASE)),prev=fleet(cur).res,items=[['Basis',prev,'t']];
+  ORDER.forEach(function(o){cur[o[0]]=P[o[0]];var r=fleet(cur).res;items.push([o[1],r-prev]);prev=r});items.push(['Szenario',prev,'t']);
+  var vals=[0],acc=0;items.forEach(function(it){if(it[2]){acc=it[1];vals.push(acc)}else{vals.push(acc);acc+=it[1];vals.push(acc)}});
+  var mx=Math.max.apply(0,vals)*1.15+500,mn=Math.min.apply(0,vals)*1.15-500,y=function(x){return T+(mx-x)/(mx-mn)*(B-T)},bw=(W-L*2)/items.length,s=svgOpen(H);acc=0;
+  s+='<line x1="0" x2="'+W+'" y1="'+y(0)+'" y2="'+y(0)+'" stroke="var(--line)" stroke-width="1.4"/>';
+  items.forEach(function(it,i){var X=L+i*bw+10,w=bw-20,a,b,col;
+    if(it[2]){a=0;b=it[1];acc=it[1];col=it[1]<0?'var(--leak)':'var(--ink)'}else{a=acc;b=acc+it[1];acc=b;col=it[1]<0?'var(--leak)':'var(--flow)'}
+    var y1=y(Math.max(a,b)),y2=y(Math.min(a,b)),h=Math.max(1.5,y2-y1);
+    s+='<rect class="grow" style="animation-delay:'+(i*70)+'ms" x="'+X+'" y="'+y1+'" width="'+w+'" height="'+h+'" rx="3" fill="'+col+'" opacity="'+(Math.abs(it[1])<1&&!it[2]?.25:1)+'"/>';
+    var lbl=it[2]?eur(it[1]):(Math.abs(it[1])<1?'±0 €':eurS(it[1]));
+    s+='<text x="'+(X+w/2)+'" y="'+(y1-6)+'" font-size="10.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" fill="var(--ink)">'+lbl+'</text>';
+    var lab=it[0].split(' ');s+='<text x="'+(X+w/2)+'" y="'+(B+16)+'" font-size="10.5" text-anchor="middle" fill="var(--quiet)">'+lab.slice(0,2).join(' ')+'</text>';
+    if(lab.length>2)s+='<text x="'+(X+w/2)+'" y="'+(B+29)+'" font-size="10.5" text-anchor="middle" fill="var(--quiet)">'+lab.slice(2).join(' ')+'</text>'});
+  s+='<text x="'+L+'" y="12" font-size="10" font-weight="700" fill="var(--quiet)">ERGEBNISBRÜCKE PRO MONAT · BASIS → SZENARIO</text>';
+  return s+'</svg>'}
+
+/* ================= left panel per step ================= */
+var left=document.getElementById('left');
+function renderLeft(){var h='';
+  if(step===0){h='<div class="fade"><h4>Fallbeispiel: eine Mietwagenflotte mit 48 Fahrzeugen</h4><p class="lead">Ein Flottenbetreiber für Plattformfahrten. Die Flotte verdient im Schnitt Geld. Die Frage ist, ob das für jedes Fahrzeug gilt und was er steuern kann.</p>'+
+    '<div class="qs"><div class="q"><span class="n">01</span><b>Wie hoch sind die Gesamtkosten pro Fahrzeug?</b><span>TCO je Fahrzeug, Kosten je Einsatztag</span></div>'+
+    '<div class="q"><span class="n">02</span><b>Welche Kosten beeinflussen die Profitabilität?</b><span>Flotten-P&amp;L: Erlöse, fixe und variable Kosten</span></div>'+
+    '<div class="q"><span class="n">03</span><b>Welche Rolle spielen Wartung, Standzeiten und Auslastung?</b><span>Kostentreiber und Szenarien</span></div></div>'+
+    '<div class="case">Flottenergebnis heute<span class="big '+(F0.res<0?'neg':'pos')+'">'+eur(F0.res)+' / Monat</span>Das sind nur '+num(F0.res/F0.rev*100,1)+' % vom Umsatz. Bei so dünnen Margen entscheidet jedes Fahrzeug.</div></div>'}
+  else if(step===1){h='<div class="fade"><h4>01 · Fleet Economics: TCO je Fahrzeug</h4><p class="lead">Die Kosten pro Fahrzeug und Monat sind ähnlich. Der Unterschied liegt darin, wie viele davon an <b class="neg">Standtagen</b> anfallen und wie viel <b style="color:var(--rep)">Reparaturen</b> ältere Fahrzeuge kosten. Je Einsatztag gerechnet wird das sichtbar.</p>'+chartTCO()+'</div>'}
+  else if(step===2){h='<div class="fade"><h4>02 · Flotten-P&amp;L'+(sel!=null?' <span class="chip">'+V[sel].id+'</span> <button class="chip" id="backFleet" style="cursor:pointer;background:transparent">← Flotte</button>':'')+'</h4><p class="lead">Fahrer und Provision nehmen den größten Teil des Umsatzes. Was bleibt, muss die Fixkosten an <i>allen</i> Kalendertagen tragen. Klick auf ein Fahrzeug rechts zeigt seine eigene P&amp;L.</p>'+chartWaterfall(sel)+'</div>'}
+  else if(step===3){h='<div class="fade"><h4>Standzeit &amp; Auslastung: der eigentliche Hebel</h4><p class="lead">Unter rund '+num(BE0,0)+' Einsatztagen im Monat verliert ein Fahrzeug Geld. '+F0.neg+' von 48 Fahrzeugen liegen dort, meist wegen Werkstatt- und Standtagen oder hoher Laufleistung.</p>'+chartScatter()+'</div>'}
+  else if(step===4){h='<div class="fade"><h4>03 · Szenarien &amp; Modelle</h4><p class="lead">Was passiert mit dem Ergebnis, wenn sich Kosten ändern, und welche Hebel gleichen das aus?</p>'+
+    '<div class="presets"><button data-pre="mw">Mindestlohn 2027</button><button data-pre="counter">Mindestlohn 2027 + Gegenmaßnahmen</button><button data-pre="reset">Zurücksetzen</button></div>'+
+    '<div class="ctrl"><div class="c"><label>Mindestlohn <span id="o_mw"></span></label><div class="seg" id="segmw"><button data-mw="13.9">13,90 € (2026)</button><button data-mw="14.6">14,60 € (2027)</button></div><small>Beschlossen. Wirkt auf jeden Einsatztag.</small></div>'+
+    '<div class="c"><label>Provision Plattform <span id="o_c"></span></label><input type="range" id="i_c" min="18" max="27" step="0.5"><small>Mix aus Plattformen und Konditionen</small></div>'+
+    '<div class="c"><label>Umsatz je Einsatztag <span id="o_up"></span></label><input type="range" id="i_up" min="0" max="5" step="0.5"><small>z. B. Schichten auf Nachfragespitzen legen</small></div>'+
+    '<div class="c"><label>Standzeit senken <span id="o_plus"></span></label><input type="range" id="i_plus" min="0" max="4" step="0.5"><small>mehr Einsatztage für Fahrzeuge unter Break-even</small></div>'+
+    '<div class="c"><label>Fahrzeuge ersetzen ab <span id="o_repl"></span></label><div class="seg" id="segrepl"><button data-r="0">nie</button><button data-r="250000">250.000 km</button><button data-r="200000">200.000 km</button><button data-r="175000">175.000 km</button></div><small>Neufahrzeug: 48 € statt 42 € fix pro Tag, keine Zusatzreparaturen</small></div></div>'+
+    '<div id="bridge">'+chartBridge()+'</div></div>'}
+  else if(step===5){h='<div class="fade"><h4>Mein Beitrag in diesem Fall</h4><p class="lead">Die Analyse beginnt nicht mit den Daten, sondern mit der Frage des Betreibers. Gemeinsam mit den BI-Spezialisten entscheiden wir, was zuerst gebaut wird.</p>'+
+    '<div class="flowrow">'+
+    '<div class="st fade" style="animation-delay:0ms"><span class="who">Mit dem Betreiber</span><b>1 · Fragestellung klären</b><ul><li>Welche Fahrzeuge verlieren Geld, und warum?</li><li>Was kostet uns der Mindestlohn 2027?</li><li>Wann ersetzen wir ein Fahrzeug?</li></ul></div>'+
+    '<div class="st fade" style="animation-delay:120ms"><span class="who">Mit Betreiber &amp; Produkt</span><b>2 · Datenbedarf definieren</b><ul><li>Fahrten und Umsatz je Fahrzeug (Plattformen)</li><li>Schichten und Fahrerkosten</li><li>Werkstatttage, Reparaturen, Schäden</li><li>Leasing, Versicherung, Stellplatz</li></ul></div>'+
+    '<div class="st fade" style="animation-delay:240ms"><span class="who">Mit den BI-Spezialisten</span><b>3 · Analysen priorisieren</b><ul><li>1. Fahrzeug-P&amp;L monatlich: hoher Nutzen, Daten vorhanden</li><li>2. Standzeit-Analyse nach Grund</li><li>3. Ersatzzeitpunkt nach Laufleistung</li><li>4. Szenarien: Lohn, Provision</li></ul></div>'+
+    '<div class="st op fade" style="animation-delay:360ms"><span class="who">Beim Betreiber</span><b>4 · Entscheidung &amp; Umsetzung</b><ul><li>Monatliches Fahrzeug-Review</li><li>Standtage nach Ursache steuern</li><li>Ersatzplanung statt Reparatur ohne Ende</li><li>Budget mit Szenarien</li></ul></div></div>'+
+    '<p style="font-size:.82rem;color:var(--quiet);margin:0">Meine Rolle: die operative Frage in eine Analyse übersetzen und die Reihenfolge festlegen. Die BI-Spezialisten bauen Modelle und Auswertungen, der Betreiber entscheidet.</p></div>'}
+  else if(step===6){h='<div class="fade"><h4>Was davon für Fleet Planning &amp; Lifecycle Management übertragbar ist</h4><p class="lead">Die Methode lässt sich übertragen, die Zahlen nicht. Bei Europcar fährt der Kunde, also fällt der größte Kostenblock dieses Falls weg. Die Logik von Fahrzeug-Tag, Standzeit, Haltedauer und Szenario bleibt.</p>'+
+    '<table class="tr"><tr><th>In diesem Fall</th><th>Bei Europcar</th><th>Übertragbar</th></tr>'+
+    '<tr><td>Kosten je Fahrzeug und Monat, fix und variabel</td><td>Haltekosten und Betriebskosten je Fahrzeug und Monat</td><td><span class="pill p-d">Direkt</span></td></tr>'+
+    '<tr><td>Standtag = Fixkosten ohne Umsatz</td><td>Standzeiten, Werkstatt, Transfers zwischen Stationen</td><td><span class="pill p-d">Direkt</span></td></tr>'+
+    '<tr><td>Break-even Einsatztage</td><td>Break-even Auslastung je Segment, Station, Saison</td><td><span class="pill p-d">Direkt</span></td></tr>'+
+    '<tr><td>Reparaturen steigen mit der Laufleistung</td><td>Haltedauer, Restwert, Zeitpunkt des Remarketings</td><td><span class="pill p-a">Angepasst</span></td></tr>'+
+    '<tr><td>Ergebnisbrücke Basis → Szenario</td><td>Budget, Forecast und Plan/Ist mit Fleet Controlling</td><td><span class="pill p-d">Direkt</span></td></tr>'+
+    '<tr><td>Fahrerkosten, Mindestlohn, Provision</td><td>entfällt: der Kunde fährt; dafür Preise und Vertriebskanäle</td><td><span class="pill p-n">Nicht</span></td></tr></table>'+
+    '<p style="font-size:.82rem;color:var(--quiet);margin:12px 0 0">Erst die bestehenden Modelle von Europcar verstehen, dann gemeinsam mit Fleet Controlling verbessern.</p></div>'}
+  left.innerHTML=h;
+  left.querySelectorAll('[data-v]').forEach(function(g){g.addEventListener('click',function(){selectV(+g.getAttribute('data-v'))})});
+  var bf=document.getElementById('backFleet');if(bf)bf.onclick=function(){selectV(null)};
+  if(step===4)wireScenario()}
+
+function wireScenario(){function sync(){document.getElementById('o_mw').textContent=num(P.mw,2)+' €';
+    document.getElementById('o_c').textContent=num(P.c,1)+' %';document.getElementById('o_up').textContent='+'+num(P.up,1)+' %';
+    document.getElementById('o_plus').textContent=P.plus?'+'+num(P.plus,1)+' Tage':'aus';
+    document.getElementById('o_repl').textContent=P.repl?num(P.repl)+' km':'nie';
+    document.getElementById('i_c').value=P.c;document.getElementById('i_up').value=P.up;document.getElementById('i_plus').value=P.plus;
+    document.querySelectorAll('#segmw button').forEach(function(b){b.classList.toggle('on',+b.dataset.mw===P.mw)});
+    document.querySelectorAll('#segrepl button').forEach(function(b){b.classList.toggle('on',+b.dataset.r===P.repl)})}
+  function upd(){sync();document.getElementById('bridge').innerHTML=chartBridge();kpis();colorFleet();if(sel!=null)showDetail()}
+  ['c','up','plus'].forEach(function(k){document.getElementById('i_'+k).oninput=function(e){P[k]=+e.target.value;upd()}});
+  document.querySelectorAll('#segmw button').forEach(function(b){b.onclick=function(){P.mw=+b.dataset.mw;upd()}});
+  document.querySelectorAll('#segrepl button').forEach(function(b){b.onclick=function(){P.repl=+b.dataset.r;upd()}});
+  document.querySelectorAll('[data-pre]').forEach(function(b){b.onclick=function(){var k=b.dataset.pre;
+    P=JSON.parse(JSON.stringify(BASE));if(k==='mw'||k==='counter')P.mw=14.6;if(k==='counter'){P.plus=2;P.repl=200000;P.up=2}upd()}});
+  sync()}
+
+/* ================= detail ================= */
+var detail=document.getElementById('detail');
+function showDetail(){var h,tag='Fahrzeug-P&L',name,hero='';
+  if(sel==null){name='Auf ein Fahrzeug klicken';h='<p style="font-size:.86rem;color:var(--quiet);margin:0;max-width:80ch">Jedes Feld im Raster ist ein Fahrzeug. Ein Klick zeigt seine P&amp;L pro Monat, die Kosten je Einsatztag und eine Diagnose: Liegt es an den Standtagen, an Reparaturen oder am Umsatz?</p>'}
+  else{var v=V[sel],p=step===4?P:BASE,r=calc(v,p),rows=[['Umsatz brutto',r.rev],['− Provision ('+num(p.c,1)+' %)',-r.comm],['− Fahrerkosten',-r.drv],['− Variable Fahrzeugkosten',-r.vr],['= Deckungsbeitrag',r.db,1],
+      ['− Fixkosten an Einsatztagen',-r.fixA],['− Fixkosten an Standtagen',-r.fixI],['− Reparaturen & Schäden',-r.rep],['= Ergebnis',r.res,1]];
+    if(step===4)tag='Fahrzeug-P&L · Szenario';name=v.id+' · '+v.age+' Monate · '+num(v.km)+' km';
+    hero='<span><b style="color:var(--'+(r.res<0?'leak':'flow')+')">'+eur(r.res)+'</b>Ergebnis / Monat</span><span><b style="color:var(--ink)">'+num(r.d,1)+'</b>Einsatztage</span>';
+    h='<div style="font-size:.82rem;color:var(--quiet)">'+num(r.d,1)+' Einsatztage, '+num(r.idle,1)+' Standtage · Fahrzeugkosten je Einsatztag <b class="mono" style="color:var(--ink)">'+eur(r.perDay,2)+'</b>'+(r.newv?' · <b>im Szenario ersetzt</b>':'')+'</div>'+
+      '<div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start"><table class="pl">'+rows.map(function(x){return'<tr class="'+(x[2]?'sub':'')+'"><td>'+x[0]+'</td><td class="v '+(x[2]&&x[1]<0?'neg':'')+'">'+eur(x[1])+'</td></tr>'}).join('')+'</table>';
+    var why=[];if(r.d<BE0)why.push(num(r.idle,1)+' Standtage: '+eur(r.fixI)+' Fixkosten ohne Umsatz'+(v.ws>1?' (davon rund '+num(v.ws,1)+' Werkstatttage)':''));
+    if(r.rep>200)why.push('Reparaturen & Schäden '+eur(r.rep)+' bei '+num(v.km)+' km: Ersatzzeitpunkt prüfen');
+    if(v.G<G0*0.99)why.push('Umsatz je Einsatztag unter Flottenschnitt: Schichtplanung prüfen');
+    h+=(r.res<0?'<div class="diag"><b class="neg">Diagnose · verliert Geld</b>'+(why.length?why.join('<br>'):'Knapp unter Break-even')+'</div>'
+             :'<div class="diag ok"><b class="pos">Diagnose · trägt sich</b>'+(why.length?'Beobachten: '+why.join('<br>'):'Hohe Auslastung, geringe Reparaturen.')+'</div>')+'</div>'}
+  document.getElementById('dTag').textContent=tag;document.getElementById('dName').textContent=name;document.getElementById('dHero').innerHTML=hero;
+  detail.innerHTML=h}
+var drawer=document.getElementById('drawer'),dh=document.getElementById('dh');
+function setDrawer(o){if(o)setTimeout(function(){try{drawer.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},40);drawer.classList.toggle('open',o);dh.setAttribute('aria-expanded',o);document.getElementById('dHint').textContent=o?'Ausblenden':'Details einblenden'}
+dh.onclick=function(){setDrawer(!drawer.classList.contains('open'))};
+function selectV(i){sel=i;colorFleet();showDetail();if(i!=null)setDrawer(true);if(step===2||step===3)renderLeft()}
+
+/* ================= navigation ================= */
+var bar=document.getElementById('bar'),cues=document.getElementById('cues');
+function build(){bar.innerHTML='';STEPS.forEach(function(s,i){var b=document.createElement('button');b.innerHTML='<span class="no">'+(i+1)+'</span>'+s.t.replace(/^\d\d · /,'');
+  if(i===step)b.className='on';b.onclick=function(){setStep(i)};bar.appendChild(b)});
+}
+function setStep(i){step=Math.max(0,Math.min(STEPS.length-1,i));
+  document.getElementById('capT').textContent='Schritt '+(step+1)+' · '+STEPS[step].t;
+  document.getElementById('capH').textContent=STEPS[step].h;
+  document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length;
+  build();renderLeft();kpis();colorFleet();showDetail()}
+function fs(){var st=document.getElementById('stage');if(!document.fullscreenElement&&st.requestFullscreen)st.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()}
+var IC={full:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>',
+ exit:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5V6H2.5M13.5 6H10V2.5M10 13.5V10h3.5M2.5 10H6v3.5"/></svg>'};
+var fsB=document.getElementById('fsb');function updIcons(){var f=!!document.fullscreenElement;fsB.innerHTML=f?IC.exit:IC.full;fsB.title=f?'Vollbild beenden (F)':'Vollbild (F)'}
+fsB.onclick=fs;document.addEventListener('fullscreenchange',updIcons);updIcons();
+document.getElementById('prev').onclick=function(){setStep(step-1)};
+document.getElementById('next').onclick=function(){setStep(step+1)};
+document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();setStep(step+1)}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();setStep(step-1)}
+  else if(e.key==='f'||e.key==='F')fs();else if(e.key==='Escape'){if(drawer.classList.contains('open'))setDrawer(false);else selectV(null)}
+  else if(e.key==='i'||e.key==='I')setDrawer(!drawer.classList.contains('open'))});
+setStep(0);
+})();
+</script>
+</body>
+</html>

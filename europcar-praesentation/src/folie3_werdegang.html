@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Folie 3 · Werdegang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf8;--panel:#ffffff;--ink:#1a1a1a;--quiet:#6b6b6b;--line:#e3e0da;--soft:#f3f1ec;
+  --road:#e6e3dd;--road2:#1a1a1a;--flow:#13804f;--dim:#b9b5ad;
+  --m:#3f46b0;--p:#4f8a8c;--d:#13804f;--e:#b8650f;
+  --shadow:none;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:26px 16px 90px}
+.bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
+.bar button{padding:7px 13px;font:inherit;font-size:.79rem;font-weight:600;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.bar button:hover{border-color:var(--quiet)}
+.bar button.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.bar button .no{font-family:"JetBrains Mono",monospace;font-size:.7rem;opacity:.55;margin-right:6px}
+.bar .sp{flex:1}
+#stage{background:var(--bg)}
+.frame{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.caption{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+.caption .ct{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet)}
+.caption .ch{font-size:1.12rem;font-weight:700;margin:2px 0 0;letter-spacing:-.01em}
+.caption .nav{display:flex;gap:6px;align-items:center;flex:none}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+canvas{display:block;min-width:920px;width:100%;height:auto}
+#stage:fullscreen{padding:24px 30px;display:flex;flex-direction:column;justify-content:center}
+#stage:fullscreen .scroll{overflow:hidden}
+#stage:fullscreen canvas{min-width:0;width:auto;max-width:100%;max-height:calc(100vh - 150px);margin:0 auto}
+.detail{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 24px}
+.dhead{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.kick{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet)}
+.detail h3{margin:4px 0 2px;font-size:1.25rem;letter-spacing:-.015em}
+.meta{font-size:.84rem;color:var(--quiet)}
+.hero{display:flex;gap:22px;flex-wrap:wrap}
+.hero div{text-align:right}
+.hero b{display:block;font-family:"JetBrains Mono",monospace;font-size:1.45rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:var(--flow)}
+.hero span{font-size:.72rem;color:var(--quiet)}
+.grid3{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;margin-top:16px}
+@media (max-width:860px){.grid3{grid-template-columns:1fr !important}.hero div{text-align:left}}
+.cell{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:.86rem}
+.cell .h{display:block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet);margin-bottom:6px}
+.cell ul{margin:0;padding-left:16px}.cell li{margin-bottom:3px}
+.cell.ev .h{color:var(--flow)}.cell.ec .h{color:var(--p)}
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+@media (max-width:760px){.tri{grid-template-columns:1fr}}
+.tri .cell b.t{display:block;font-size:.9rem;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit}
+.chip:hover{border-color:var(--quiet)}
+.sw{width:9px;height:9px;border-radius:3px;display:inline-block}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.tags span{font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--panel);border:1px solid var(--line)}
+.fade{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}}
+.dhead{cursor:pointer;user-select:none;align-items:center}
+.dhead .dr{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.tog{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);white-space:nowrap}
+.dhead:hover .tog{border-color:var(--quiet)}
+.tog svg{transition:transform .3s ease}
+.detail.open .tog svg{transform:rotate(180deg)}
+.dbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.detail.open .dbody{grid-template-rows:1fr}
+.dbody>div{overflow:hidden;min-height:0}
+.detail{padding:16px 22px}
+.detail h3{font-size:1.1rem}
+@media (prefers-reduced-motion:reduce){.dbody,.tog svg{transition:none}}
+/* ---- gemeinsame Bedienelemente (wie Folie 4) ---- */
+.caption .nav button{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:1rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.caption .nav button:hover{border-color:var(--ink)}
+.caption .nav button svg{width:15px;height:15px;display:block}
+.caption .nav .sep{width:1px;height:20px;background:var(--line);margin:0 6px;min-width:0}
+.caption .nav span#capN{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--quiet);min-width:38px;text-align:center}
+.drawer{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(1128px,calc(100vw - 32px));z-index:20;
+  background:var(--panel);border:1px solid var(--line);border-bottom:none;border-radius:14px 14px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.10)}
+.dh{width:100%;display:flex;align-items:center;gap:12px;padding:10px 18px;background:transparent;border:0;color:var(--ink);font:inherit;cursor:pointer;text-align:left;border-radius:14px 14px 0 0}
+.dh:hover .dchev{border-color:var(--ink)}
+.dh .dt{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--quiet);border:1px solid var(--line);border-radius:5px;padding:2px 7px;white-space:nowrap}
+.dh .dn{font-size:.86rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dh .dhero{display:flex;gap:16px;margin-left:auto;white-space:nowrap}
+.dh .dhero span{font-size:.7rem;color:var(--quiet)}
+.dh .dhero b{font-family:"JetBrains Mono",monospace;font-size:.86rem;color:var(--flow);margin-right:5px}
+.dh .dhint{font-size:.74rem;color:var(--quiet);white-space:nowrap}
+.dh .dhero:empty+.dhint{margin-left:auto}
+.dh .dchev{flex:none;width:28px;height:28px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center}
+.dh .dchev svg{width:14px;height:14px;transition:transform .2s}
+.drawer.open .dchev svg{transform:rotate(180deg)}
+#detail{display:none;padding:2px 18px 18px;max-height:46vh;overflow-y:auto;border-top:1px solid var(--line)}
+.drawer.open #detail{display:block;padding-top:14px}
+@media (max-width:760px){.dh .dhint,.dh .dhero{display:none}}
+.key{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 16px;font-size:.75rem;color:var(--quiet)}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.key .sw{width:11px;height:11px;border-radius:3px;flex:none;display:inline-block}
+/* Detailbereich öffnet nach unten (im Seitenfluss statt fixiert) */
+.drawer{position:static;left:auto;bottom:auto;transform:none;width:auto;margin:14px 0 0;border:1px solid var(--line);border-radius:14px;box-shadow:none;z-index:auto}
+.dh{border-radius:14px}
+.drawer.open .dh{border-radius:14px 14px 0 0}
+#detail{max-height:none;overflow:visible}
+.dh .dchev svg{transform:rotate(180deg)}
+.drawer.open .dchev svg{transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar" id="bar"></div>
+<div id="stage">
+  <div class="frame">
+    <div class="caption">
+      <div><div class="ct" id="capT"></div><div class="ch" id="capH"></div></div>
+      <div class="nav"><button id="prev" aria-label="Zurück">&larr;</button><span id="capN"></span><button id="next" aria-label="Weiter">&rarr;</button><i class="sep" aria-hidden="true"></i><button id="fsb" aria-label="Vollbild" title="Vollbild (F)"></button></div>
+    </div>
+    <div class="scroll"><canvas id="c" aria-label="Werdegang als Route mit Stationen, Weiterbildung und wachsendem Kompetenzprofil"></canvas></div>
+  </div>
+  <div class="key">
+    <span><i class="sw" style="background:var(--m)"></i>Menschen</span>
+    <span><i class="sw" style="background:var(--p)"></i>Prozesse</span>
+    <span><i class="sw" style="background:var(--d)"></i>Daten</span>
+    <span><i class="sw" style="background:var(--e)"></i>Weiterbildung</span>
+    <span>Blockbreite qualitativ</span>
+  </div>
+  <div class="drawer" id="drawer">
+    <button class="dh" id="dh" aria-expanded="false" aria-controls="detail"><span class="dt" id="dTag">Details</span><span class="dn" id="dName"></span><span class="dhero" id="dHero"></span><span class="dhint" id="dHint">Details einblenden</span><span class="dchev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg></span></button>
+    <div id="detail" aria-live="polite"></div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+var W=1100,H=476,cv=document.getElementById('c'),ctx=cv.getContext('2d');
+var dpr=Math.max(1,Math.min(2.5,window.devicePixelRatio||1));cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+var C={};function readVars(){var cs=getComputedStyle(document.documentElement);['--ink','--quiet','--line','--panel','--bg','--soft','--dim','--road','--road2','--m','--p','--d','--e','--flow'].forEach(function(k){C[k]=cs.getPropertyValue(k).trim()})}
+readVars();if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',readVars);
+function rgba(hex,a){var h=hex.replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');var n=parseInt(h,16);return'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+a+')'}
+function dark(){return false}
+
+/* ---------- geometry ---------- */
+var T0=2020.7,T1=2026.98,X0=150,X1=1010,NOW=2026.86;
+function X(t){return X0+(t-T0)/(T1-T0)*(X1-X0)}
+var RY=150,EY=206,PY=262;
+var LANES=[{k:'m',n:'Menschen',y:PY+22},{k:'p',n:'Prozesse',y:PY+76},{k:'d',n:'Daten',y:PY+130}],RH=42,U=142,BX=150;
+
+/* ---------- content (CV + portfolio, verified) ---------- */
+var ST=[
+ {id:'wolt',yrs:'2021 – 2023',co:'Wolt',sub:'Gear Ops · Prozesse & Inventar',chip:'Einkauf −30 %',t0:2021.08,t1:2023.08,
+  title:'Operations Associate (Service & Gear Operations)',when:'Feb 2021 – Feb 2023 · davor ab Okt 2020 Kurierpartner',where:'Berlin, bundesweit 6 Städte',
+  hero:[['−30 %','Beschaffungskosten Ausrüstung'],['2.000+','Kuriere in 6 Städten']],
+  did:['Operative Prozesse im Gear Warehouse eingeführt und gesteuert','Lagerbestände analysiert, Abläufe verbessert','Ausrüstung zurückgenommen, aufbereitet und wieder ausgegeben','Courier-Onboarding und -Offboarding in Berlin, kleines Team von Gear Associates koordiniert'],
+  ev:['Beschaffungskosten für Ausrüstung rund −30 % gegenüber dem Vorjahr','Rund 525 Kurierkontakte pro Woche in ein kategorisiertes Servicemodell überführt'],
+  ec:'Bestände, Rückläufe und Wiederverwendung steuern: dieselbe Logik wie bei Fahrzeugen über den Lebenszyklus.',
+  g:{m:1,p:1.5,d:.5},gl:{m:'Gear-Team koordiniert',p:'Lager- & Serviceprozesse',d:'Bestandsanalyse'},gs:{d:'Bestände'}},
+ {id:'bolt',yrs:'2023 – 2024',co:'Bolt',sub:'Fleet Ops · Angebotssteuerung',chip:'Aktivierung 25 → 58 %',t0:2023.42,t1:2024.42,
+  title:'Operations Specialist',when:'Jun 2023 – Jun 2024',where:'München / Süddeutschland',
+  hero:[['25 → 58 %','Fahreraktivierung'],['−18 %','Stornoquote']],
+  did:['Mit Flottenpartnern gearbeitet: Partnerschaften, Account Management, Operations','Fahreraktivierung: Funnel von der Registrierung bis zur ersten Fahrt gemessen','Angebot entsprechend der Nachfrage geplant'],
+  ev:['Aktivierung von ca. 25 % auf ca. 58 % bei über 1.000 Registrierungen in sechs Wochen','Stornoquote −18 % durch Maßnahmen mit Flottenpartnern'],
+  ec:'Angebot an die Nachfrage anpassen ist der Kern der Flottenplanung.',
+  g:{m:.5,p:.5,d:1},gl:{m:'Fahrer & Flottenpartner',p:'Onboarding-Funnel',d:'Funnel-Daten'},gs:{m:'Partner',p:'Funnel'}},
+ {id:'bliq',yrs:'2024 – 2025',co:'Bliq',sub:'Supply Ops · Team & Budget',chip:'4 direkte Mitarbeitende',t0:2024.5,t1:2025.5,
+  title:'Supply Operations Manager',when:'Jul 2024 – Jul 2025',where:'Berlin',
+  hero:[['4','direkte Mitarbeitende'],['<50 → >80 %','Partnerbindung']],
+  did:['Vier direkte Mitarbeitende: Aufgaben verteilt, KPIs verfolgt, 1:1s, Coaching, Mitwirkung an Leistungsbeurteilungen','Supply-Budgets, KPIs und Partnerprogramme gesteuert','Earnings-per-Hour-Modell mit SLAs für Flottenpartner'],
+  ev:['Partnerbindung von unter 50 % auf über 80 % nach Neugestaltung des Partnermodells','Funktionsübergreifender Pilot mit 3 Mio. € ARR in vier Monaten'],
+  ec:'Ein Team von fünf Spezialisten führen, Budgets und KPIs steuern.',
+  g:{m:1.5,p:.5,d:.5},gl:{m:'4 direkte Mitarbeitende',p:'SLAs & Partnerprogramme',d:'KPIs & Budgets'},gs:{p:'SLAs',d:'Budgets'}},
+ {id:'nexio',yrs:'SEIT 2025',co:'Nexio Fleet',sub:'Strategy & Ops · Data Hub',chip:'Datenplattform',t0:2025.5,t1:NOW,
+  title:'Senior Strategy & Operations Manager',when:'seit Jul 2025',where:'Berlin & Brandenburg',
+  hero:[['8','Flottenbetreiber'],['800+','Fahrer']],
+  did:['Seit dem Start an einer zentralen Daten- und Analyseplattform beteiligt','Anforderungen, Prozesse und KPIs definiert, Funktionen priorisiert','Umsetzung und Tests gemeinsam mit dem Entwicklerteam'],
+  ev:['Im Einsatz bei 8 Flottenbetreibern mit über 800 Fahrern in Berlin und Brandenburg','Betreiber berichten rund 60–70 % weniger Verwaltungsaufwand je Compliance-Zyklus'],
+  ec:'Datenintegration, gemeinsame KPIs und BI für TCO und P&L: genau das braucht ein Analytics Hub.',
+  g:{m:.5,p:1,d:1.5},gl:{m:'Betreiber & Entwickler',p:'Anforderungen & Prozesse',d:'Datenplattform & BI'},gs:{m:'Betreiber',p:'Anforderungen'}}
+];
+var KUR={id:'kurier',co:'Kurier',t0:2020.75,t1:2021.08,g:{m:.5,p:.5},gl:{m:'Frontline: Kuriere',p:'Abläufe von innen'},gs:{m:'Frontline',p:'Abläufe'}};
+var EDU=[
+ {id:'da',co:'Ironhack',lab:'Data Analytics',yr:'2023',when:'Mär – Jun 2023',t0:2023.17,t1:2023.42,title:'Diploma Data Analytics',where:'Ironhack Berlin · Vollzeit',
+  tags:['Python','MySQL','Tableau','Pandas','Statistik','Datenvisualisierung','Angewandtes ML'],
+  ec:'Analysen und Modelle selbst verstehen, prüfen und mit Analysten auf Augenhöhe priorisieren.',g:{d:1},gl:{d:'Data Analytics'}},
+ {id:'devops',co:'Ironhack',lab:'DevOps & Cloud',yr:'2026',when:'Jan – Mär 2026',t0:2026.0,t1:2026.21,title:'Diploma DevOps & Cloud Computing',where:'Ironhack Berlin',
+  tags:['CI/CD','Terraform','Docker','Kubernetes','AWS','Azure','Monitoring','Cloud Governance'],
+  ec:'Mit IT und Data Engineering über Datenpipelines, Cloud-Infrastruktur und den Betrieb eines Analytics Hubs sprechen.',g:{d:.5,p:.45},gl:{d:'Cloud & DevOps',p:'CI/CD'},gs:{d:'Cloud',p:'CI/CD'}}
+];
+var SEQ=[KUR,ST[0],EDU[0],ST[1],ST[2],ST[3],EDU[1]];
+
+var STEPS=[
+ {t:'Überblick',h:'Von Operations zur datenbasierten Flottensteuerung.'},
+ {t:'Wolt',h:'Prozesse und Bestände steuern – Beschaffungskosten rund −30 %.',s:0},
+ {t:'Bolt',h:'Flottenpartner, Fahreraktivierung, Angebot nach Nachfrage.',s:1},
+ {t:'Bliq',h:'Mehr Verantwortung: Team, Budgets, KPIs, Partnerprogramme.',s:2},
+ {t:'Nexio Fleet',h:'Heute: eine zentrale Daten- und Analyseplattform mitentwickeln.',s:3},
+ {t:'Roter Faden',h:'Menschen, Prozesse und Daten verbinden, um bessere Ergebnisse zu erreichen.'}
+];
+var step=0,sel=null,HIT=[],pulse=0,carT=T0+.02,target=NOW,wheel=0,moving=false;
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function prog(s){return Math.max(0,Math.min(1,(carT-s.t0)/(s.t1-s.t0)))}
+function update(dt){var d=target-carT;moving=Math.abs(d)>.002;if(!moving){carT=target}else{var v=Math.sign(d)*Math.max(.4,Math.abs(d)*1.5)*dt;if(Math.abs(v)>Math.abs(d))v=d;carT+=v;wheel+=v*44}pulse+=dt}
+
+/* ---------- drawing helpers ---------- */
+function rr(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function shadowOn(b){ctx.shadowColor=dark()?'rgba(0,0,0,.45)':'rgba(16,18,22,.10)';ctx.shadowBlur=b||14;ctx.shadowOffsetY=3}
+function shadowOff(){ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0}
+function activeS(){return STEPS[step].s!=null?STEPS[step].s:null}
+function car(x,y){ctx.save();ctx.translate(x,y);
+  var bounce=moving?Math.sin(pulse*28)*.5:0;
+  ctx.fillStyle=rgba(C['--ink'],.14);ctx.beginPath();ctx.ellipse(0,1.5,24,3.2,0,0,6.3);ctx.fill();
+  ctx.translate(0,bounce);
+  ctx.fillStyle=C['--ink'];ctx.beginPath();
+  ctx.moveTo(-24,-5);ctx.quadraticCurveTo(-25,-13,-19,-14);ctx.lineTo(-11,-15);ctx.quadraticCurveTo(-5,-24,4,-24);ctx.quadraticCurveTo(11,-24,15,-15);
+  ctx.lineTo(21,-13.5);ctx.quadraticCurveTo(25.5,-12,25,-6);ctx.lineTo(24,-4);ctx.lineTo(-23,-4);ctx.closePath();ctx.fill();
+  ctx.fillStyle=dark()?'rgba(20,22,26,.85)':'rgba(255,255,255,.88)';
+  ctx.beginPath();ctx.moveTo(-8,-15.5);ctx.quadraticCurveTo(-3.5,-22,2,-22);ctx.lineTo(2,-15.5);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(4.5,-15.5);ctx.lineTo(4.5,-22);ctx.quadraticCurveTo(9.5,-22,12.5,-15.5);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#f5c451';rr(21.5,-12,3,2.4,1);ctx.fill();ctx.fillStyle='#d9534f';rr(-24.5,-12,2.4,2.4,1);ctx.fill();
+  [-14,14].forEach(function(wx){ctx.save();ctx.translate(wx,-4);ctx.fillStyle=C['--ink'];ctx.beginPath();ctx.arc(0,0,5.6,0,6.3);ctx.fill();
+    ctx.fillStyle=C['--dim'];ctx.beginPath();ctx.arc(0,0,2.8,0,6.3);ctx.fill();ctx.rotate(wheel);ctx.strokeStyle=C['--ink'];ctx.lineWidth=1.1;
+    ctx.beginPath();ctx.moveTo(-2.8,0);ctx.lineTo(2.8,0);ctx.moveTo(0,-2.8);ctx.lineTo(0,2.8);ctx.stroke();ctx.restore()});
+  ctx.restore()}
+
+/* ---------- main draw ---------- */
+function draw(){HIT=[];ctx.clearRect(0,0,W,H);var as=activeS(),fin=step===5,thr=sel&&sel.type==='thread'?sel.k:null,eduSel=sel&&sel.type==='edu'?sel.i:null;
+  /* road */
+  ctx.lineCap='round';
+  ctx.strokeStyle=C['--road'];ctx.lineWidth=20;ctx.beginPath();ctx.moveTo(X0-16,RY);ctx.lineTo(X1+12,RY);ctx.stroke();
+  var gx=Math.max(X0-16,X(carT));
+  if(gx>X0-15){var grad=ctx.createLinearGradient(X0-16,0,gx+1,0);grad.addColorStop(0,rgba(C['--road2'],.5));grad.addColorStop(1,rgba(C['--road2'],.9));
+    ctx.strokeStyle=grad;ctx.lineWidth=20;ctx.beginPath();ctx.moveTo(X0-16,RY);ctx.lineTo(gx,RY);ctx.stroke()}
+  ctx.lineCap='butt';ctx.strokeStyle=rgba(C['--panel'],.9);ctx.lineWidth=1.8;ctx.setLineDash([10,9]);ctx.beginPath();ctx.moveTo(X0-6,RY);ctx.lineTo(X1+4,RY);ctx.stroke();ctx.setLineDash([]);
+  /* year ticks */
+  for(var y=2021;y<=2026;y++){var xx=X(y);ctx.fillStyle=C['--dim'];ctx.fillRect(xx-.5,RY+13,1,6);
+    ctx.font='600 10.5px "JetBrains Mono", monospace';ctx.fillStyle=C['--quiet'];ctx.textAlign='center';ctx.fillText(y,xx,RY+32)}
+  ctx.font='800 9.5px Inter, sans-serif';ctx.fillStyle=C['--ink'];ctx.textAlign='center';ctx.fillText('HEUTE',X(NOW),RY+32);
+  /* kurier start */
+  var kx=X(KUR.t0);ctx.beginPath();ctx.arc(kx,RY,5,0,6.3);ctx.fillStyle=C['--panel'];ctx.fill();ctx.strokeStyle=C['--quiet'];ctx.lineWidth=1.6;ctx.stroke();
+  ctx.font='600 10px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='left';ctx.textAlign='right';ctx.fillText('Start als',X0-26,RY-3);ctx.fillText('Kurierpartner',X0-26,RY+10);
+  /* weiterbildung lane */
+  ctx.font='700 9.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='right';ctx.fillText('WEITERBILDUNG',X0-22,EY+4);
+  ctx.strokeStyle=C['--line'];ctx.lineWidth=1;ctx.setLineDash([2,4]);ctx.beginPath();ctx.moveTo(X0-14,EY);ctx.lineTo(X1+10,EY);ctx.stroke();ctx.setLineDash([]);
+  EDU.forEach(function(e,i){var x0=X(e.t0),x1=X(e.t1),on=carT>=e.t0,hi=eduSel===i;ctx.font='700 10.5px Inter, sans-serif';var lab=e.lab+' · '+e.yr,pw=ctx.measureText(lab).width+30;
+    var px=Math.min((x0+x1)/2-pw/2,X1+10-pw);
+    ctx.strokeStyle=rgba(C['--e'],on?.55:.25);ctx.lineWidth=1;ctx.setLineDash([2,2]);ctx.beginPath();ctx.moveTo(x0,RY+11);ctx.lineTo(x0,EY-12);ctx.stroke();ctx.setLineDash([]);
+    ctx.save();ctx.globalAlpha=on?1:.45;if(hi)shadowOn(10);rr(px,EY-11,pw,22,11);ctx.fillStyle=on?(dark()?'#3a2a1a':'#fdf3e7'):C['--panel'];ctx.fill();shadowOff();
+    ctx.lineWidth=hi?2:1.2;ctx.strokeStyle=C['--e'];ctx.stroke();
+    ctx.fillStyle=C['--e'];ctx.beginPath();ctx.arc(px+12,EY,3.2,0,6.3);ctx.fill();
+    ctx.fillStyle=C['--ink'];ctx.textAlign='left';ctx.fillText(lab,px+21,EY+4);ctx.restore();
+    HIT.push({type:'edu',i:i,x:px,y:EY-12,w:pw,h:24})});
+  /* station cards */
+  var BW=180,BY=10,BH=88,prev=-1e9;
+  ST.forEach(function(s){var cx=(X(s.t0)+X(s.t1))/2;s._bx=Math.max(cx-BW/2,prev+BW+10);prev=s._bx});
+  var over=ST[3]._bx+BW-(W-10);if(over>0)for(var q=3;q>=0;q--){ST[q]._bx-=over;if(q>0&&ST[q]._bx-ST[q-1]._bx>=BW+10)break}
+  ST.forEach(function(s,i){var bx=s._bx,sx=X(s.t0),on=as==null||as===i,hi=as===i,reached=carT>=s.t0-.005;
+    ctx.save();ctx.globalAlpha=on?1:.38;
+    ctx.strokeStyle=hi?C['--ink']:C['--dim'];ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(bx+BW/2,BY+BH);ctx.bezierCurveTo(bx+BW/2,BY+BH+18,sx,RY-34,sx,RY-12);ctx.stroke();ctx.setLineDash([]);
+    shadowOn(hi?18:10);rr(bx,BY,BW,BH,12);ctx.fillStyle=C['--panel'];ctx.fill();shadowOff();
+    ctx.lineWidth=hi?2:1;ctx.strokeStyle=hi?C['--ink']:C['--line'];ctx.stroke();
+    if(hi){ctx.fillStyle=C['--ink'];rr(bx,BY+14,3,BH-28,2);ctx.fill()}
+    ctx.textAlign='left';ctx.fillStyle=C['--quiet'];ctx.font='600 9.5px "JetBrains Mono", monospace';ctx.fillText('0'+(i+1)+'  ·  '+s.yrs,bx+14,BY+20);
+    ctx.fillStyle=C['--ink'];ctx.font='800 16px Inter, sans-serif';ctx.fillText(s.co,bx+14,BY+41);
+    ctx.font='500 10.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.fillText(s.sub,bx+14,BY+57);
+    ctx.font='700 10.5px Inter, sans-serif';var cw=ctx.measureText(s.chip).width+16;rr(bx+14,BY+64,cw,18,9);ctx.fillStyle=rgba(C['--flow'],dark()?.2:.11);ctx.fill();
+    ctx.fillStyle=C['--flow'];ctx.fillText(s.chip,bx+22,BY+77);ctx.restore();
+    ctx.beginPath();ctx.arc(sx,RY,hi?10:8,0,6.3);ctx.fillStyle=C['--panel'];ctx.fill();ctx.lineWidth=2.4;ctx.strokeStyle=reached?C['--ink']:C['--dim'];ctx.stroke();
+    if(reached){ctx.beginPath();ctx.arc(sx,RY,hi?4.5:3.5,0,6.3);ctx.fillStyle=C['--ink'];ctx.fill()}
+    if(hi){ctx.beginPath();ctx.arc(sx,RY,15+2.5*Math.sin(pulse*3),0,6.3);ctx.strokeStyle=rgba(C['--ink'],.18);ctx.lineWidth=3;ctx.stroke()}
+    HIT.push({type:'s',i:i,x:bx,y:BY,w:BW,h:BH});HIT.push({type:'s',i:i,x:sx-14,y:RY-14,w:28,h:28})});
+  car(X(carT),RY-1);
+  /* competence profile */
+  ctx.strokeStyle=C['--line'];ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(20,PY-14);ctx.lineTo(W-20,PY-14);ctx.stroke();
+  ctx.font='700 10px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='left';ctx.fillText('KOMPETENZPROFIL',BX,PY+8);
+  ctx.font='500 10px Inter, sans-serif';ctx.fillText('wächst mit jeder Station und Weiterbildung · Blockbreite qualitativ',BX+104,PY+8);
+  var ends={},maxW=5.25*U;
+  LANES.forEach(function(L){var k=L.k,col=C['--'+k],x=BX,dimRow=thr&&thr!==k;
+    ctx.save();ctx.globalAlpha=dimRow?.3:1;ctx.font='700 13px Inter, sans-serif';ctx.fillStyle=col;ctx.textAlign='right';ctx.fillText(L.n,BX-16,L.y+RH/2+5);ctx.restore();
+    HIT.push({type:'thread',k:k,x:14,y:L.y,w:BX-20,h:RH});
+    rr(BX,L.y,maxW,RH,9);ctx.fillStyle=C['--soft'];ctx.fill();
+    SEQ.forEach(function(s){var g=s.g&&s.g[k]||0;if(!g)return;var w=g*U*prog(s);if(w<6){x+=w;return}
+      var si=ST.indexOf(s),ei=EDU.indexOf(s),act=(as!=null&&si===as)||(eduSel!=null&&ei===eduSel),dim=dimRow||(as!=null&&si!==as)||(eduSel!=null&&ei!==eduSel);
+      var isEdu=ei>=0,fill=isEdu?C['--e']:col;
+      ctx.save();ctx.globalAlpha=dim?.32:1;rr(x+1.5,L.y+1,w-3,RH-2,8);
+      var gg=ctx.createLinearGradient(0,L.y,0,L.y+RH);gg.addColorStop(0,rgba(fill,act?(dark()?.42:.30):(dark()?.26:.16)));gg.addColorStop(1,rgba(fill,act?(dark()?.32:.22):(dark()?.18:.10)));
+      ctx.fillStyle=gg;ctx.fill();ctx.lineWidth=act?2:1;ctx.strokeStyle=rgba(fill,act?1:.75);ctx.stroke();
+      ctx.save();ctx.beginPath();ctx.rect(x+5,L.y,w-10,RH);ctx.clip();ctx.textAlign='left';
+      ctx.font='700 8.5px "JetBrains Mono", monospace';ctx.fillStyle=fill;ctx.fillText((s.co==='Nexio Fleet'&&g<1?'NEXIO':s.co.toUpperCase()),x+10,L.y+15);
+      ctx.font='600 11px Inter, sans-serif';ctx.fillStyle=C['--ink'];ctx.fillText((s.gs&&s.gs[k])||s.gl[k],x+10,L.y+31);ctx.restore();ctx.restore();
+      if(si>=0)HIT.push({type:'s',i:si,x:x,y:L.y,w:w,h:RH});if(ei>=0)HIT.push({type:'edu',i:ei,x:x,y:L.y,w:w,h:RH});
+      x+=w});
+    ends[k]=x});
+  /* roter faden */
+  var bx2=BX+maxW+28,top=LANES[0].y+RH/2,bot=LANES[2].y+RH/2,mid=(top+bot)/2,a=fin?1:(carT>=NOW-.005?.55:.3);
+  ctx.save();ctx.globalAlpha=a;
+  LANES.forEach(function(L){var ly=L.y+RH/2;ctx.strokeStyle=C['--'+L.k];ctx.lineWidth=fin?2.2:1.3;ctx.setLineDash(fin?[]:[3,4]);ctx.beginPath();ctx.moveTo(ends[L.k]+4,ly);ctx.lineTo(bx2,ly);ctx.stroke();ctx.setLineDash([])});
+  ctx.strokeStyle=C['--ink'];ctx.lineWidth=fin?2.6:1.6;ctx.beginPath();ctx.moveTo(bx2,top);ctx.lineTo(bx2,bot);ctx.moveTo(bx2,mid);ctx.lineTo(bx2+20,mid);ctx.stroke();
+  var r=fin?12+1.6*Math.sin(pulse*3):11;if(fin)shadowOn(12);ctx.beginPath();ctx.arc(bx2+33,mid,r,0,6.3);ctx.fillStyle=C['--panel'];ctx.fill();shadowOff();ctx.stroke();
+  ctx.beginPath();ctx.arc(bx2+33,mid,4.5,0,6.3);ctx.fillStyle=C['--ink'];ctx.fill();
+  ctx.font='800 12.5px Inter, sans-serif';ctx.textAlign='left';ctx.fillStyle=C['--ink'];ctx.fillText('ROTER FADEN',bx2+52,mid-6);
+  ctx.font='500 10.5px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.fillText('Menschen, Prozesse',bx2+52,mid+10);ctx.fillText('und Daten verbinden',bx2+52,mid+24);
+  ctx.restore();HIT.push({type:'end',x:bx2-6,y:top,w:180,h:bot-top});
+}
+function loop(ts){var dt=Math.min(.05,((ts||0)-(loop.l||0))/1000);loop.l=ts||0;update(dt);draw();requestAnimationFrame(loop)}
+
+/* ---------- detail panel ---------- */
+var detail=document.getElementById('detail');
+function li(a){return'<ul>'+a.map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul>'}
+var THREAD={m:{n:'Menschen',ec:'Ein Team von fünf Spezialisten führen und mit Fleet Controlling, Fleet Director und Fachbereichen zusammenarbeiten.'},
+  p:{n:'Prozesse',ec:'Planungs-, Budget- und Forecast-Prozesse gemeinsam mit Fleet Controlling verbessern.'},
+  d:{n:'Daten',ec:'Analytics Hub: Daten verbinden, gemeinsame KPIs, TCO, Lebenszyklus und Szenarien.'}};
+function chips(){return'<div class="chips">'+LANES.map(function(L){return'<button class="chip" data-k="'+L.k+'"><i class="sw" style="background:var(--'+L.k+')"></i>'+L.n+'</button>'}).join('')+EDU.map(function(e,i){return'<button class="chip" data-e="'+i+'"><i class="sw" style="background:var(--e)"></i>'+e.lab+' · '+e.yr+'</button>'}).join('')+'</div>'}
+function showDetail(){var tag,name,meta='',bd,hero=[],as=activeS();
+  if(sel&&sel.type==='thread'){var k=sel.k,T=THREAD[k],items=SEQ.filter(function(s){return s.g[k]}).map(function(s){return'<b>'+(s.lab||s.co)+':</b> '+s.gl[k]});
+    tag='Kompetenz';name=T.n;meta='Wie jede Station diesen Bereich geprägt hat';
+    bd='<div class="grid3" style="grid-template-columns:1.4fr 1fr"><div class="cell"><span class="h">Station für Station</span>'+li(items)+'</div><div class="cell ec"><span class="h">Bei Europcar</span>'+T.ec+'</div></div>'+chips()}
+  else if(sel&&sel.type==='edu'){var e=EDU[sel.i];
+    tag='Weiterbildung';name=e.title;meta=e.where+' · '+e.when;
+    bd='<div class="grid3" style="grid-template-columns:1.4fr 1fr"><div class="cell"><span class="h">Inhalte</span><div class="tags">'+e.tags.map(function(t){return'<span>'+t+'</span>'}).join('')+'</div></div>'+
+      '<div class="cell ec"><span class="h">Relevanz für Europcar</span>'+e.ec+'</div></div>'+chips()}
+  else if(as!=null){var s=ST[as];
+    tag='Station 0'+(as+1);name=s.co+' · '+s.title;meta=s.when+' · '+s.where;hero=s.hero;
+    bd='<div class="grid3"><div class="cell"><span class="h">Was ich gemacht habe</span>'+li(s.did)+'</div><div class="cell ev"><span class="h">Belege</span>'+li(s.ev)+'</div><div class="cell ec"><span class="h">Relevanz für Europcar</span>'+s.ec+'</div></div>'}
+  else if(step===5||(sel&&sel.type==='end')){
+    tag='Roter Faden';name='Menschen · Prozesse · Daten';meta='Bei Nexio kommen diese Erfahrungen zusammen: von operativen Anforderungen bis zur Entwicklung analytischer Lösungen.';
+    bd='<div class="tri">'+['m','p','d'].map(function(k){return'<div class="cell"><b class="t" style="color:var(--'+k+')">'+THREAD[k].n+'</b>'+li(SEQ.filter(function(s){return s.g[k]}).map(function(s){return s.gl[k]}))+'<p style="margin:10px 0 0;font-size:.8rem;color:var(--quiet)"><b style="color:var(--ink)">Europcar:</b> '+THREAD[k].ec+'</p></div>'}).join('')+'</div>'}
+  else{tag='Werdegang';name='Wolt → Bolt → Bliq → Nexio Fleet';meta='Von Operations zur datenbasierten Flottensteuerung · Weiterbildung in Data Analytics und DevOps';hero=[['4','Stationen'],['2','Weiterbildungen']];
+    bd='<p style="margin:0;font-size:.9rem;max-width:80ch">Jede Station hat einen Bereich besonders gestärkt: Prozesse bei Wolt, Daten bei Bolt, Menschen bei Bliq. Bei Nexio Fleet kommen alle drei zusammen. Die Weiterbildungen in Data Analytics und DevOps vertiefen die technische Seite.</p>'+chips()}
+  document.getElementById('dTag').textContent=tag;document.getElementById('dName').textContent=name;
+  document.getElementById('dHero').innerHTML=hero.map(function(x){return'<span><b>'+x[0]+'</b>'+x[1]+'</span>'}).join('');
+  detail.innerHTML='<div class="fade"><div class="meta" style="margin-bottom:2px">'+meta+'</div>'+bd+'</div>';
+  detail.querySelectorAll('[data-k]').forEach(function(b){b.onclick=function(){sel={type:'thread',k:b.dataset.k};showDetail()}});
+  detail.querySelectorAll('[data-e]').forEach(function(b){b.onclick=function(){sel={type:'edu',i:+b.dataset.e};showDetail()}})}
+var drawer=document.getElementById('drawer'),dh=document.getElementById('dh');
+function setDrawer(o){if(o)setTimeout(function(){try{drawer.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},40);drawer.classList.toggle('open',o);dh.setAttribute('aria-expanded',o);document.getElementById('dHint').textContent=o?'Ausblenden':'Details einblenden'}
+dh.onclick=function(){setDrawer(!drawer.classList.contains('open'))};
+/* ---------- UI ---------- */
+var bar=document.getElementById('bar');
+function build(){bar.innerHTML='';STEPS.forEach(function(s,i){var b=document.createElement('button');b.innerHTML='<span class="no">'+(i+1)+'</span>'+s.t;if(i===step)b.className='on';b.onclick=function(){setStep(i)};bar.appendChild(b)});
+}
+function caption(){document.getElementById('capT').textContent='Schritt '+(step+1)+' · '+STEPS[step].t;document.getElementById('capH').textContent=STEPS[step].h;
+  document.getElementById('capN').textContent=(step+1)+' / '+STEPS.length}
+function setStep(i,keep){step=Math.max(0,Math.min(STEPS.length-1,i));sel=null;
+  var s=STEPS[step].s;target=s!=null?ST[s].t1:NOW;if(step===0&&!keep)carT=T0+.02;if(reduce)carT=target;
+  caption();build();showDetail()}
+function fs(){var st=document.getElementById('stage');if(!document.fullscreenElement&&st.requestFullscreen)st.requestFullscreen();else if(document.exitFullscreen)document.exitFullscreen()}
+var IC={full:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>',
+ exit:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5V6H2.5M13.5 6H10V2.5M10 13.5V10h3.5M2.5 10H6v3.5"/></svg>'};
+var fsB=document.getElementById('fsb');function updIcons(){var f=!!document.fullscreenElement;fsB.innerHTML=f?IC.exit:IC.full;fsB.title=f?'Vollbild beenden (F)':'Vollbild (F)'}
+fsB.onclick=fs;document.addEventListener('fullscreenchange',updIcons);updIcons();
+function pos(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
+function hitAt(p){var hit=null;HIT.forEach(function(b){if(p[0]>=b.x&&p[0]<=b.x+b.w&&p[1]>=b.y&&p[1]<=b.y+b.h)hit=b});return hit}
+cv.addEventListener('click',function(e){var hit=hitAt(pos(e));
+  if(!hit){sel=null;showDetail();return}
+  if(hit.type==='s'){setStep(hit.i+1);return}
+  if(hit.type==='end'){setStep(5);return}
+  if(hit.type==='edu'){if(STEPS[step].s!=null){step=0;target=NOW;caption();build()}sel={type:'edu',i:hit.i};showDetail();return}
+  sel=(sel&&sel.k===hit.k)?null:{type:'thread',k:hit.k};showDetail()});
+cv.addEventListener('mousemove',function(e){cv.style.cursor=hitAt(pos(e))?'pointer':'default'});
+document.getElementById('prev').onclick=function(){setStep(step-1,true)};document.getElementById('next').onclick=function(){setStep(step+1)};
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();setStep(step+1)}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();setStep(step-1,true)}
+  else if(e.key==='f'||e.key==='F')fs();else if(e.key==='Escape'){if(drawer.classList.contains('open'))setDrawer(false);else{sel=null;showDetail()}}
+  else if(e.key==='i'||e.key==='I')setDrawer(!drawer.classList.contains('open'))});
+function start(){setStep(0);requestAnimationFrame(loop)}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
+})();
+</script>
+</body>
+</html>
