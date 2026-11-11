@@ -65,7 +65,7 @@ h1{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.08;letter-spacing:-.03em;fon
 .q .f{font-family:"JetBrains Mono",monospace;letter-spacing:0;text-transform:none}
 .card h3{margin:2px 0 0;font-size:1.04rem;letter-spacing:-.015em}
 .card p{margin:0;font-size:.82rem;line-height:1.4;color:var(--quiet)}
-.go{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:600}
+.go{margin-top:auto;padding-top:2px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;font-weight:600}
 .go .arrow{width:24px;height:24px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
 .card:hover .go .arrow{background:var(--ink);color:var(--panel);border-color:var(--ink)}
 .closing{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 18px;border:1px dashed var(--dim);border-radius:14px;font-size:.86rem;color:var(--quiet);animation:rise .6s .24s cubic-bezier(.2,.7,.2,1) both}
@@ -89,7 +89,7 @@ kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;border:1px solid var(
 @media (max-width:900px){.cards{grid-template-columns:1fr}.cards .card,.cards .card:nth-child(4){grid-column:auto}}
 .card:nth-child(4){animation-delay:.24s}.card:nth-child(5){animation-delay:.32s}
 .card.ec .q{color:#1d4e89}
-.art{height:clamp(56px,calc(20vh - 84px),120px)}
+.art{height:clamp(80px,calc(20vh - 56px),130px)}
 .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(.85);opacity:.9}50%{transform:scale(1.15);opacity:.4}}
 .mseg{display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--panel);flex:none}
@@ -132,7 +132,7 @@ body.guided .gstrip{display:block}
     <div class="sect"><h2>Fünf Ansichten · ein roter Faden</h2><p>Klicken oder <kbd>1</kbd>–<kbd>5</kbd></p></div>
     <div class="cards">
       <button class="card" data-v="1">
-        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <path d="M24 112 C 90 112, 110 52, 170 60 S 260 108, 330 44" fill="none" stroke="#e3e0da" stroke-width="12" stroke-linecap="round"/>
           <path d="M24 112 C 90 112, 110 52, 170 60 S 260 108, 330 44" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="7 7"/>
           <g fill="#fff" stroke="#1a1a1a" stroke-width="2.2"><circle cx="70" cy="104" r="6"/><circle cx="168" cy="60" r="6"/><circle cx="246" cy="92" r="6"/><circle cx="318" cy="50" r="6"/></g>
@@ -143,12 +143,12 @@ body.guided .gstrip{display:block}
         <div class="cb">
           <div class="q"><span>01 · Mein Hintergrund</span></div>
           <h3>Werdegang</h3>
-          <p>Wolt, Bolt, Bliq und Nexio Fleet als Route. Darunter wächst das Kompetenzprofil aus Menschen, Prozessen und Daten.</p>
+          <p>Wolt, Bolt, Bliq und Nexio Fleet als Route, darunter das wachsende Kompetenzprofil.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
       <button class="card" data-v="2">
-        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <g stroke="#cfcbe9" stroke-width="2" fill="none" stroke-dasharray="4 5"><path d="M180 58 L96 112"/><path d="M180 58 L150 118"/><path d="M180 58 L210 118"/><path d="M180 58 L264 112"/></g>
           <circle class="pulse" cx="180" cy="52" r="26" fill="#eef0fb"/>
           <circle cx="180" cy="52" r="19" fill="#3f46b0"/><text x="180" y="56.5" text-anchor="middle" font-family="Inter" font-size="12" font-weight="800" fill="#fff">JA</text>
@@ -158,12 +158,12 @@ body.guided .gstrip{display:block}
         <div class="cb">
           <div class="q"><span>02 · Führung</span></div>
           <h3>People Management</h3>
-          <p>Vier direkte Mitarbeitende bei Bliq, meine Arbeitsweise im 1:1 und mein Ansatz für das Team bei Europcar.</p>
+          <p>Vier Mitarbeitende bei Bliq, meine Arbeitsweise im 1:1 und mein Ansatz bei Europcar.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
       <button class="card" data-v="3">
-        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <g fill="#fff" stroke="#e3e0da"><rect x="18" y="16" width="70" height="20" rx="5"/><rect x="18" y="42" width="70" height="20" rx="5"/><rect x="18" y="68" width="70" height="20" rx="5"/><rect x="18" y="94" width="70" height="20" rx="5"/><rect x="18" y="120" width="70" height="20" rx="5"/></g>
           <g><rect x="18" y="16" width="4" height="20" rx="2" fill="#5d7899"/><rect x="18" y="42" width="4" height="20" rx="2" fill="#4f8a8c"/><rect x="18" y="68" width="4" height="20" rx="2" fill="#7f7aa8"/><rect x="18" y="94" width="4" height="20" rx="2" fill="#a08a5a"/><rect x="18" y="120" width="4" height="20" rx="2" fill="#a07068"/></g>
           <g fill="none" stroke-width="2" stroke-linecap="round" class="flow-dot" stroke-dasharray="2 10">
@@ -177,12 +177,12 @@ body.guided .gstrip{display:block}
         <div class="cb">
           <div class="q"><span>03 · Nexio Fleet in der Praxis</span></div>
           <h3>Nexio Fleet: Daten integrieren</h3>
-          <p>Wie getrennte Quellen zu einer gemeinsamen Datenbasis, gemeinsamen KPIs und Entscheidungen werden. Mit Umschalter auf Europcar.</p>
+          <p>Von getrennten Quellen zu gemeinsamen Daten, KPIs und Entscheidungen.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
       <button class="card" data-v="4">
-        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <line x1="22" y1="96" x2="340" y2="96" stroke="#e3e0da" stroke-width="1.5"/>
           <rect class="bar-g" x="34" y="22" width="34" height="74" rx="4" fill="#1a1a1a"/>
           <rect class="bar-g" style="animation-delay:.12s" x="80" y="96" width="34" height="38" rx="4" fill="#b8650f"/>
@@ -198,12 +198,12 @@ body.guided .gstrip{display:block}
         <div class="cb">
           <div class="q"><span>04 · Business Intelligence</span></div>
           <h3>Fallbeispiel Flotten-P&amp;L</h3>
-          <p>TCO je Fahrzeug, Flotten-P&amp;L, Standzeit und Auslastung sowie Szenarien an einer illustrativen Flotte mit 48 Fahrzeugen.</p>
+          <p>TCO, P&amp;L, Standzeit, Auslastung und Szenarien an einer Beispielflotte mit 48 Fahrzeugen.</p>
           <div class="go"><span>Ansicht öffnen</span><span class="arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
         </div>
       </button>
       <button class="card ec" data-v="5">
-        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <svg class="art" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <g fill="#fff" stroke="#c9d6e8"><rect x="22" y="92" width="94" height="38" rx="8"/><rect x="133" y="92" width="94" height="38" rx="8"/><rect x="244" y="92" width="94" height="38" rx="8"/></g>
           <g fill="#1d4e89"><rect x="22" y="92" width="94" height="4" rx="2"/><rect x="133" y="92" width="94" height="4" rx="2"/><rect x="244" y="92" width="94" height="4" rx="2"/></g>
           <g fill="none" stroke="#1d4e89" stroke-width="1.8" class="flow-dot" stroke-dasharray="2 8"><path d="M180 58 C 180 76, 69 72, 69 92"/><path d="M180 58 L 180 92"/><path d="M180 58 C 180 76, 291 72, 291 92"/></g>
