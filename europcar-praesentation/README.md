@@ -12,7 +12,7 @@ This document explains every view, every visual element, every interaction and e
 
 ## Contents
 
-0. [Version 2: five views, guided mode, figure policy](#0-version-2-reviewer-feedback-11-nov-2026--read-this-before-the-older-sections)
+0. [Version 2: five views, one stepper, figure policy](#0-version-2-reviewer-feedback-11-nov-2026--read-this-before-the-older-sections)
 1. [What this is and how it is built](#1-what-this-is-and-how-it-is-built)
 2. [Provenance: what is real, what is illustrative](#2-provenance-what-is-real-what-is-illustrative)
 3. [The shell: welcome page and navigation](#3-the-shell-welcome-page-and-navigation)
@@ -43,36 +43,36 @@ Version 2 implements the reviewer feedback: People Management gets its own view,
 
 **Role of this page.** The Google Slides deck *Europcar — HR Interview — Presentation v1.2* (9 slides, 2 chapter dividers, no appendix) stays the primary presentation; the spoken text is script **DE-v1.3** (du-form, plural *ihr/euch*, current for rehearsal, pending oral approval) in the script register. This page is supporting material: either shown in guided mode, or opened in free mode to answer questions.
 
-### 0.1 Guided mode (default) and free mode
+### 0.1 One stepper through all 25 steps
 
-The top bar has a switch **Geführt | Frei** (key `G`), one stepper (back arrow, counter, forward arrow) and a thin indigo progress bar under the bar. The stepper is the only one: the views no longer show their own arrows and counter (§3.2). It counts `n / 12` in guided mode and `n / 25` in free mode.
+The top bar has one stepper (back arrow, counter `n / 25`, forward arrow) and a thin indigo progress bar under the bar. Arrow keys, space bar and the stepper walk through every step of every view in order (5 + 3 + 7 + 7 + 3 = 25) and pass from the last step of one view to the first step of the next. The views no longer show their own arrows and counter (§3.2).
 
-In **Geführt**, the arrow keys, space bar and the counter arrows move through exactly these 12 steps, whatever view is open. The order follows deck v1.2 (slides 4, 5, 7, 8, 9):
+There is no guided mode any more (removed 12 Nov 2026, together with the switch *Geführt | Frei* and the key `G`). Everything stays freely selectable: tabs in the top bar, start-page cards, the step tabs inside each view and clicks in the graphics. Choosing a step inside a view moves the top-bar counter to that step; the next arrow press continues from there.
 
-| # | View | Step inside the view (0-based index) | What is said |
-|---|---|---|---|
-| 1 | 01 Werdegang | Wolt (0) | Car starts at the beginning of the route and stops at the Wolt station |
-| 2 | 01 Werdegang | Roter Faden (4) | Menschen · Prozesse · Daten come together at Nexio |
-| 3 | 02 People | Erfahrung bei Bliq (0) | 4 direct reports, five responsibilities, what I learned |
-| 4 | 02 People | Ansatz bei Europcar (2) | Get to know the five specialists → standards → coaching/cross-training → clear ownership |
-| 5 | 03 Datenplattform | Die Herausforderung (1) | Separate sources, no shared basis |
-| 6 | 03 Datenplattform | Mein Beitrag (5) | My role: needs → requirements → priorities → build & test |
-| 7 | 04 BI | 01 · TCO je Fahrzeug (1) | Total cost per vehicle and its drivers (deck slide 8, card 01 *Fleet Economics*) |
-| 8 | 04 BI | 02 · Flotten-P&L (2) | Which costs drive profitability; fleet waterfall (card 02 *Flotten-P&L*) |
-| 9 | 04 BI | Standzeit & Auslastung (3) | Role of maintenance, downtime and utilisation |
-| 10 | 04 BI | 03 · Szenarien (4) | Mindestlohn 2027 scenario and counter-measures (card 03 *Szenarien & Modelle*) |
-| 11 | 05 Europcar | Mein Verständnis der Rolle (0) | Analytics Hub, three tasks (deck slide 9) |
-| 12 | 05 Europcar | Zusammengefasst (2) | Three pillars, closing sentence, "Vielen Dank" |
+**Core steps for speaking.** The 12 steps that carry the script are still the ones below. The column *Stepper* gives their position in the 25-step route, so you can skip the others when time is short.
 
-Clicking a tab or a start-page card jumps to the first step of that view in the current mode. Everything inside a view (step tabs, details, vehicle grid, Nexio/Europcar switch) stays clickable. Choosing a step there updates the top-bar counter when that step is part of the current route; the next arrow press continues from there.
+| # | Stepper | View | Step inside the view (0-based index) | What is said |
+|---|---|---|---|---|
+| 1 | 1 | 01 Werdegang | Wolt (0) | Car starts at the beginning of the route and stops at the Wolt station |
+| 2 | 5 | 01 Werdegang | Roter Faden (4) | Menschen · Prozesse · Daten come together at Nexio |
+| 3 | 6 | 02 People | Erfahrung bei Bliq (0) | 4 direct reports, five responsibilities, what I learned |
+| 4 | 8 | 02 People | Ansatz bei Europcar (2) | Get to know the five specialists → standards → coaching/cross-training → clear ownership |
+| 5 | 10 | 03 Datenplattform | Die Herausforderung (1) | Separate sources, no shared basis |
+| 6 | 14 | 03 Datenplattform | Mein Beitrag (5) | My role: needs → requirements → priorities → build & test |
+| 7 | 17 | 04 BI | 01 · TCO je Fahrzeug (1) | Total cost per vehicle and its drivers (deck slide 8, card 01 *Fleet Economics*) |
+| 8 | 18 | 04 BI | 02 · Flotten-P&L (2) | Which costs drive profitability; fleet waterfall (card 02 *Flotten-P&L*) |
+| 9 | 19 | 04 BI | Standzeit & Auslastung (3) | Role of maintenance, downtime and utilisation |
+| 10 | 20 | 04 BI | 03 · Szenarien (4) | Mindestlohn 2027 scenario and counter-measures (card 03 *Szenarien & Modelle*) |
+| 11 | 23 | 05 Europcar | Mein Verständnis der Rolle (0) | Analytics Hub, three tasks (deck slide 9) |
+| 12 | 25 | 05 Europcar | Zusammengefasst (2) | Three pillars, closing sentence, "Vielen Dank" |
 
-In **Frei**, the same stepper walks through every step of every view (5 + 3 + 7 + 7 + 3 = 25 steps) and passes from the last step of one view to the first step of the next. The list is `FULL` in `shell_template.html`, built from the step titles in `STEPN`; if a view gets or loses a step, update `STEPN` too.
+The list of all 25 steps is `FULL` in `shell_template.html`, built from the step titles in `STEPN`. If a view gets or loses a step, update `STEPN` too.
 
-Keys: `0` start, `1`–`5` views, `G` mode, `F` fullscreen of the graphic, `I` details. The start page no longer lists them.
+Keys: `0` start, `1`–`5` views, `F` fullscreen of the graphic, `I` details.
 
-**Speaking.** The guided order is the same as deck v1.2 and script DE-v1.3: Erfahrung → People Management → Nexio data platform → BI → Europcar. The DE-v1.3 transitions can be used unchanged; §0.8 lists which sentence goes before which guided step. Steps 7–10 (BI) need more time than the single deck slide 8: allow about 2–3 minutes, or skip step 9 if time is short.
+**Speaking.** The order of the views is the same as deck v1.2 and script DE-v1.3: Erfahrung → People Management → Nexio data platform → BI → Europcar. The DE-v1.3 transitions can be used unchanged; §0.8 lists which sentence goes before which step.
 
-Implementation: `GUIDE` array in `src/shell_template.html`; each view exposes `window.__goto(stepIndex)`. Views 01 and 03 start after fonts load, so a step requested before that is stored in `window.__initStep` and applied at start.
+Implementation: each view exposes `window.__goto(stepIndex)`. Views 01 and 03 start after fonts load, so a step requested before that is stored in `window.__initStep` and applied at start.
 
 ### 0.2 Figure policy (what is on the main path)
 
@@ -105,7 +105,7 @@ A simple step view built with the shared `base.css` + `engine.js`. Text is taken
   - Five responsibilities: tasks/projects distributed, KPIs tracked, regular 1:1s, coaching, input to performance reviews.
   - Learned: clear goals · ownership · regular feedback.
   - Drawer: role facts plus the script text.
-- **Step 2 "Meine Arbeitsweise"** (free mode only, not in the guided route)
+- **Step 2 "Meine Arbeitsweise"** (not one of the 12 core steps)
   - The 1:1 in five parts: Ankommen, Deine Themen zuerst, Meine Punkte, Nach vorne, Abschluss.
   - Four modes, with Unterstützung as the default: Orientierung, Unterstützung, Verbindlichkeit, Entwicklung, each with its key question.
   - Principle: "Ein 1:1 ist kein Status-Meeting".
@@ -143,7 +143,7 @@ When the Nexio/Europcar switch is on **Europcar**, a dashed blue pill appears in
 
 ### 0.6 Offline backup
 
-`Europcar_Praesentation_Backup.pdf` (in Drive) has 13 landscape pages: the start page plus the 12 guided steps. Screenshots were taken at 1440×900 at 2× resolution. Use it if the browser or network fails during screen sharing.
+`Europcar_Praesentation_Backup.pdf` (in Drive) has 13 landscape pages: the start page plus the 12 core steps. Screenshots were taken at 1440×900 at 2× resolution. Use it if the browser or network fails during screen sharing.
 
 ### 0.8 Alignment with deck v1.2 and script DE-v1.3
 
@@ -151,17 +151,17 @@ Sources (Drive, read-only for Claude):
 - deck *Europcar — HR Interview — Presentation v1.2 — 2026-11-12*;
 - the register *Europcar — Guiones aprobados por diapositiva — Registro maestro*, section **DE-v1.3**. That version is current for rehearsal and pending oral approval; DE-v1.2, DE-v1.1, DE-v1.0 and ES-v0.2 are kept there as history.
 
-| Deck slide | Guided steps | DE-v1.3 transition spoken **before** it |
+| Deck slide | Stepper | DE-v1.3 transition spoken **before** it |
 |---|---|---|
 | 1 Vorstellung | (start page) | – |
 | 2 Drei Fragen | (start page) | "Ich habe meine Präsentation in drei Fragen gegliedert." |
 | 3 Kapitel 01 | (start page) | "Beginnen wir mit dem ersten Kapitel: meiner beruflichen Erfahrung und meiner Teamführung." |
-| 4 Mein Hintergrund | 1–2 | "Mein Weg führt von Wolt über Bolt und Bliq bis zu Nexio Fleet." |
-| 5 Teamführung | 3–4 | "Neben Operations habe ich auch Verantwortung in der Teamführung übernommen. Darauf möchte ich kurz eingehen." |
+| 4 Mein Hintergrund | 1–5 | "Mein Weg führt von Wolt über Bolt und Bliq bis zu Nexio Fleet." |
+| 5 Teamführung | 6–8 | "Neben Operations habe ich auch Verantwortung in der Teamführung übernommen. Darauf möchte ich kurz eingehen." |
 | 6 Kapitel 02 | – | "Damit komme ich zum zweiten Kapitel: Wie kann ich diese Erfahrungen bei Europcar einbringen?" |
-| 7 Nexio Fleet in der Praxis | 5–6 | "Zuerst zeige ich, wie wir bei Nexio unterschiedliche Flottendaten zusammenführen." |
-| 8 Business Intelligence | 7–10 | "Die Verbindung der Daten ist aber nur der erste Schritt. Danach müssen wir verstehen, was diese Daten wirtschaftlich bedeuten." |
-| 9 Mein Verständnis | 11–12 | "Genau hier sehe ich eine wichtige Verbindung zu Fleet Planning und Lifecycle Management bei Europcar." |
+| 7 Nexio Fleet in der Praxis | 9–15 | "Zuerst zeige ich, wie wir bei Nexio unterschiedliche Flottendaten zusammenführen." |
+| 8 Business Intelligence | 16–22 | "Die Verbindung der Daten ist aber nur der erste Schritt. Danach müssen wir verstehen, was diese Daten wirtschaftlich bedeuten." |
+| 9 Mein Verständnis | 23–25 | "Genau hier sehe ich eine wichtige Verbindung zu Fleet Planning und Lifecycle Management bei Europcar." |
 
 **On-screen wording synced with DE-v1.3:**
 - View 05, task 3 now reads *Verantwortung für Jahres- und Budgetplanung · Verlässliche Forecasts und Szenarien* (script: "die Verantwortung für die Jahres- und Budgetplanung übernehmen … verlässliche Forecasts").
@@ -202,7 +202,7 @@ All on-screen text is **German**, aligned with script DE-v1.3 (du-form; *ihr/euc
 | Path | What it is |
 |---|---|
 | `europcar-praesentation/index.html` | The published page. **Built file**: the welcome page plus the five views embedded inside it. Do not edit by hand; rebuild it (section 8). |
-| `europcar-praesentation/src/shell_template.html` | Welcome page, top bar and navigation logic. Also holds the guided-mode route (`GUIDE`). Contains the placeholder `var SRC=[null,/*P1*/,/*P2*/,/*P3*/,/*P4*/,/*P5*/];`. |
+| `europcar-praesentation/src/shell_template.html` | Welcome page, top bar and navigation logic. Also holds the step route (`STEPN`, `FULL`). Contains the placeholder `var SRC=[null,/*P1*/,/*P2*/,/*P3*/,/*P4*/,/*P5*/];`. |
 | `europcar-praesentation/src/folie3_werdegang.html` | View 01, standalone page. |
 | `europcar-praesentation/src/people_src.html` | View 02 People Management. Needs `base.css` + `engine.js` inlined by the build (open the built page, not this file). |
 | `europcar-praesentation/src/folie4_datenfluss.html` | View 03, standalone page (Jorge's own edited version, v3). |
@@ -252,10 +252,9 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
 ### 3.1 Layout
 
 - **Top bar (fixed, 56 px), left to right:**
-  - monogram "JA", name, and the line *Head of Fleet Planning & Lifecycle Management · 12.11.2026* (click: welcome page);
+  - monogram "JA", name, and the line *Head of Fleet Planning & Lifecycle Management* (click: welcome page);
   - tabs *Start · 01 Werdegang · 02 People · 03 Datenplattform · 04 BI · 05 Europcar*;
-  - back arrow, counter (`n / 12` guided, `n / 25` free), forward arrow;
-  - the mode switch *Geführt | Frei*;
+  - back arrow, counter `n / 25`, forward arrow;
   - a full-screen button for the whole presentation.
   - A 3 px indigo progress bar sits under the top bar.
 - **Welcome page:**
@@ -265,16 +264,13 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
 
 ### 3.2 Navigation logic
 
-The page starts in **guided mode** (§0.1).
-
-| Input | Guided mode | Free mode |
-|---|---|---|
-| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of the 12 core steps (from the welcome page: core step 1). After step 12: toast "Ende der Präsentation". | Next of all 25 steps, across views. After the last step: "Ende der Präsentation". |
-| `←`, `PageUp` | Previous core step; before step 1: welcome page. | Previous of all 25 steps; before step 1: welcome page. |
-| Card, tab, `1`–`5` | First core step of that view. | First step of that view. |
-| `0`, monogram | Welcome page. | Welcome page. |
-| `G` or the switch | Toggles mode and keeps the position: the current step in free mode, or the nearest earlier core step of the current view in guided mode. | |
-| Clicks inside a view | Always allowed (step pills, details, vehicle grid, Nexio/Europcar switch). The next arrow continues from the current core step. | |
+| Input | Effect |
+|---|---|
+| `→`, `Space`, `PageDown`, forward arrow in top bar | Next of all 25 steps, across views (from the welcome page: step 1). After step 25: toast "Ende der Präsentation". |
+| `←`, `PageUp`, back arrow in top bar | Previous step; before step 1: welcome page. |
+| Card, tab, `1`–`5` | First step of that view. |
+| `0`, monogram | Welcome page. |
+| Clicks inside a view | Always allowed (step tabs, details, vehicle grid, Nexio/Europcar switch). The top-bar counter follows. |
 
 How it works:
 
@@ -282,7 +278,7 @@ How it works:
 - The shell intercepts arrow and number keys inside the iframes in the capture phase and routes them through the top-bar stepper.
 - When a view loads, the shell hides its own stepper (`#prev`, `#capN`, `#next`) with an injected style, so standalone views keep theirs. It watches `#capN` to keep the top-bar counter in sync with clicks inside the view.
 - The URL hash (`#0`–`#5`) is updated so a reload returns to the same view. The update is wrapped in `try/catch` because sandboxed previews forbid it.
-- A toast in the bottom centre briefly shows the core step (for example "3 / 12 · People · Erfahrung bei Bliq") or the view name.
+- A toast in the bottom centre briefly shows the step (for example "6 / 25 · People · Erfahrung bei Bliq") or the view name.
 
 ---
 
@@ -802,8 +798,8 @@ Diagnosis: loses money; 9.6 idle days (€403 of fixed cost without revenue, of 
 1. Edit the source file in `europcar-praesentation/src/`, for example a German text in `folie5_bi.html`.
 2. Test it: Views 01, 03 and 04 open on their own; for Views 02 and 05 (and the shell) rebuild first and open `index.html`.
 3. Rebuild the published page: `python3 europcar-praesentation/src/build_index.py`. Run from the repo, it rewrites `europcar-praesentation/index.html`.
-4. To change the guided route, edit the `GUIDE` array in `src/shell_template.html` (`[view, 0-based step, label]`) and the table in §0.1.
-5. If the guided steps change, regenerate the offline PDF (screenshots of the start page and all core steps at 1440×900) and upload it to Drive as a new version.
+4. If a view gets or loses a step, edit `STEPN` in `src/shell_template.html` and the tables in §0.1 and §0.8.
+5. If the core steps change, regenerate the offline PDF (screenshots of the start page and all core steps at 1440×900) and upload it to Drive as a new version.
 6. Commit and push to `main`. GitHub Pages republishes within about a minute.
 
 Rules:
@@ -812,7 +808,7 @@ Rules:
 - At Bliq, always 4 direct reports.
 - The Nexio title is always *Senior Strategy & Operations Manager*.
 - Do not remove the "illustrative model" note in View 04, the "Konzeptmodell" pill in View 03, or the job-description note in View 05.
-- Main path (cards, chips, drawer headers, guided steps): only figures from the approved deck. Other CV figures go into the expanded evidence boxes.
+- Main path (cards, chips, drawer headers, core steps): only figures from the approved deck. Other CV figures go into the expanded evidence boxes.
 - If you change the model in View 04, re-run the numbers in sections 6.4–6.8 and Appendix A (they are produced from the code, not typed by hand).
 
 ---
@@ -922,3 +918,4 @@ Base case. Columns:
 | 11 Nov 2026 | **v2** after reviewer feedback: new views People Management and Mein Beitrag bei Europcar; guided mode (10 core steps) with Geführt/Frei switch; Konzeptmodell label in Europcar mode; non-deck figures moved to the expanded "Belege"; larger canvas labels; PDF backup. See §0. |
 | 11 Nov 2026 | Documentation v1.3: sections 1–8 updated to the five-view structure, guided mode, new figure policy and build steps. |
 | 11 Nov 2026 | Documentation v1.4: synced with deck v1.2 / DE-v1.3 (§0.8); guided route extended to 12 steps with TCO je Fahrzeug and Flotten-P&L; backup PDF 13 pages. |
+| 12 Nov 2026 | Guided mode and the *Geführt / Frei* switch removed; one top-bar stepper walks all 25 steps and replaces the steppers inside the views. Start page: buttons, mode hint and key legend removed, fits one screen. Step pills restyled as tabs. Werdegang: heading, no *Überblick* step, car stops at each station. People: heading. |
