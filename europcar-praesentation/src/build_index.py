@@ -3,7 +3,8 @@
 people_src.html / europcar_src.html get base.css and engine.js inlined at their markers."""
 import json, pathlib, sys
 here = pathlib.Path(__file__).parent
-out_path = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else here / 'Europcar_Praesentation.html'
+in_repo = here.name == 'src'
+out_path = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else (here.parent / 'index.html' if in_repo else here / 'Europcar_Praesentation.html')
 shell = (here / 'shell_template.html').read_text(encoding='utf-8')
 css = (here / 'base.css').read_text(encoding='utf-8')
 eng = (here / 'engine.js').read_text(encoding='utf-8')
@@ -21,5 +22,5 @@ out = shell.replace(marker, 'var SRC=[null,' + ','.join(js(page(p)) for p in pag
 out_path.write_text(out, encoding='utf-8')
 # standalone copies of the two new views (for Drive / direct opening)
 for p, n in [('people_src.html', 'people_management.html'), ('europcar_src.html', 'mein_beitrag_europcar.html')]:
-    (out_path.parent / n).write_text(page(p), encoding='utf-8') if len(sys.argv) <= 1 else None
+    (out_path.parent / n).write_text(page(p), encoding='utf-8') if len(sys.argv) <= 1 and not in_repo else None
 print('ok', out_path, len(out))
