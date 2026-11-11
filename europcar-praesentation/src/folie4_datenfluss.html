@@ -265,7 +265,7 @@ var mode='nexio',M=MODES[mode];
 /* ---------- layout ---------- */
 var SRC=[],KPI=[],DEC=[],ROLE=[];
 for(var i=0;i<5;i++)SRC.push({x:20,y:104+OY+i*72,w:178,h:58});
-var INT={x:250,y:150+OY,w:150,h:200},STR={x:440,y:170+OY,w:160,h:160};
+var INT={x:250,y:150+OY,w:150,h:200},STR={x:440,y:150+OY,w:160,h:200};
 var BASE={x:648,y:250+OY,r:14};
 var TRAY={x:450,y:372+OY,w:140,h:40};
 for(i=0;i<3;i++)KPI.push({x:700,y:120+OY+i*96,w:176,h:72});
@@ -389,7 +389,10 @@ function draw(){
   box(INT,'INT',M.int.n,M.int.s,1,{center:true,ty:INT.y+28});
   box(STR,'STR',M.str.n,null,2,{center:true,ty:STR.y+28});
   if(true){ctx.save();ctx.globalAlpha=colOn(2)?1:.22;ctx.font='500 11px Inter, sans-serif';ctx.fillStyle=C['--quiet'];ctx.textAlign='center';
-    ctx.fillText(M.str.s,cx(STR),STR.y+46);ctx.restore()}
+    /* subtitle wrapped inside the box: keeps the "·" at the end of the first line */
+    var ws=M.str.s.split(' · '),ln=[''];ws.forEach(function(w,i){var t=ln[ln.length-1]+(ln[ln.length-1]?' · ':'')+w;
+      if(ln[ln.length-1]&&ctx.measureText(t+(i<ws.length-1?' ·':'')).width>STR.w-20){ln[ln.length-1]+=' ·';ln.push(w)}else ln[ln.length-1]=t});
+    ln.forEach(function(l,i){ctx.fillText(l,cx(STR),STR.y+44+i*15)});ctx.restore()}
   /* tray */
   ctx.save();ctx.globalAlpha=colOn(2)?1:.2;rr(TRAY.x,TRAY.y,TRAY.w,TRAY.h,8);ctx.strokeStyle=alpha(C['--leak'],.6);ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
   ctx.font='600 10px Inter, sans-serif';ctx.fillStyle=C['--leak'];ctx.textAlign='center';ctx.fillText('MARKIERTE PRÜFFÄLLE',cx(TRAY),TRAY.y+TRAY.h+14);ctx.restore();
