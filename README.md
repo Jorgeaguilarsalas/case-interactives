@@ -9,6 +9,8 @@ Independent, unofficial support material for an interview case study. Not an Emn
 - `/q03/` — Q03 Pipeline Simulator v5 (working REVIEW: case frictions, proposed J3→J4 workflow and illustrative exception handling)
 - `/q05/` — Q05 Business Case four-page v2 (all starting numbers and scenarios hypothetical)
 
+- `/europcar-praesentation/` — separate Europcar interview material: welcome page plus three interactive views (career route, Nexio data flow, BI fleet P&L case). Illustrative models, German.
+- `/europcar/` — Nexio Partner P&L Cockpit (illustrative fleet-economics model) used for the Europcar interview.
 - `/p5/` — P5 operating-contract navigator. Nine process entries, PR13 interactive pilot, eight evidence-bounded G0 summaries (not verified SOPs). No private Drive links.
 
 ## Publish with GitHub Pages
@@ -23,6 +25,8 @@ Expected URLs *after deployment*, not yet verified:
 - https://jorgeaguilarsalas.github.io/emnify-case-interactives/q03/
 - https://jorgeaguilarsalas.github.io/emnify-case-interactives/q05/
 - https://jorgeaguilarsalas.github.io/emnify-case-interactives/p5/
+- https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar-praesentation/
+- https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar/
 
 ## Content governance
 
