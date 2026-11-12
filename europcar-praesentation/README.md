@@ -135,7 +135,7 @@ Every step that describes Europcar carries the dashed blue label **"Mein Verstä
     - Teamführung (Bliq, 4 direct reports) → team of five specialists.
 - **Step 3 "Zusammengefasst"**
   - Pillars: Flottenbetrieb · Datenintegration · Teamführung.
-  - "Genau diese Kombination möchte ich bei Europcar einbringen und weiterentwickeln. Vielen Dank. Ich freue mich auf eure Fragen."
+  - On screen below the pillars: "Vielen Dank. Ich freue mich auf eure Fragen." The sentence "Genau diese Kombination möchte ich bei Europcar einbringen und weiterentwickeln." is only spoken; it stays in the detail card (presenter view).
 
 ### 0.5 Conceptual-model label in View 03 (data flow)
 
