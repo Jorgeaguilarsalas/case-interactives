@@ -2,7 +2,7 @@
 
 **Status: illustrative model · reconstruction of 8 Nov 2026 · last documented 11 Nov 2026**
 
-Live page: <https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar/>
+Live page: <https://jorgeaguilarsalas.github.io/case-interactives/europcar/>
 
 This page is a **fleet-economics cockpit for a fictional fleet partner**: employed drivers, leased or owned cars and vans, working for Uber, Bolt, Hermes or Amazon. It has 120 vehicles (96 cars, 24 vans) and 168 employed drivers; the unit of analysis is **one vehicle for one day**. It was prepared as Nexio Fleet working material and reused for the Europcar interview, where it backs the annex slide *Fleet Economics: Von Kennzahlen zu Entscheidungsmodellen*. View 03 of the interactive presentation (`../europcar-praesentation/`) reuses its per-vehicle-day constants.
 

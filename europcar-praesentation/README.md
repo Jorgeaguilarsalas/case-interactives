@@ -2,7 +2,7 @@
 
 **Technical and content documentation · status: DRAFT · last updated 11 Nov 2026**
 
-Live page: <https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar-praesentation/>
+Live page: <https://jorgeaguilarsalas.github.io/case-interactives/europcar-praesentation/>
 
 This document explains every view, every visual element, every interaction and every number in the interactive presentation prepared for the interview *Head of Fleet Planning & Lifecycle Management* (Europcar Mobility Group, 12 Nov 2026). It is written so that anyone (Jorge, a collaborator, or an AI assistant) can answer a follow-up question without reading the code.
 

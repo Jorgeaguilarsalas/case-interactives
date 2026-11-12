@@ -21,13 +21,13 @@ Independent, unofficial support material for an interview case study. Not an Emn
 
 Expected URLs *after deployment*, not yet verified:
 
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/connected-delivery/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/q03/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/q05/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/p5/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar-praesentation/
-- https://jorgeaguilarsalas.github.io/emnify-case-interactives/europcar/
+- https://jorgeaguilarsalas.github.io/case-interactives/
+- https://jorgeaguilarsalas.github.io/case-interactives/connected-delivery/
+- https://jorgeaguilarsalas.github.io/case-interactives/q03/
+- https://jorgeaguilarsalas.github.io/case-interactives/q05/
+- https://jorgeaguilarsalas.github.io/case-interactives/p5/
+- https://jorgeaguilarsalas.github.io/case-interactives/europcar-praesentation/
+- https://jorgeaguilarsalas.github.io/case-interactives/europcar/
 
 ## Content governance
 
