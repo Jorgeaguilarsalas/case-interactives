@@ -68,7 +68,9 @@ There is no guided mode any more (removed 12 Nov 2026, together with the switch 
 
 The list of all 25 steps is `FULL` in `shell_template.html`, built from the step titles in `STEPN`. If a view gets or loses a step, update `STEPN` too.
 
-Keys: `0` start, `1`–`5` views, `F` fullscreen of the graphic, `I` details.
+**Presenter view (second screen).** The notes button in the top bar (or key `N`) opens a separate window, like PowerPoint's presenter view. It shows the counter, the current step, its caption, the next step, a timer (click to reset) and the full detail card of the current step. Arrows and the window's own buttons move the presentation; the window follows clicks inside the views too. While it is open, the detail cards are hidden on the main screen, so the audience sees only the graphics. In Google Meet, share *a tab* (Chrome) or *a window* with the presentation only; the presenter window is a separate window and is not shared. The browser must allow pop-ups for the page. Implementation: `openNotes` / `pushNotes` in `shell_template.html`; the window copies the current view's styles and the `#detail` content, and its own elements use the `ra-` id prefix so the view styles cannot hide them.
+
+Keys: `0` start, `1`–`5` views, `N` presenter view, `F` fullscreen of the graphic, `I` details.
 
 **Speaking.** The order of the views is the same as deck v1.2 and script DE-v1.3: Erfahrung → People Management → Nexio data platform → BI → Europcar. The DE-v1.3 transitions can be used unchanged; §0.8 lists which sentence goes before which step.
 
@@ -255,6 +257,7 @@ Views 01, 03 and 04 also work on their own (open the file directly in a browser)
   - monogram "JA", name, and the line *Head of Fleet Planning & Lifecycle Management* (click: welcome page);
   - tabs *Start · 01 Werdegang · 02 People · 03 Datenplattform · 04 BI · 05 Europcar*;
   - back arrow, counter `n / 25`, forward arrow;
+  - the presenter-view button (key `N`, §0.1);
   - a full-screen button for the whole presentation.
   - A 3 px indigo progress bar sits under the top bar.
 - **Welcome page:**
@@ -919,3 +922,4 @@ Base case. Columns:
 | 11 Nov 2026 | Documentation v1.3: sections 1–8 updated to the five-view structure, guided mode, new figure policy and build steps. |
 | 11 Nov 2026 | Documentation v1.4: synced with deck v1.2 / DE-v1.3 (§0.8); guided route extended to 12 steps with TCO je Fahrzeug and Flotten-P&L; backup PDF 13 pages. |
 | 12 Nov 2026 | Guided mode and the *Geführt / Frei* switch removed; one top-bar stepper walks all 25 steps and replaces the steppers inside the views. Start page: buttons, mode hint and key legend removed, fits one screen. Step pills restyled as tabs. Werdegang: no *Überblick* step, car stops at each station. No view headings; all five views start their step tabs at the same height (72 px top padding). |
+| 12 Nov 2026 | Presenter view on a second screen (key `N`); detail cards hidden on the main screen while it is open. Top padding of all views reduced to 16 px. |
