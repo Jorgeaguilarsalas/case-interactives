@@ -505,7 +505,7 @@ function showDetail(id,auto){if(!auto)sel=id;var h='';
    else if(id==='INT')h='<span class="tag">Schritt 1 der Plattform</span><h3>'+M.int.n+'</h3><p>'+M.int.body+'</p><dl><dt>Wege</dt><dd>'+M.int.s+'</dd></dl>';
    else if(id==='STR')h='<span class="tag">Schritt 2 der Plattform</span><h3>'+M.str.n+'</h3><p>'+M.str.body+'</p><div class="check"><b>Markierte Prüffälle</b>Auffällige Datensätze landen nicht im KPI, sondern werden zur Klärung markiert. Ein Klick auf eine Datenquelle zeigt ein typisches Beispiel.</div>';
    else if(id==='BASE')h='<span class="tag">Ergebnis</span><h3>'+M.base.n+'</h3><p>'+M.base.body+'</p>';
-   else if(id==='TRAY')h='<span class="tag">Datenqualität</span><h3>Markierte Prüffälle</h3><p>Datensätze, die eine Prüfregel verletzen, werden markiert und geklärt, statt still in die Kennzahlen einzufließen. Die Menge in der Animation ist illustrativ.</p>';
+   else if(id==='TRAY')h='<span class="tag">Datenqualität</span><h3>Markierte Prüffälle</h3><p>Daten, die nicht plausibel sind, gehen nicht ungeprüft in die Kennzahlen, sondern werden als Prüffall markiert und geklärt.</p>';
    else if(id==='ROLE')h='<span class="tag">Mein Beitrag</span><h3>Strategy &amp; Operations</h3><p>'+M.roleBody+'</p><dl><dt>Schritte</dt><dd>'+M.role.join(' → ')+'</dd><dt>Berührt</dt><dd>Integration (welche Daten), Prüfung (welche Regeln), KPIs (welche Definitionen)</dd></dl>';
   }
   if(!detail)return;detail.innerHTML=h;
